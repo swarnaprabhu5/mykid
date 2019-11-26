@@ -17,6 +17,21 @@ export default function() {
       to: "/add-new-post",
     },
     {
+      title: "Add Volunters",
+      htmlBefore: '<i class="material-icons">note_add</i>',
+      to: "/add-new-volunter",
+    },
+    {
+      title: "Add Student",
+      htmlBefore: '<i class="material-icons">note_add</i>',
+      to: "/add-new-post",
+    },
+    {
+      title: "Add Center",
+      htmlBefore: '<i class="material-icons">note_add</i>',
+      to: "/add-new-post",
+    },
+    {
       title: "Forms & Components",
       htmlBefore: '<i class="material-icons">view_module</i>',
       to: "/components-overview",

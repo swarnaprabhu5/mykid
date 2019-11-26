@@ -15,10 +15,30 @@ import {
   Button
 } from "shards-react";
 
-const UserAccountDetails = ({ title }) => (
+class  UserAccountDetails extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {feFirstName : ''};
+
+    const title = props.title;
+    console.log('im tutle--->', title);
+  }
+
+  handleChange = (e) => {
+    console.log('im name--->', e.target.value);
+    this.setState({[e.target.name] : e.target.value})
+    // this.setState({feFirstName: e.target.value});
+      
+  }
+
+
+render () 
+{ 
+  return (
   <Card small className="mb-4">
     <CardHeader className="border-bottom">
-      <h6 className="m-0">{title}</h6>
+      <h6 className="m-0">{this.title}</h6>
     </CardHeader>
     <ListGroup flush>
       <ListGroupItem className="p-3">
@@ -31,9 +51,10 @@ const UserAccountDetails = ({ title }) => (
                   <label htmlFor="feFirstName">First Name</label>
                   <FormInput
                     id="feFirstName"
+                    name="feFirstName"
                     placeholder="First Name"
-                    value="Sierra"
-                    onChange={() => {}}
+                    value={this.state.feFirstName}
+                    onChange={this.handleChange}
                   />
                 </Col>
                 {/* Last Name */}
@@ -41,7 +62,8 @@ const UserAccountDetails = ({ title }) => (
                   <label htmlFor="feLastName">Last Name</label>
                   <FormInput
                     id="feLastName"
-                    placeholder="Last Name"
+                    name="feLastName"
+                    placeholder="Last Name" 
                     value="Brooks"
                     onChange={() => {}}
                   />
@@ -124,7 +146,9 @@ const UserAccountDetails = ({ title }) => (
       </ListGroupItem>
     </ListGroup>
   </Card>
-);
+)
+}
+}
 
 UserAccountDetails.propTypes = {
   /**
