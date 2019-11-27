@@ -172,7 +172,7 @@ const ComponentsOverview = () => (
 
                 <strong className="text-muted d-block mb-2">
                   Custom Select
-                </strong>
+                </strong>sss
                 <CustomSelect />
               </ListGroupItem>
             </ListGroup>
