@@ -17,19 +17,14 @@ export default function() {
       to: "/add-new-post",
     },
     {
-      title: "Add Volunters",
+      title: "Add New Center",
       htmlBefore: '<i class="material-icons">note_add</i>',
-      to: "/add-new-volunter",
+      to: "/add-center",
     },
     {
       title: "Add Student",
       htmlBefore: '<i class="material-icons">note_add</i>',
-      to: "/add-new-post",
-    },
-    {
-      title: "Add Center",
-      htmlBefore: '<i class="material-icons">note_add</i>',
-      to: "/add-new-post",
+      to: "/add-new-student",
     },
     {
       title: "Forms & Components",

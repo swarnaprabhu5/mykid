@@ -8,11 +8,12 @@ import { DefaultLayout } from "./layouts";
 import BlogOverview from "./views/BlogOverview";
 import UserProfileLite from "./views/UserProfileLite";
 import AddNewPost from "./views/AddNewPost";
-import AddVolunteer from "./views/AddNewVolunter";
 import Errors from "./views/Errors";
 import ComponentsOverview from "./views/ComponentsOverview";
 import Tables from "./views/Tables";
 import BlogPosts from "./views/BlogPosts";
+import AddNewStudent from "./views/AddNewStudent";
+import AddCenter from "./views/AddCenter";
 
 export default [
   {
@@ -37,9 +38,14 @@ export default [
     component: AddNewPost
   },
   {
-    path: "/add-new-volunter",
+    path: "/add-new-student",
     layout: DefaultLayout,
-    component: AddVolunteer
+    component: AddNewStudent
+  },
+  {
+    path: "/add-center",
+    layout: DefaultLayout,
+    component: AddCenter
   },
   {
     path: "/errors",
@@ -47,6 +53,7 @@ export default [
     component: Errors
   },
   {
+
     path: "/components-overview",
     layout: DefaultLayout,
     component: ComponentsOverview
