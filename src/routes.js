@@ -13,12 +13,35 @@ import ComponentsOverview from "./views/ComponentsOverview";
 import Tables from "./views/Tables";
 import BlogPosts from "./views/BlogPosts";
 
+// Newly Added
+import AddStudent from "./views/AddStudent";
+import AddVounteer from "./views/AddVolunteer";
+import AddCenter from "./views/AddCenter";
+import Login from "./views/Login";
+
+
 export default [
   {
     path: "/",
     exact: true,
     layout: DefaultLayout,
-    component: () => <Redirect to="/blog-overview" />
+    component: Login
+    //component: () => <Redirect to="/blog-overview" />
+  },
+  {
+    path: "/add-center",
+    layout: DefaultLayout,
+    component: AddCenter
+  },
+  {
+    path: "/add-student",
+    layout: DefaultLayout,
+    component: AddStudent
+  },
+  {
+    path: "/add-volunteer",
+    layout: DefaultLayout,
+    component: AddVounteer
   },
   {
     path: "/blog-overview",
@@ -35,12 +58,14 @@ export default [
     layout: DefaultLayout,
     component: AddNewPost
   },
+
   {
     path: "/errors",
     layout: DefaultLayout,
     component: Errors
   },
   {
+
     path: "/components-overview",
     layout: DefaultLayout,
     component: ComponentsOverview
