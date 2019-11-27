@@ -21,7 +21,7 @@ import {
   Button
 } from "shards-react";
 
-class AddNewStudent extends React.Component {
+class AddStudent extends React.Component {
 
     constructor(props) {
         super();
@@ -161,4 +161,4 @@ class AddNewStudent extends React.Component {
   </Container>
         )}
         }
-export default AddNewStudent;
+export default AddStudent;

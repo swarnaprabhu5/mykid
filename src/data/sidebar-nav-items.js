@@ -1,10 +1,25 @@
 export default function() {
   return [
     {
-      title: "Blog Dashboard",
+      title: "Dashboard",
       to: "/blog-overview",
       htmlBefore: '<i class="material-icons">edit</i>',
       htmlAfter: ""
+    },
+    {
+      title: "Add Center",
+      htmlBefore: '<i class="material-icons">note_add</i>',
+      to: "/add-center",
+    },
+    {
+      title: "Add Student",
+      htmlBefore: '<i class="material-icons">note_add</i>',
+      to: "/add-student",
+    },
+    {
+      title: "Add Volunteer",
+      htmlBefore: '<i class="material-icons">note_add</i>',
+      to: "/add-volunteer",
     },
     {
       title: "Blog Posts",
@@ -15,16 +30,6 @@ export default function() {
       title: "Add New Post",
       htmlBefore: '<i class="material-icons">note_add</i>',
       to: "/add-new-post",
-    },
-    {
-      title: "Add New Center",
-      htmlBefore: '<i class="material-icons">note_add</i>',
-      to: "/add-center",
-    },
-    {
-      title: "Add Student",
-      htmlBefore: '<i class="material-icons">note_add</i>',
-      to: "/add-new-student",
     },
     {
       title: "Forms & Components",

@@ -13,7 +13,7 @@ import {
   Button
 } from "shards-react";
 
-class AddVolunteer extends React.Component {
+class AddNewVolunteer extends React.Component {
 
   constructor(props) {
     super(props);
@@ -185,4 +185,4 @@ render ()
 }
 }
 
-export default AddVolunteer;
+export default AddNewVolunteer;
