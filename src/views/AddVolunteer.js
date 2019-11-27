@@ -2,11 +2,11 @@ import React from "react";
 import { Container, Row, Col } from "shards-react";
 
 import PageTitle from "../components/common/PageTitle";
-import Volntr from "../components/add-new-volunter/AddVolunteer";
+import AddNewVolunteer from "../components/add-new-volunter/AddVolunteer";
 // import SidebarActions from "../components/add-new-post/SidebarActions";
 // import SidebarCategories from "../components/add-new-post/SidebarCategories";
 
-const AddNewVol = () => (
+const AddVolunteer = () => (
   <Container fluid className="main-content-container px-4 pb-4">
     {/* Page Header */}
     <Row noGutters className="page-header py-4">
@@ -16,7 +16,7 @@ const AddNewVol = () => (
     <Row>
       {/* Editor */}
       <Col lg="9" md="12">
-        <Volntr />
+        <AddNewVolunteer />
       </Col>
 
       {/* Sidebar Widgets */}
@@ -30,4 +30,4 @@ const AddNewVol = () => (
 
 
 
-export default AddNewVol;
+export default AddVolunteer;
