@@ -1,6 +1,12 @@
 import React from "react";
+
+import PageTitle from "../components/common/PageTitle";
+import UserDetails from "../components/user-profile-lite/UserDetails";
+import UserAccountDetails from "../components/user-profile-lite/UserAccountDetails";
+import { runInThisContext } from "vm";
 import PropTypes from "prop-types";
 import {
+  Container,
   Card,
   CardHeader,
   ListGroup,
@@ -15,30 +21,30 @@ import {
   Button
 } from "shards-react";
 
-class  UserAccountDetails extends React.Component {
+class AddStudent extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {feFirstName : ''};
+    constructor(props) {
+        super();
+        this.state = {feFirstName : '', title: '', dob: '',fePhone:'',feAddress:'',feCity:''}
+        this.props = props;
+    }
+    handleChange = (e) => {
+      this.setState({ [e.target.name] : e.target.value });
+   }
 
-    const title = props.title;
-    console.log('im tutle--->', title);
-  }
-
-  handleChange = (e) => {
-    console.log('im name--->', e.target.value);
-    this.setState({[e.target.name] : e.target.value})
-    // this.setState({feFirstName: e.target.value});
+    render () {
+        return(
+    
+  <Container fluid className="main-content-container px-4">
+    <Row noGutters className="page-header py-4">
+      <PageTitle title="Add New Student" subtitle="Overview" md="12" className="ml-sm-auto mr-sm-auto" />
+    </Row>
+    <Row>
       
-  }
-
-
-render () 
-{ 
-  return (
-  <Card small className="mb-4">
+      <Col lg="6">
+      <Card small className="mb-4">
     <CardHeader className="border-bottom">
-      <h6 className="m-0">{this.title}</h6>
+      <h6 className="m-0">{this.state.title}</h6>
     </CardHeader>
     <ListGroup flush>
       <ListGroupItem className="p-3">
@@ -48,38 +54,39 @@ render ()
               <Row form>
                 {/* First Name */}
                 <Col md="6" className="form-group">
-                  <label htmlFor="feFirstName">First Name</label>
+                  <label htmlFor="feFirstName">Student Name</label>
                   <FormInput
                     id="feFirstName"
                     name="feFirstName"
                     placeholder="First Name"
                     value={this.state.feFirstName}
-                    onChange={this.handleChange}
+                    onChange={this.handleChange} 
                   />
                 </Col>
                 {/* Last Name */}
-                <Col md="6" className="form-group">
-                  <label htmlFor="feLastName">Last Name</label>
+                <Col md="2" className="form-group">
+                  <label htmlFor="age">Age</label>
                   <FormInput
-                    id="feLastName"
-                    name="feLastName"
-                    placeholder="Last Name" 
-                    value="Brooks"
-                    onChange={() => {}}
+                    id="dob"
+                    name="dob"
+                    placeholder="DOB"
+                    value={this.state.dob}
+                    onChange= {this.handleChange} 
                   />
                 </Col>
               </Row>
               <Row form>
                 {/* Email */}
                 <Col md="6" className="form-group">
-                  <label htmlFor="feEmail">Email</label>
+                  <label htmlFor="fePhone">Phone-No</label>
                   <FormInput
-                    type="email"
-                    id="feEmail"
-                    placeholder="Email Address"
-                    value="sierra@example.com"
-                    onChange={() => {}}
-                    autoComplete="email"
+                    type=""
+                    name="fePhone"
+                    id="fePhone"
+                    placeholder="Enter 10 digits"
+                    value={this.state.fePhone}
+                    onChange={this.handleChange} 
+                    autoComplete="phone"
                   />
                 </Col>
                 {/* Password */}
@@ -99,9 +106,10 @@ render ()
                 <label htmlFor="feAddress">Address</label>
                 <FormInput
                   id="feAddress"
+                  name="feAddress"
                   placeholder="Address"
-                  value="1234 Main St."
-                  onChange={() => {}}
+                  value={this.state.feAddress}
+                  onChange={this.handleChange} 
                 />
               </FormGroup>
               <Row form>
@@ -110,8 +118,10 @@ render ()
                   <label htmlFor="feCity">City</label>
                   <FormInput
                     id="feCity"
+                    name="feCity"
                     placeholder="City"
-                    onChange={() => {}}
+                    value={this.state.feAddress}
+                    onChange={this.handleChange} 
                   />
                 </Col>
                 {/* State */}
@@ -146,19 +156,9 @@ render ()
       </ListGroupItem>
     </ListGroup>
   </Card>
-)
-}
-}
-
-UserAccountDetails.propTypes = {
-  /**
-   * The component's title.
-   */
-  title: PropTypes.string
-};
-
-UserAccountDetails.defaultProps = {
-  title: "Account Details"
-};
-
-export default UserAccountDetails;
+      </Col>
+    </Row>
+  </Container>
+        )}
+        }
+export default AddStudent;
