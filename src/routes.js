@@ -12,6 +12,8 @@ import Errors from "./views/Errors";
 import ComponentsOverview from "./views/ComponentsOverview";
 import Tables from "./views/Tables";
 import BlogPosts from "./views/BlogPosts";
+import AddNewStudent from "./views/AddNewStudent";
+import AddCenter from "./views/AddCenter";
 
 export default [
   {
@@ -36,11 +38,22 @@ export default [
     component: AddNewPost
   },
   {
+    path: "/add-new-student",
+    layout: DefaultLayout,
+    component: AddNewStudent
+  },
+  {
+    path: "/add-center",
+    layout: DefaultLayout,
+    component: AddCenter
+  },
+  {
     path: "/errors",
     layout: DefaultLayout,
     component: Errors
   },
   {
+
     path: "/components-overview",
     layout: DefaultLayout,
     component: ComponentsOverview
