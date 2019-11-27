@@ -53,6 +53,7 @@ export default [
     component: Errors
   },
   {
+
     path: "/components-overview",
     layout: DefaultLayout,
     component: ComponentsOverview
