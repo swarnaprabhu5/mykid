@@ -13,7 +13,7 @@ import {
   Button
 } from "shards-react";
 
-class Volntr extends React.Component {
+class AddVolunteer extends React.Component {
 
   constructor(props) {
     super(props);
@@ -50,20 +50,20 @@ render ()
                   <label htmlFor="feFirstName">First Name</label>
                   <FormInput
                     id="feFirstName"
-                    name="FirstName"
+                    name="firstName"
                     placeholder="First Name"
-                    value={this.state.FirstName}
+                    value={this.state.firstName}
                     onChange={this.handleChange}
                   />
                 </Col>
                 {/* Last Name */}
                 <Col md="4" className="form-group">
-                  <label htmlFor="mob">Mobile Number</label>
+                  <label htmlFor="MobileNumber">Mobile Number</label>
                   <FormInput
-                    id="mobileNumber"
-                    name="MobileNumber"
+                    id="MobileNumber"
+                    name="mobileNumber"
                     placeholder="Mobile Number" 
-                    value={this.state.MobileNumber}
+                    value={this.state.mobileNumber}
                     onChange={this.handleChange}
                   />
                 </Col>
@@ -84,12 +84,12 @@ render ()
                 </Col>
                 {/* Password */}
                 <Col md="4" className="form-group">
-                  <label htmlFor="fePassword">DOB</label>
+                  <label htmlFor="FeDob">DOB</label>
                   <FormInput
-                    id="fedob"
+                    id="FeDob"
                     placeholder="DOB"
-                    name="FeDob"
-                    value={this.setState.FeDob}
+                    name="feDob"
+                    value={this.setState.feDob}
                     onChange={this.handleChange}
                   />
                 </Col>
@@ -108,9 +108,9 @@ render ()
                 </Col>
                 {/* Password */}
                 <Col md="4" className="form-group">
-                  <label htmlFor="fePassword">Home Town</label>
+                  <label htmlFor="feHomeTown">Home Town</label>
                   <FormInput
-                    id="fehometown"
+                    id="feHomeTown"
                     placeholder="Home Town"
                     name="FeHomeTown"
                     value={this.setState.FeHomeTown}
@@ -185,4 +185,4 @@ render ()
 }
 }
 
-export default Volntr;
+export default AddVolunteer;
