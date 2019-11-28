@@ -7,19 +7,19 @@ export default function() {
       htmlAfter: ""
     },
     {
-      title: "Add Center",
+      title: "Centers",
       htmlBefore: '<i class="material-icons">note_add</i>',
-      to: "/add-center",
+      to: "/centers",
     },
     {
-      title: "Add Student",
+      title: "Students",
       htmlBefore: '<i class="material-icons">note_add</i>',
-      to: "/add-student",
+      to: "/students",
     },
     {
-      title: "Add Volunteer",
+      title: "Volunteers",
       htmlBefore: '<i class="material-icons">note_add</i>',
-      to: "/add-volunteer",
+      to: "/volunteers",
     },
     {
       title: "Blog Posts",

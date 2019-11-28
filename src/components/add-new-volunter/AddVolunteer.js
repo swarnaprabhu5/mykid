@@ -1,4 +1,7 @@
 import React from "react";
+import firebase from "./../firebase";
+
+
 import {
   Card,
   CardHeader,
@@ -22,6 +25,14 @@ class AddNewVolunteer extends React.Component {
     const title = props.title;
     console.log('im tutle--->', title);
   }
+  addVolunteer = () => {
+    const db = firebase.firestore();
+    const userRef = db.collection("volunteers");
+    userRef.add({
+      firstName: this.state.firstName,
+      lastName: this.state.lastName
+    }); 
+  }
 
   handleChange = (e) => {
     console.log('im name--->', e.target.value);
@@ -31,6 +42,7 @@ class AddNewVolunteer extends React.Component {
       
   }
 
+  
 
 render () 
 { 
@@ -61,7 +73,7 @@ render ()
                   <label htmlFor="MobileNumber">Mobile Number</label>
                   <FormInput
                     id="MobileNumber"
-                    name="mobileNumber"
+                    name="lastName"
                     placeholder="Mobile Number" 
                     value={this.state.mobileNumber}
                     onChange={this.handleChange}
@@ -174,15 +186,14 @@ render ()
                   <FormTextarea id="feDescription" rows="5" />
                 </Col>
               </Row> */}
-              <Button theme="accent">Update Account</Button>
+              <Button theme="accent" onClick={this. addVolunteer }>Update Account</Button>
             </Form>
           </Col>
         </Row>
       </ListGroupItem>
     </ListGroup>
   </Card>
-)
-}
+)}
 }
 
 export default AddNewVolunteer;

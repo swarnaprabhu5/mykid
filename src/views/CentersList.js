@@ -2,9 +2,9 @@ import React from "react";
 import { Container, Row, Col, Card, CardHeader, CardBody } from "shards-react";
 
 import PageTitle from "../components/common/PageTitle";
-import firebase from './../firebase';
+import firebase from "../firebase";
 
-class Tables extends React.Component{
+class CentersList extends React.Component{
   
   constructor(props) {
     super();
@@ -120,4 +120,4 @@ deleteStudent = (id, index) => {
   }
 }
 
-export default Tables;
+export default CentersList;
