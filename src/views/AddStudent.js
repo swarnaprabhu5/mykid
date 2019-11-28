@@ -5,6 +5,10 @@ import UserDetails from "../components/user-profile-lite/UserDetails";
 import UserAccountDetails from "../components/user-profile-lite/UserAccountDetails";
 import { runInThisContext } from "vm";
 import PropTypes from "prop-types";
+
+import firebase from './../firebase';
+
+
 import {
   Container,
   Card,
@@ -25,12 +29,29 @@ class AddStudent extends React.Component {
 
     constructor(props) {
         super();
-        this.state = {feFirstName : '', title: '', dob: '',fePhone:'',feAddress:'',feCity:''}
+        this.state = {firstName : '', lastName: '', title: '', dob: '',fePhone:'',feAddress:'',feCity:''};
         this.props = props;
     }
     handleChange = (e) => {
       this.setState({ [e.target.name] : e.target.value });
    }
+
+   addStudent = () => {
+    const db = firebase.firestore();
+    const userRef = db.collection("students");
+    userRef.add({
+      firstName: this.state.firstName,
+      lastName: this.state.lastName
+    }); 
+
+    userRef.doc("9047578585").set({
+      firstName: this.state.firstName,
+      lastName: this.state.lastName
+    })
+    
+    console.log(userRef);
+  
+  };
 
     render () {
         return(
@@ -54,24 +75,24 @@ class AddStudent extends React.Component {
               <Row form>
                 {/* First Name */}
                 <Col md="6" className="form-group">
-                  <label htmlFor="feFirstName">Student Name</label>
+                  <label htmlFor="feFirstName">First Name</label>
                   <FormInput
                     id="feFirstName"
-                    name="feFirstName"
+                    name="firstName"
                     placeholder="First Name"
-                    value={this.state.feFirstName}
+                    value={this.state.firstName}
                     onChange={this.handleChange} 
                   />
                 </Col>
                 {/* Last Name */}
-                <Col md="2" className="form-group">
-                  <label htmlFor="age">Age</label>
+                <Col md="6" className="form-group">
+                  <label htmlFor="feLastName">Last Name</label>
                   <FormInput
-                    id="dob"
-                    name="dob"
-                    placeholder="DOB"
-                    value={this.state.dob}
-                    onChange= {this.handleChange} 
+                    id="feLastName"
+                    name="lastName"
+                    placeholder="Last Name"
+                    value={this.state.lastName}
+                    onChange={this.handleChange} 
                   />
                 </Col>
               </Row>
@@ -149,7 +170,7 @@ class AddStudent extends React.Component {
                   <FormTextarea id="feDescription" rows="5" />
                 </Col>
               </Row>
-              <Button theme="accent">Update Account</Button>
+              <Button theme="accent" onClick={this.addStudent}>Update Account</Button>
             </Form>
           </Col>
         </Row>
