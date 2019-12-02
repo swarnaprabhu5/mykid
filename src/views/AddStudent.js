@@ -33,6 +33,7 @@ class AddStudent extends React.Component {
         this.props = props;
     }
     handleChange = (e) => {
+      console.log('im vol--->', e.target.value);
       this.setState({ [e.target.name] : e.target.value });
    }
 
@@ -98,8 +99,9 @@ class AddStudent extends React.Component {
                   />
                 </Col>
                 {/* Last Name */}
-                <Col md="6" className="form-group">
-                  <label htmlFor="feLastName">Last Name</label>
+          
+                <Col md="2" className="form-group">
+                  <label htmlFor="dob">D.O.B</label>
                   <FormInput
                     id="feLastName"
                     name="lastName"
@@ -112,30 +114,44 @@ class AddStudent extends React.Component {
               <Row form>
                 {/* Email */}
                 <Col md="6" className="form-group">
-                  <label htmlFor="fePhone">Phone-No</label>
+                  <label htmlFor="standard">Standard</label>
                   <FormInput
                     type="email"
                     name="fePhone"
                     id="fePhone"
                     placeholder="Enter 10 digits"
                     value={this.state.fePhone}
+                    type="standard"
+                    name="standard"
+                    id="standard"
+                    placeholder="Enter the Standard"
+                    value={this.state.standard}
                     onChange={this.handleChange} 
-                    autoComplete="phone"
+                    autoComplete="standard"
                   />
                 </Col>
                 {/* Password */}
                 <Col md="6" className="form-group">
-                  <label htmlFor="fePassword">Password</label>
+                  <label htmlFor="medium">Medium</label>
                   <FormInput
-                    type="password"
-                    id="fePassword"
-                    placeholder="Password"
-                    value="EX@MPL#P@$$w0RD"
-                    onChange={() => {}}
-                    autoComplete="current-password"
+                    type="medium"
+                    id="medium"
+                    placeholder="Enter the Medium"
+                    value={this.state.standard}
+                    onChange={this.handleChange} 
                   />
                 </Col>
               </Row>
+              <FormGroup>
+                <label htmlFor="schoolName">School Name</label>
+                <FormInput
+                  id="schoolName"
+                  name="schoolName"
+                  placeholder="Enter School Name"
+                  value={this.state.schoolName}
+                  onChange={this.handleChange} 
+                />
+              </FormGroup>
               <FormGroup>
                 <label htmlFor="feAddress">Address</label>
                 <FormInput
