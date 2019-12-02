@@ -67,19 +67,17 @@ deleteVolunteers = (id, index) => {
     {/* Page Header */}
     <Row noGutters className="page-header py-4">
       <PageTitle sm="4" title="Add New Post" subtitle="Blog Posts" className="text-sm-left" />
-</Row>
+    </Row>
 
     <Row noGutters className="page-header py-4">
-    <Col lg="6">
-
-      <PageTitle title="Add New volunteer" subtitle="Overview" className="ml-sm-auto mr-sm-auto" />
-     </Col>      
-     <Col lg="6">
-
-      <SidebarNavItem key={111} item={item} />
-
-    </Col>
-</Row>
+      <Col lg="6">
+        <PageTitle title="Add New volunteer" subtitle="Overview" className="ml-sm-auto mr-sm-auto" />
+      </Col>      
+      <Col lg="6">
+        <SidebarNavItem key={111} item={item} />
+      </Col>
+    </Row>
+    
     <Row>
       <Col>
         <Card small className="mb-4">
