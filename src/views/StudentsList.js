@@ -93,10 +93,10 @@ deleteStudent = (id, index) => {
                     Country
                   </th>
                   <th scope="col" className="border-0">
-                    City
+                    View
                   </th>
                   <th scope="col" className="border-0">
-                    Phone
+                    Delete
                   </th>
                 </tr>
               </thead>
@@ -105,7 +105,7 @@ deleteStudent = (id, index) => {
                 {this.state.students.map(( listValue, index ) => {
                   return (
                     <tr key={index}>
-                      <td>{index}</td>
+                      <td>{index + 1}</td>
                       <td>{listValue.firstName}</td>
                       <td>{listValue.lastName}</td>
                       <td>{listValue.lastName}</td>
