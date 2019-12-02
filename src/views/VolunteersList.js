@@ -3,6 +3,7 @@ import { Container, Row, Col, Card, CardHeader, CardBody } from "shards-react";
 
 import PageTitle from "../components/common/PageTitle";
 import firebase from "../firebase";
+import SidebarNavItem from "../components/layout/MainSidebar/SidebarNavItem"
 
 class VolunteersList extends React.Component{
   
@@ -56,13 +57,29 @@ deleteVolunteers = (id, index) => {
   
   render() {
 
+ const item = {
+      title: "Volunteers",
+      htmlBefore: '<i class="material-icons">note_add</i>',
+      to: "/add-volunteer",
+    };
     return (
   <Container fluid className="main-content-container px-4">
     {/* Page Header */}
     <Row noGutters className="page-header py-4">
       <PageTitle sm="4" title="Add New Post" subtitle="Blog Posts" className="text-sm-left" />
-    </Row>
+</Row>
 
+    <Row noGutters className="page-header py-4">
+    <Col lg="6">
+
+      <PageTitle title="Add New volunteer" subtitle="Overview" className="ml-sm-auto mr-sm-auto" />
+     </Col>      
+     <Col lg="6">
+
+      <SidebarNavItem key={111} item={item} />
+
+    </Col>
+</Row>
     <Row>
       <Col>
         <Card small className="mb-4">
