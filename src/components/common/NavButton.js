@@ -12,7 +12,7 @@ const NavButton = ({ item, className }) => {
     <Col xs="12" sm="8" className={classes}>
       <NavLink tag={RouteNavLink} to={item.to}>
         <Button outline theme="accent" size="sm">
-            <i className="material-icons">add</i> {item.title && <span>{item.title}</span>}
+            <i className="material-icons">account_box</i> {item.title && <span>{item.title}</span>}
         </Button>
       </NavLink>
     </Col>
