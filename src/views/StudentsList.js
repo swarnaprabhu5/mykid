@@ -1,9 +1,9 @@
 import React from "react";
-import { Container, Row, Col, Card, CardHeader, CardBody } from "shards-react";
+import { Container, Row, Col, Card, CardHeader, CardBody, Button } from "shards-react";
 
 import PageTitle from "../components/common/PageTitle";
 import firebase from "../firebase";
-import SidebarNavItem from "../components/layout/MainSidebar/SidebarNavItem"
+import NavButton from "../components/common/NavButton"
 
 class StudentsList extends React.Component{
   
@@ -59,25 +59,15 @@ deleteStudent = (id, index) => {
 
     const item = {
       title: "Students",
-      htmlBefore: '<i class="material-icons">note_add</i>',
-      to: "/add-student",
+      to: "/add-student"
     };
 
     return (
   <Container fluid className="main-content-container px-4">
     {/* Page Header */}
     <Row noGutters className="page-header py-4">
-      <PageTitle sm="4" title="Add New Post" subtitle="Blog Posts" className="text-sm-left" />
-    </Row>
-
-    <Row noGutters className="page-header py-4">
-    <Col lg="6">
-
-      <PageTitle title="Add New Student" subtitle="Overview" className="ml-sm-auto mr-sm-auto" />
-     </Col>      <Col lg="6">
-
-      <SidebarNavItem key={111} item={item} />
-      </Col>
+      <PageTitle sm="4" title="Students List" subtitle="List" className="text-sm-left" />
+      <NavButton sm="4" item={item} className="text-sm-right"/>
     </Row>
 
     <Row>
@@ -103,10 +93,10 @@ deleteStudent = (id, index) => {
                     Country
                   </th>
                   <th scope="col" className="border-0">
-                    City
+                    View
                   </th>
                   <th scope="col" className="border-0">
-                    Phone
+                    Delete
                   </th>
                 </tr>
               </thead>
@@ -115,12 +105,18 @@ deleteStudent = (id, index) => {
                 {this.state.students.map(( listValue, index ) => {
                   return (
                     <tr key={index}>
-                      <td>{index}</td>
+                      <td>{index + 1}</td>
                       <td>{listValue.firstName}</td>
                       <td>{listValue.lastName}</td>
                       <td>{listValue.lastName}</td>
-                      <td><button onClick={this.viewStudent.bind(this, listValue.id, index)}>View</button></td>
-                      <td><button onClick={this.deleteStudent.bind(this, listValue.id, index)}>Delete</button></td>
+                      <td><Button outline theme="accent" size="sm" onClick={this.viewStudent.bind(this, listValue.id, index)}>
+                            <i className="material-icons">visibility</i> View
+                        </Button>
+                      </td>
+                      <td><Button outline theme="accent" size="sm" onClick={this.deleteStudent.bind(this, listValue.id, index)}>
+                            <i className="material-icons">delete</i> Delete
+                        </Button>
+                      </td>
                     </tr>
                   );
         })}

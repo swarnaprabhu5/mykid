@@ -1,14 +1,9 @@
 import React from "react";
-import SidebarNavItem from "../components/layout/MainSidebar/SidebarNavItem"
 import PageTitle from "../components/common/PageTitle";
 import UserDetails from "../components/user-profile-lite/UserDetails";
 import UserAccountDetails from "../components/user-profile-lite/UserAccountDetails";
 import { runInThisContext } from "vm";
 import PropTypes from "prop-types";
-
-import firebase from "./../firebase";
-
-
 import {
   Container,
   Card,
@@ -25,55 +20,24 @@ import {
   Button
 } from "shards-react";
 
-class AddStudent extends React.Component {
+class AddLocation extends React.Component {
 
     constructor(props) {
         super();
-        this.state = {firstName : '', lastName: '', title: '', dob: '',fePhone:'',feAddress:'',feCity:''};
+        this.state = {feFirstName : '', title: '', dob: '',fePhone:'',feAddress:'',feCity:''}
         this.props = props;
     }
     handleChange = (e) => {
-      console.log('im vol--->', e.target.value);
       this.setState({ [e.target.name] : e.target.value });
    }
 
-   addStudent = () => {
-    const db = firebase.firestore();
-    const userRef = db.collection("students");
-    userRef.add({
-      firstName: this.state.firstName,
-      lastName: this.state.lastName
-    }); 
-
-    userRef.doc("9047578585").set({
-      firstName: this.state.firstName,
-      lastName: this.state.lastName
-    })
-    
-    console.log(userRef);
-  
-  };
-
     render () {
-
-      const item = {
-        title: "Students",
-        htmlBefore: '<i class="material-icons">note_add</i>',
-        to: "/students",
-      };
         return(
     
   <Container fluid className="main-content-container px-4">
     <Row noGutters className="page-header py-4">
-    <Col lg="6">
-
-      <PageTitle title="Add New Student" subtitle="Overview" className="ml-sm-auto mr-sm-auto" />
-     </Col>      <Col lg="6">
-
-      <SidebarNavItem key={111} item={item} />
-      </Col>
+      <PageTitle title="Add Location" subtitle="Overview" md="12" className="ml-sm-auto mr-sm-auto" />
     </Row>
-    
     <Row>
       
       <Col lg="6">
@@ -89,69 +53,54 @@ class AddStudent extends React.Component {
               <Row form>
                 {/* First Name */}
                 <Col md="6" className="form-group">
-                  <label htmlFor="feFirstName">First Name</label>
+                  <label htmlFor="feFirstName">Student Name</label>
                   <FormInput
                     id="feFirstName"
-                    name="firstName"
+                    name="feFirstName"
                     placeholder="First Name"
-                    value={this.state.firstName}
+                    value={this.state.feFirstName}
                     onChange={this.handleChange} 
                   />
                 </Col>
                 {/* Last Name */}
-          
                 <Col md="2" className="form-group">
-                  <label htmlFor="dob">D.O.B</label>
+                  <label htmlFor="age">Age</label>
                   <FormInput
-                    id="feLastName"
-                    name="lastName"
-                    placeholder="Last Name"
-                    value={this.state.lastName}
-                    onChange={this.handleChange} 
+                    id="dob"
+                    name="dob"
+                    placeholder="DOB"
+                    value={this.state.dob}
+                    onChange= {this.handleChange} 
                   />
                 </Col>
               </Row>
               <Row form>
                 {/* Email */}
                 <Col md="6" className="form-group">
-                  <label htmlFor="standard">Standard</label>
+                  <label htmlFor="fePhone">Phone-No</label>
                   <FormInput
-                    type="email"
+                    type=""
                     name="fePhone"
                     id="fePhone"
                     placeholder="Enter 10 digits"
                     value={this.state.fePhone}
-                    type="standard"
-                    name="standard"
-                    id="standard"
-                    placeholder="Enter the Standard"
-                    value={this.state.standard}
                     onChange={this.handleChange} 
-                    autoComplete="standard"
+                    autoComplete="phone"
                   />
                 </Col>
                 {/* Password */}
                 <Col md="6" className="form-group">
-                  <label htmlFor="medium">Medium</label>
+                  <label htmlFor="fePassword">Password</label>
                   <FormInput
-                    type="medium"
-                    id="medium"
-                    placeholder="Enter the Medium"
-                    value={this.state.standard}
-                    onChange={this.handleChange} 
+                    type="password"
+                    id="fePassword"
+                    placeholder="Password"
+                    value="EX@MPL#P@$$w0RD"
+                    onChange={() => {}}
+                    autoComplete="current-password"
                   />
                 </Col>
               </Row>
-              <FormGroup>
-                <label htmlFor="schoolName">School Name</label>
-                <FormInput
-                  id="schoolName"
-                  name="schoolName"
-                  placeholder="Enter School Name"
-                  value={this.state.schoolName}
-                  onChange={this.handleChange} 
-                />
-              </FormGroup>
               <FormGroup>
                 <label htmlFor="feAddress">Address</label>
                 <FormInput
@@ -199,7 +148,7 @@ class AddStudent extends React.Component {
                   <FormTextarea id="feDescription" rows="5" />
                 </Col>
               </Row>
-              <Button theme="accent" onClick={this.addStudent}>Update Account</Button>
+              <Button theme="accent">Update Account</Button>
             </Form>
           </Col>
         </Row>
@@ -211,4 +160,4 @@ class AddStudent extends React.Component {
   </Container>
         )}
         }
-export default AddStudent;
+export default AddLocation;

@@ -10,7 +10,6 @@ import UserProfileLite from "./views/UserProfileLite";
 import AddNewPost from "./views/AddNewPost";
 import Errors from "./views/Errors";
 import ComponentsOverview from "./views/ComponentsOverview";
-
 import BlogPosts from "./views/BlogPosts";
 
 // Newly Added
@@ -75,14 +74,12 @@ export default [
     layout: DefaultLayout,
     component: AddNewPost
   },
-
   {
     path: "/errors",
     layout: DefaultLayout,
     component: Errors
   },
   {
-
     path: "/components-overview",
     layout: DefaultLayout,
     component: ComponentsOverview
