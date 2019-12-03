@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useLayoutEffect } from "react";
 import { Redirect } from "react-router-dom";
 
 // Layout Types
 import { DefaultLayout } from "./layouts";
+import { LoginLayout } from "./layouts";
+
 
 // Route Views
+
+
 import BlogOverview from "./views/BlogOverview";
 import UserProfileLite from "./views/UserProfileLite";
 import AddNewPost from "./views/AddNewPost";
@@ -25,9 +29,8 @@ export default [
   {
     path: "/",
     exact: true,
-    layout: DefaultLayout,
+    layout: LoginLayout,
     component: Login
-    //component: () => <Redirect to="/blog-overview" />
   },
   {
     path: "/add-center",

@@ -1,9 +1,13 @@
 import React from "react";
 import PageTitle from "../components/common/PageTitle";
+import {Redirect} from 'react-router-dom';
+
 import UserDetails from "../components/user-profile-lite/UserDetails";
 import UserAccountDetails from "../components/user-profile-lite/UserAccountDetails";
 import { runInThisContext } from "vm";
+
 import PropTypes from "prop-types";
+
 import {
   Container,
   Card,
@@ -24,8 +28,9 @@ class Login extends React.Component {
  
 
     constructor(props) {
+      
         super();
-        this.state = {feFirstName : '', passWord: ''}
+        this.state = {username : '', password: '', toDashboard: false, error: false, errorMessage : "User & Pass Cannot be Empty"}
         this.props = props;
     }
     
@@ -34,20 +39,31 @@ class Login extends React.Component {
     handleChange = (e) => {
       console.log('im vol--->', e.target.value);
       this.setState({ [e.target.name] : e.target.value });
-    
+     
    }
    
+   
    handleLogin= (e) => {
-    console.log("username: " + this.state.feFirstName);
-    console.log("Password: " + this.state.passWord);
-     console.log( this.state);
-     
-    alert("hello : "+ this.state.feFirstName +this.state.passWord);
+    console.log("username: " + this.state.username);
+    console.log("password: " + this.state.password);
+
+     if(this.state.username && this.state.password){
+      this.setState({toDashboard : true});
+     } else {
+      this.setState({error : true});
+     }
+    };
+
     
-}
-    render () {
-      
      
+    
+
+    render () {
+
+      if (this.state.toDashboard === true) {
+        return <Redirect to='/blog-overview' />
+      }
+    
         return(
     
   <Container  fluid className="main-content-container px-4">
@@ -61,6 +77,9 @@ class Login extends React.Component {
     <CardHeader className="border-bottom">
       <h6 className="m-0">{this.state.title}</h6>
     </CardHeader>
+
+      { this.state.error ? ( <h6 className="m-0">{this.state.errorMessage}</h6>) : ""}
+
     <ListGroup flush>
       <ListGroupItem className="p-3">
         <Row>
@@ -70,12 +89,12 @@ class Login extends React.Component {
                 {/* First Name */}
                 <Col md="3"></Col>
                 <Col md="6" className="form-group">
-                  <label  htmlFor="feFirstName">User Name</label>
+                  <label  htmlFor="feUsername">Username</label>
                   <FormInput
-                    id="feFirstName"
-                    name="feFirstName"
-                    placeholder="First Name"
-                    value={this.state.feFirstName}
+                    id="feUsername"
+                    name="username"
+                    placeholder="Username"
+                    value={this.state.username}
                     onChange={this.handleChange} 
                   />
                 </Col>
@@ -84,12 +103,13 @@ class Login extends React.Component {
                 {/* Email */}
                 <Col md="3"></Col>
                 <Col md="6" className="form-group">
-                  <label htmlFor="password">Password</label>
+                  <label htmlFor="fePassword">Password</label>
                   <FormInput
                     type="password"
-                    name="passWord"
-                    id="passWord"
-                    placeholder=" Enter  the Password"
+                    name="password"
+                    id="fePassword"
+                    placeholder=" Enter the Password"
+                    value={this.state.password}
                     onChange = {this.handleChange}
                   />
 
@@ -109,6 +129,9 @@ class Login extends React.Component {
 
               <Button  onClick={this.handleLogin} theme="accent">Login</Button>
 
+             
+
+              
            
               <Col md="3"></Col>
               </Col>
