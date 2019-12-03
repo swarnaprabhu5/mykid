@@ -84,19 +84,26 @@ deleteStudent = (id, index) => {
                     #
                   </th>
                   <th scope="col" className="border-0">
-                    First Name
+                    Student Name
                   </th>
                   <th scope="col" className="border-0">
                     Last Name
                   </th>
                   <th scope="col" className="border-0">
-                    Country
+                    Medium
+                  </th>
+                  <th scope="col" className="border-0">
+                    Standard
+                  </th>
+                  <th scope="col" className="border-0">
+                    School
                   </th>
                   <th scope="col" className="border-0">
                     View
                   </th>
                   <th scope="col" className="border-0">
                     Delete
+
                   </th>
                 </tr>
               </thead>
@@ -108,7 +115,9 @@ deleteStudent = (id, index) => {
                       <td>{index + 1}</td>
                       <td>{listValue.firstName}</td>
                       <td>{listValue.lastName}</td>
-                      <td>{listValue.lastName}</td>
+                      <td>{listValue.medium}</td>
+                      <td>{listValue.standard}</td>
+                      <td>{listValue.school}</td>
                       <td><Button outline theme="accent" size="sm" onClick={this.viewStudent.bind(this, listValue.id, index)}>
                             <i className="material-icons">visibility</i> View
                         </Button>
