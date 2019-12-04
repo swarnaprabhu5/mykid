@@ -5,6 +5,7 @@ import UserDetails from "../components/user-profile-lite/UserDetails";
 import UserAccountDetails from "../components/user-profile-lite/UserAccountDetails";
 import { runInThisContext } from "vm";
 import PropTypes from "prop-types";
+import NavButton from "../components/common/NavButton"
 
 import firebase from "./../firebase";
 
@@ -54,11 +55,16 @@ class AddVolunteers extends React.Component {
   };
 
     render () {
+      const item = {
+        title: "Volunteers",
+        to: "/volunteers"
+      };
         return(
     
   <Container fluid className="main-content-container px-4">
     <Row noGutters className="page-header py-4">
       <PageTitle title="Add New Voluteer" subtitle="Overview" md="12" className="ml-sm-auto mr-sm-auto" />
+      <NavButton sm="4" key={111} item={item} className="text-sm-right"/>
     </Row>
     <Row>
       
@@ -170,7 +176,7 @@ class AddVolunteers extends React.Component {
                   <FormTextarea id="feDescription" rows="5" />
                 </Col>
               </Row>
-              <Button theme="accent" onClick={this.addVolunteers}>Update Account</Button>
+              <Button theme="accent" onClick={this.addVolunteers}>Add Volunteers</Button>
             </Form>
           </Col>
         </Row>
