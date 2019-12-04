@@ -1,16 +1,19 @@
-import React from "react";
+import React, { useLayoutEffect } from "react";
 import { Redirect } from "react-router-dom";
 
 // Layout Types
 import { DefaultLayout } from "./layouts";
+import { LoginLayout } from "./layouts";
+
 
 // Route Views
+
+
 import BlogOverview from "./views/BlogOverview";
 import UserProfileLite from "./views/UserProfileLite";
 import AddNewPost from "./views/AddNewPost";
 import Errors from "./views/Errors";
 import ComponentsOverview from "./views/ComponentsOverview";
-
 import BlogPosts from "./views/BlogPosts";
 
 // Newly Added
@@ -26,9 +29,8 @@ export default [
   {
     path: "/",
     exact: true,
-    layout: DefaultLayout,
+    layout: LoginLayout,
     component: Login
-    //component: () => <Redirect to="/blog-overview" />
   },
   {
     path: "/add-center",
@@ -75,14 +77,12 @@ export default [
     layout: DefaultLayout,
     component: AddNewPost
   },
-
   {
     path: "/errors",
     layout: DefaultLayout,
     component: Errors
   },
   {
-
     path: "/components-overview",
     layout: DefaultLayout,
     component: ComponentsOverview

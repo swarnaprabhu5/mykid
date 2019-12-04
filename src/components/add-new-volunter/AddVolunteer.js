@@ -35,11 +35,14 @@ class AddNewVolunteer extends React.Component {
   }
 
   handleChange = (e) => {
-    console.log('im name--->', e.target.value);
+    console.log('im vol--->', e.target.value);
     this.setState({[e.target.name] : e.target.value})
     // this.setState({[e.target.name] : e.target.value})
     // this.setState({feFirstName: e.target.value});
       
+  }
+  handleAddVolunteer = (e) =>{
+    alert("hello : "+ this.state.firstName )
   }
 
   
@@ -186,7 +189,11 @@ render ()
                   <FormTextarea id="feDescription" rows="5" />
                 </Col>
               </Row> */}
+<<<<<<< Updated upstream
               <Button theme="accent" onClick={this. addVolunteer }>Update Account</Button>
+=======
+              <Button onClick={this.handleAddVolunteer} theme="accent">Add Volunteer</Button>
+>>>>>>> Stashed changes
             </Form>
           </Col>
         </Row>
