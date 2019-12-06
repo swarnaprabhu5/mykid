@@ -63,7 +63,7 @@ class AddVolunteers extends React.Component {
     
   <Container fluid className="main-content-container px-4">
     <Row noGutters className="page-header py-4">
-      <PageTitle title="Add New Voluteer" subtitle="Overview" md="12" className="ml-sm-auto mr-sm-auto" />
+      <PageTitle title="Add New Voluteer" subtitle="Overview" className="ml-sm-auto mr-sm-auto" />
       <NavButton sm="4" key={111} item={item} className="text-sm-right"/>
     </Row>
     <Row>
