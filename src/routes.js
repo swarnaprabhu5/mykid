@@ -1,32 +1,36 @@
-import React from "react";
+import React, { useLayoutEffect } from "react";
 import { Redirect } from "react-router-dom";
 
 // Layout Types
 import { DefaultLayout } from "./layouts";
+import { LoginLayout } from "./layouts";
+
 
 // Route Views
+
+
 import BlogOverview from "./views/BlogOverview";
 import UserProfileLite from "./views/UserProfileLite";
 import AddNewPost from "./views/AddNewPost";
 import Errors from "./views/Errors";
 import ComponentsOverview from "./views/ComponentsOverview";
-import Tables from "./views/Tables";
 import BlogPosts from "./views/BlogPosts";
 
 // Newly Added
 import AddStudent from "./views/AddStudent";
-import AddVounteer from "./views/AddVolunteer";
+import AddVolunteer from "./views/AddVolunteer";
 import AddCenter from "./views/AddCenter";
 import Login from "./views/Login";
-
+import StudentsList from "./views/StudentsList";
+import VolunteersList from "./views/VolunteersList";
+import CentersList from "./views/CentersList";
 
 export default [
   {
     path: "/",
     exact: true,
-    layout: DefaultLayout,
+    layout: LoginLayout,
     component: Login
-    //component: () => <Redirect to="/blog-overview" />
   },
   {
     path: "/add-center",
@@ -41,7 +45,22 @@ export default [
   {
     path: "/add-volunteer",
     layout: DefaultLayout,
-    component: AddVounteer
+    component: AddVolunteer
+  },
+  {
+    path: "/centers",
+    layout: DefaultLayout,
+    component: CentersList
+  },
+  {
+    path: "/students",
+    layout: DefaultLayout,
+    component: StudentsList
+  },
+  {
+    path: "/volunteers",
+    layout: DefaultLayout,
+    component: VolunteersList
   },
   {
     path: "/blog-overview",
@@ -58,22 +77,15 @@ export default [
     layout: DefaultLayout,
     component: AddNewPost
   },
-
   {
     path: "/errors",
     layout: DefaultLayout,
     component: Errors
   },
   {
-
     path: "/components-overview",
     layout: DefaultLayout,
     component: ComponentsOverview
-  },
-  {
-    path: "/tables",
-    layout: DefaultLayout,
-    component: Tables
   },
   {
     path: "/blog-posts",

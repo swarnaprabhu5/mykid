@@ -1,15 +1,9 @@
 import React from "react";
-
 import PageTitle from "../components/common/PageTitle";
 import UserDetails from "../components/user-profile-lite/UserDetails";
 import UserAccountDetails from "../components/user-profile-lite/UserAccountDetails";
 import { runInThisContext } from "vm";
 import PropTypes from "prop-types";
-import NavButton from "../components/common/NavButton"
-
-import firebase from "./../firebase";
-
-
 import {
   Container,
   Card,
@@ -26,45 +20,23 @@ import {
   Button
 } from "shards-react";
 
-class AddVolunteers extends React.Component {
+class AddLocation extends React.Component {
 
     constructor(props) {
         super();
-        this.state = {firstName : '', lastName: '', title: '', dob: '',fePhone:'',feAddress:'',feCity:''};
+        this.state = {feFirstName : '', title: '', dob: '',fePhone:'',feAddress:'',feCity:''}
         this.props = props;
     }
     handleChange = (e) => {
       this.setState({ [e.target.name] : e.target.value });
    }
 
-   addVolunteers = () => {
-    const db = firebase.firestore();
-    const userRef = db.collection("volunteers");
-    userRef.add({
-      firstName: this.state.firstName,
-      lastName: this.state.lastName
-    }); 
-
-    userRef.doc("9047578585").set({
-      firstName: this.state.firstName,
-      lastName: this.state.lastName
-    })
-    
-    console.log(userRef);
-  
-  };
-
     render () {
-      const item = {
-        title: "Volunteers",
-        to: "/volunteers"
-      };
         return(
     
   <Container fluid className="main-content-container px-4">
     <Row noGutters className="page-header py-4">
-      <PageTitle title="Add New Voluteer" subtitle="Overview" className="ml-sm-auto mr-sm-auto" />
-      <NavButton sm="4" key={111} item={item} className="text-sm-right"/>
+      <PageTitle title="Add Location" subtitle="Overview" md="12" className="ml-sm-auto mr-sm-auto" />
     </Row>
     <Row>
       
@@ -81,24 +53,24 @@ class AddVolunteers extends React.Component {
               <Row form>
                 {/* First Name */}
                 <Col md="6" className="form-group">
-                  <label htmlFor="feFirstName">First Name</label>
+                  <label htmlFor="feFirstName">Student Name</label>
                   <FormInput
                     id="feFirstName"
-                    name="firstName"
+                    name="feFirstName"
                     placeholder="First Name"
-                    value={this.state.firstName}
+                    value={this.state.feFirstName}
                     onChange={this.handleChange} 
                   />
                 </Col>
                 {/* Last Name */}
-                <Col md="6" className="form-group">
-                  <label htmlFor="feLastName">Last Name</label>
+                <Col md="2" className="form-group">
+                  <label htmlFor="age">Age</label>
                   <FormInput
-                    id="feLastName"
-                    name="lastName"
-                    placeholder="Last Name"
-                    value={this.state.lastName}
-                    onChange={this.handleChange} 
+                    id="dob"
+                    name="dob"
+                    placeholder="DOB"
+                    value={this.state.dob}
+                    onChange= {this.handleChange} 
                   />
                 </Col>
               </Row>
@@ -176,7 +148,7 @@ class AddVolunteers extends React.Component {
                   <FormTextarea id="feDescription" rows="5" />
                 </Col>
               </Row>
-              <Button theme="accent" onClick={this.addVolunteers}>Add Volunteers</Button>
+              <Button theme="accent">Update Account</Button>
             </Form>
           </Col>
         </Row>
@@ -188,4 +160,4 @@ class AddVolunteers extends React.Component {
   </Container>
         )}
         }
-export default AddVolunteers;
+export default AddLocation;

@@ -29,7 +29,7 @@ const FormValidation = () => (
             value="Catalin"
             placeholder="Last name"
             required
-            valid
+            invalid={true}
             onChange={() => {}}
           />
           <FormFeedback valid>The last name looks good!</FormFeedback>

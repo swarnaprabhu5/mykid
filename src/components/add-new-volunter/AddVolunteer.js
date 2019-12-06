@@ -1,4 +1,7 @@
 import React from "react";
+import firebase from "./../firebase";
+
+
 import {
   Card,
   CardHeader,
@@ -22,15 +25,27 @@ class AddNewVolunteer extends React.Component {
     const title = props.title;
     console.log('im tutle--->', title);
   }
+  addVolunteer = () => {
+    const db = firebase.firestore();
+    const userRef = db.collection("volunteers");
+    userRef.add({
+      firstName: this.state.firstName,
+      lastName: this.state.lastName
+    }); 
+  }
 
   handleChange = (e) => {
-    console.log('im name--->', e.target.value);
+    console.log('im vol--->', e.target.value);
     this.setState({[e.target.name] : e.target.value})
     // this.setState({[e.target.name] : e.target.value})
     // this.setState({feFirstName: e.target.value});
       
   }
+  handleAddVolunteer = (e) =>{
+    alert("hello : "+ this.state.firstName )
+  }
 
+  
 
 render () 
 { 
@@ -61,7 +76,7 @@ render ()
                   <label htmlFor="MobileNumber">Mobile Number</label>
                   <FormInput
                     id="MobileNumber"
-                    name="mobileNumber"
+                    name="lastName"
                     placeholder="Mobile Number" 
                     value={this.state.mobileNumber}
                     onChange={this.handleChange}
@@ -174,15 +189,18 @@ render ()
                   <FormTextarea id="feDescription" rows="5" />
                 </Col>
               </Row> */}
-              <Button theme="accent">Update Account</Button>
+<<<<<<< Updated upstream
+              <Button theme="accent" onClick={this. addVolunteer }>Update Account</Button>
+=======
+              <Button onClick={this.handleAddVolunteer} theme="accent">Add Volunteer</Button>
+>>>>>>> Stashed changes
             </Form>
           </Col>
         </Row>
       </ListGroupItem>
     </ListGroup>
   </Card>
-)
-}
+)}
 }
 
 export default AddNewVolunteer;

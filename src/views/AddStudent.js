@@ -1,12 +1,13 @@
 import React from "react";
-
+import SidebarNavItem from "../components/layout/MainSidebar/SidebarNavItem"
 import PageTitle from "../components/common/PageTitle";
 import UserDetails from "../components/user-profile-lite/UserDetails";
 import UserAccountDetails from "../components/user-profile-lite/UserAccountDetails";
 import { runInThisContext } from "vm";
 import PropTypes from "prop-types";
+import NavButton from "../components/common/NavButton"
 
-import firebase from './../firebase';
+import firebase from "./../firebase";
 
 
 import {
@@ -29,10 +30,11 @@ class AddStudent extends React.Component {
 
     constructor(props) {
         super();
-        this.state = {firstName : '', lastName: '', title: '', dob: '',fePhone:'',feAddress:'',feCity:''};
+        this.state = {firstName : '', lastName: '', medium: '',standard: '',school:'',title: '', dob: '',fePhone:'',feAddress:'',feCity:''};
         this.props = props;
     }
     handleChange = (e) => {
+      console.log('im vol--->', e.target.value);
       this.setState({ [e.target.name] : e.target.value });
    }
 
@@ -41,25 +43,37 @@ class AddStudent extends React.Component {
     const userRef = db.collection("students");
     userRef.add({
       firstName: this.state.firstName,
-      lastName: this.state.lastName
+      lastName: this.state.lastName,
+      medium:this.state.medium,
+      standard:this.state.standard,
+      school:this.state.school
+
     }); 
 
     userRef.doc("9047578585").set({
       firstName: this.state.firstName,
-      lastName: this.state.lastName
+      lastName: this.state.lastName,
+      medium:this.state.medium,
+      standard:this.state.standard,
+      school:this.state.school
     })
-    
+    alert("Added successfully : ");
     console.log(userRef);
-  
   };
-
     render () {
+      const item = {
+        title: "Students",
+        to: "/students"
+      };
         return(
     
-  <Container fluid className="main-content-container px-4">
-    <Row noGutters className="page-header py-4">
-      <PageTitle title="Add New Student" subtitle="Overview" md="12" className="ml-sm-auto mr-sm-auto" />
+      <Container fluid className="main-content-container px-4">
+      <Row noGutters className="page-header py-4">
+              <PageTitle title="Add New Student" subtitle="Overview" className="ml-sm-auto mr-sm-auto" />
+              <NavButton sm="4" key={111} item={item} className="text-sm-right"/>      
+     
     </Row>
+    
     <Row>
       
       <Col lg="6">
@@ -73,9 +87,9 @@ class AddStudent extends React.Component {
           <Col>
             <Form>
               <Row form>
-                {/* First Name */}
+                {/* Student Name */}
                 <Col md="6" className="form-group">
-                  <label htmlFor="feFirstName">First Name</label>
+                  <label htmlFor="feFirstName">Student Name</label>
                   <FormInput
                     id="feFirstName"
                     name="firstName"
@@ -84,9 +98,10 @@ class AddStudent extends React.Component {
                     onChange={this.handleChange} 
                   />
                 </Col>
-                {/* Last Name */}
+                {/* Father Name */}
+          
                 <Col md="6" className="form-group">
-                  <label htmlFor="feLastName">Last Name</label>
+                  <label htmlFor="lastname">Last Name</label>
                   <FormInput
                     id="feLastName"
                     name="lastName"
@@ -97,32 +112,51 @@ class AddStudent extends React.Component {
                 </Col>
               </Row>
               <Row form>
-                {/* Email */}
+                {/* Medium */}
                 <Col md="6" className="form-group">
-                  <label htmlFor="fePhone">Phone-No</label>
-                  <FormInput
-                    type=""
-                    name="fePhone"
-                    id="fePhone"
-                    placeholder="Enter 10 digits"
-                    value={this.state.fePhone}
-                    onChange={this.handleChange} 
-                    autoComplete="phone"
-                  />
-                </Col>
+                  <label htmlFor="medium">Medium</label>
+                  <FormSelect 
+                   id="medium" 
+                   name="medium"
+                   value={this.state.medium}
+                   onChange={this.handleChange}>
+                    <option>Choose...</option>
+                    <option>English</option>
+                    <option>Tamil</option>
+                  </FormSelect>
+                 </Col>
                 {/* Password */}
                 <Col md="6" className="form-group">
-                  <label htmlFor="fePassword">Password</label>
-                  <FormInput
-                    type="password"
-                    id="fePassword"
-                    placeholder="Password"
-                    value="EX@MPL#P@$$w0RD"
-                    onChange={() => {}}
-                    autoComplete="current-password"
-                  />
-                </Col>
+                  <label htmlFor="standard">Standard</label>
+                  <FormSelect 
+                   id="standard" 
+                   name="standard"
+                   value={this.state.standard}
+                   onChange={this.handleChange}>
+                    <option>Choose...</option>
+                    <option>I</option>
+                    <option>II</option>
+                    <option>III</option>
+                    <option>IV</option>
+                    <option>V</option>
+                    <option>VI</option>
+                    <option>VII</option>
+                    <option>VIII</option>
+                    <option>IX</option>
+                    <option>X</option>
+                  </FormSelect>
+                  </Col>
               </Row>
+              <FormGroup>
+                <label htmlFor="school">School Name</label>
+                <FormInput
+                  id="school"
+                  name="school"
+                  placeholder="Enter School Name"
+                  value={this.state.school}
+                  onChange={this.handleChange} 
+                />
+              </FormGroup>
               <FormGroup>
                 <label htmlFor="feAddress">Address</label>
                 <FormInput
@@ -170,7 +204,7 @@ class AddStudent extends React.Component {
                   <FormTextarea id="feDescription" rows="5" />
                 </Col>
               </Row>
-              <Button theme="accent" onClick={this.addStudent}>Update Account</Button>
+              <Button theme="accent" onClick={this.addStudent}>Add Student</Button>
             </Form>
           </Col>
         </Row>
