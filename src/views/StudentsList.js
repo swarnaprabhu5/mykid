@@ -37,8 +37,8 @@ class StudentsList extends React.Component {
     });
   }
 
-  viewStudent = id => {
-    console.log(id);
+  viewStudent = data => {
+    console.log(data);
   };
 
   deleteStudent = (id, index) => {
@@ -119,28 +119,22 @@ class StudentsList extends React.Component {
                     </tr>
                   </thead>
                   <tbody>
-                    {this.state.students.map((listValue, index) => {
+                    {this.state.students.map((student, index) => {
                       return (
                         <tr key={index}>
                           <td>{index + 1}</td>
-                          <td>{listValue.firstName}</td>
-                          <td>{listValue.lastName}</td>
-                          <td>{listValue.medium}</td>
-                          <td>{listValue.standard}</td>
-                          <td>{listValue.school}</td>
+                          <td>{student.firstName}</td>
+                          <td>{student.lastName}</td>
+                          <td>{student.medium}</td>
+                          <td>{student.standard}</td>
+                          <td>{student.school}</td>
                           <td>
-                            <Button
-                              outline
-                              theme="accent"
-                              size="sm"
-                              onClick={this.viewStudent.bind(
-                                this,
-                                listValue.id,
-                                index
-                              )}
-                            >
-                              <i className="material-icons">visibility</i> View
-                            </Button>
+                            <NavButton
+                              sm="4"
+                              item={{ title: 'View', to: '/view-student' }}
+                              data={student}
+                              className="text-sm-right"
+                            />
                           </td>
                           <td>
                             <Button
@@ -149,7 +143,7 @@ class StudentsList extends React.Component {
                               size="sm"
                               onClick={this.deleteStudent.bind(
                                 this,
-                                listValue.id,
+                                student.id,
                                 index
                               )}
                             >

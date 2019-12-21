@@ -38,9 +38,17 @@ class AddStudent extends React.Component {
       dob: '',
       fePhone: '',
       feAddress: '',
-      feCity: ''
+      feCity: '',
+      mode: 'add'
     };
+
+    console.log(props);
     this.props = props;
+
+    if (props.location.state) {
+      this.state = props.location.state;
+      this.setState({ mode: 'view', inputDisabled: true });
+    }
   }
   handleChange = e => {
     console.log('im vol--->', e.target.value);
