@@ -39,6 +39,9 @@ class AddStudent extends React.Component {
       fePhone: '',
       feAddress: '',
       feCity: '',
+      feInputState: '',
+      feZipCode: '',
+      feDescription: '',
       mode: 'add'
     };
 
@@ -55,6 +58,19 @@ class AddStudent extends React.Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  /*addStudent = () => {
+    const db = firebase.firestore();
+    const userRef = db.collection('students');
+    userRef.add({
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      medium: this.state.medium,
+      standard: this.state.standard,
+      school: this.state.school,
+      feAddress: this.state.feAddress,
+      feCity: this.state.feCity,
+      feInputState: this.state.feInputState
+    });*/
   addStudent = () => {
     const db = firebase.firestore();
     const userRef = db.collection('students');
@@ -63,16 +79,14 @@ class AddStudent extends React.Component {
       lastName: this.state.lastName,
       medium: this.state.medium,
       standard: this.state.standard,
-      school: this.state.school
+      school: this.state.school,
+      feAddress: this.state.feAddress,
+      feCity: this.state.feCity,
+      feInputState: this.state.feInputState,
+      feZipCode: this.state.feZipCode,
+      feDescription: this.state.feDescription
     });
 
-    userRef.doc('9047578585').set({
-      firstName: this.state.firstName,
-      lastName: this.state.lastName,
-      medium: this.state.medium,
-      standard: this.state.standard,
-      school: this.state.school
-    });
     alert('Added successfully : ');
     console.log(userRef);
   };
@@ -188,22 +202,34 @@ class AddStudent extends React.Component {
                         </FormGroup>
                         <Row form>
                           {/* City */}
+                          {/* City */}
                           <Col md="6" className="form-group">
                             <label htmlFor="feCity">City</label>
-                            <FormInput
+                            <FormSelect
                               id="feCity"
                               name="feCity"
-                              placeholder="City"
-                              value={this.state.feAddress}
+                              value={this.state.feCity}
                               onChange={this.handleChange}
-                            />
+                            >
+                              <option>Choose...</option>
+                              <option>Coimbatore</option>
+                              <option>Chennai</option>
+                              <option>Bangalore</option>
+                            </FormSelect>
                           </Col>
                           {/* State */}
                           <Col md="4" className="form-group">
                             <label htmlFor="feInputState">State</label>
-                            <FormSelect id="feInputState">
+                            <FormSelect
+                              id="feInputState"
+                              name="feInputState"
+                              value={this.state.feInputState}
+                              onChange={this.handleChange}
+                            >
                               <option>Choose...</option>
-                              <option>...</option>
+                              <option>TamilNadu</option>
+                              <option>Kerala</option>
+                              <option>TamilNadu</option>
                             </FormSelect>
                           </Col>
                           {/* Zip Code */}
@@ -211,8 +237,9 @@ class AddStudent extends React.Component {
                             <label htmlFor="feZipCode">Zip</label>
                             <FormInput
                               id="feZipCode"
+                              name="feZipCode"
                               placeholder="Zip"
-                              onChange={() => {}}
+                              onChange={this.handleChange}
                             />
                           </Col>
                         </Row>
@@ -220,7 +247,12 @@ class AddStudent extends React.Component {
                           {/* Description */}
                           <Col md="12" className="form-group">
                             <label htmlFor="feDescription">Description</label>
-                            <FormTextarea id="feDescription" rows="5" />
+                            <FormTextarea
+                              id="feDescription"
+                              name="feDescription"
+                              rows="5"
+                              onChange={this.handleChange}
+                            />
                           </Col>
                         </Row>
                         <Button theme="accent" onClick={this.addStudent}>
