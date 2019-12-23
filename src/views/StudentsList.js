@@ -111,6 +111,21 @@ class StudentsList extends React.Component {
                         School
                       </th>
                       <th scope="col" className="border-0">
+                        Address
+                      </th>
+                      <th scope="col" className="border-0">
+                        City
+                      </th>
+                      <th scope="col" className="border-0">
+                        State
+                      </th>
+                      <th scope="col" className="border-0">
+                        ZipCode
+                      </th>
+                      <th scope="col" className="border-0">
+                        Description
+                      </th>
+                      <th scope="col" className="border-0">
                         View
                       </th>
                       <th scope="col" className="border-0">
@@ -128,6 +143,11 @@ class StudentsList extends React.Component {
                           <td>{student.medium}</td>
                           <td>{student.standard}</td>
                           <td>{student.school}</td>
+                          <td>{student.feAddress}</td>
+                          <td>{student.feCity}</td>
+                          <td>{student.feInputState}</td>
+                          <td>{student.feZipCode}</td>
+                          <td>{student.feDescription}</td>
                           <td>
                             <NavButton
                               sm="4"
