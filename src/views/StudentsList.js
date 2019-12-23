@@ -65,7 +65,7 @@ class StudentsList extends React.Component {
 
   render() {
     const item = {
-      title: 'Students',
+      title: 'Add Student',
       to: '/add-student'
     };
 
@@ -111,9 +111,6 @@ class StudentsList extends React.Component {
                         School
                       </th>
                       <th scope="col" className="border-0">
-                        Address
-                      </th>
-                      <th scope="col" className="border-0">
                         City
                       </th>
                       <th scope="col" className="border-0">
@@ -143,17 +140,18 @@ class StudentsList extends React.Component {
                           <td>{student.medium}</td>
                           <td>{student.standard}</td>
                           <td>{student.school}</td>
-                          <td>{student.feAddress}</td>
-                          <td>{student.feCity}</td>
-                          <td>{student.feInputState}</td>
-                          <td>{student.feZipCode}</td>
-                          <td>{student.feDescription}</td>
+                          <td>{student.city}</td>
+                          <td>{student.state}</td>
+                          <td>{student.zipcode}</td>
+                          <td>{student.description}</td>
                           <td>
                             <NavButton
-                              sm="4"
-                              item={{ title: 'View', to: '/view-student' }}
+                              item={{
+                                title: 'View',
+                                icon: 'delete',
+                                to: '/view-student'
+                              }}
                               data={student}
-                              className="text-sm-right"
                             />
                           </td>
                           <td>
