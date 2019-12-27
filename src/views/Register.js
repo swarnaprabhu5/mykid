@@ -24,7 +24,7 @@ import {
   Button
 } from 'shards-react';
 
-class Login extends React.Component {
+class Register extends React.Component {
   constructor(props) {
     super();
     this.state = {
@@ -118,16 +118,15 @@ class Login extends React.Component {
                           </Col>
                         </Row>
                         <Row form>
+                          <Col md="3" className="form-group">
+                            <Button onClick={this.handleLogin} theme="accent">
+                              Back
+                            </Button>
+                            <Col md="3"></Col>
+                          </Col>
                           <Col md="3"></Col>
                           <Col md="3" className="form-group">
                             <Button theme="accent">Register</Button>
-                          </Col>
-
-                          <Col md="3" className="form-group">
-                            <Button onClick={this.handleLogin} theme="accent">
-                              Login
-                            </Button>
-                            <Col md="3"></Col>
                           </Col>
                         </Row>
                       </Form>
@@ -142,5 +141,4 @@ class Login extends React.Component {
     );
   }
 }
-
-export default Login;
+export default Register;

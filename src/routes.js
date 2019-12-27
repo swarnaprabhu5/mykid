@@ -1,94 +1,97 @@
-import React, { useLayoutEffect } from "react";
-import { Redirect } from "react-router-dom";
+import React, { useLayoutEffect } from 'react';
+import { Redirect } from 'react-router-dom';
 
 // Layout Types
-import { DefaultLayout } from "./layouts";
-import { LoginLayout } from "./layouts";
-
+import { DefaultLayout } from './layouts';
+import { LoginLayout } from './layouts';
 
 // Route Views
 
-
-import BlogOverview from "./views/BlogOverview";
-import UserProfileLite from "./views/UserProfileLite";
-import AddNewPost from "./views/AddNewPost";
-import Errors from "./views/Errors";
-import ComponentsOverview from "./views/ComponentsOverview";
-import BlogPosts from "./views/BlogPosts";
+import BlogOverview from './views/BlogOverview';
+import UserProfileLite from './views/UserProfileLite';
+import AddNewPost from './views/AddNewPost';
+import Errors from './views/Errors';
+import ComponentsOverview from './views/ComponentsOverview';
+import BlogPosts from './views/BlogPosts';
 
 // Newly Added
-import AddStudent from "./views/AddStudent";
-import AddVolunteer from "./views/AddVolunteer";
-import AddCenter from "./views/AddCenter";
-import Login from "./views/Login";
-import StudentsList from "./views/StudentsList";
-import VolunteersList from "./views/VolunteersList";
-import CentersList from "./views/CentersList";
+import AddStudent from './views/AddStudent';
+import AddVolunteer from './views/AddVolunteer';
+import AddCenter from './views/AddCenter';
+import Login from './views/Login';
+import StudentsList from './views/StudentsList';
+import VolunteersList from './views/VolunteersList';
+import CentersList from './views/CentersList';
 
 export default [
   {
-    path: "/",
+    path: '/',
     exact: true,
     layout: LoginLayout,
     component: Login
   },
   {
-    path: "/add-center",
+    path: '/add-center',
     layout: DefaultLayout,
     component: AddCenter
   },
   {
-    path: "/add-student",
+    path: '/add-student',
     layout: DefaultLayout,
     component: AddStudent
   },
   {
-    path: "/add-volunteer",
+    path: '/view-student',
+    layout: DefaultLayout,
+    component: AddStudent
+  },
+  {
+    path: '/add-volunteer',
     layout: DefaultLayout,
     component: AddVolunteer
   },
   {
-    path: "/centers",
+    path: '/centers',
     layout: DefaultLayout,
     component: CentersList
   },
   {
-    path: "/students",
+    path: '/students',
     layout: DefaultLayout,
     component: StudentsList
   },
   {
-    path: "/volunteers",
+    path: '/volunteers',
     layout: DefaultLayout,
     component: VolunteersList
   },
   {
-    path: "/blog-overview",
+    path: '/blog-overview',
     layout: DefaultLayout,
     component: BlogOverview
   },
   {
-    path: "/user-profile-lite",
+    path: '/user-profile-lite',
     layout: DefaultLayout,
     component: UserProfileLite
   },
   {
-    path: "/add-new-post",
+    path: '/add-new-post',
     layout: DefaultLayout,
     component: AddNewPost
   },
   {
-    path: "/errors",
+    path: '/errors',
     layout: DefaultLayout,
     component: Errors
   },
   {
-    path: "/components-overview",
+    path: '/components-overview',
     layout: DefaultLayout,
     component: ComponentsOverview
   },
   {
-    path: "/blog-posts",
+    path: '/blog-posts',
     layout: DefaultLayout,
     component: BlogPosts
   }
