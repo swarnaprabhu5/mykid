@@ -7,7 +7,7 @@ import { NavLink, Button, Col } from 'shards-react';
 const NavButton = ({ item, data, className }) => {
   const classes = classNames(className);
   return (
-    <Col xs="12" sm="8" className={classes}>
+    <Col className={classes}>
       <NavLink
         tag={RouteNavLink}
         to={{
@@ -16,7 +16,9 @@ const NavButton = ({ item, data, className }) => {
         }}
       >
         <Button outline theme="accent" size="sm">
-          <i className="material-icons">account_box</i>{' '}
+          <i className="material-icons">
+            {item.icon ? item.icon : 'account_box'}
+          </i>
           {item.title && <span>{item.title}</span>}
         </Button>
       </NavLink>

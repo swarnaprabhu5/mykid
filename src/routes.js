@@ -43,9 +43,7 @@ export default [
   {
     path: '/view-student',
     layout: DefaultLayout,
-    component: AddStudent,
-    name: 'nivu',
-    state: { data: 1 }
+    component: AddStudent
   },
   {
     path: '/add-volunteer',

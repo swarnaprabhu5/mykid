@@ -1,11 +1,9 @@
 import React from 'react';
-import SidebarNavItem from '../components/layout/MainSidebar/SidebarNavItem';
 import PageTitle from '../components/common/PageTitle';
-import UserDetails from '../components/user-profile-lite/UserDetails';
-import UserAccountDetails from '../components/user-profile-lite/UserAccountDetails';
 import { runInThisContext } from 'vm';
 import PropTypes from 'prop-types';
 import NavButton from '../components/common/NavButton';
+import Loading from '../components/common/Loading';
 
 import firebase from './../firebase';
 
@@ -37,12 +35,14 @@ class AddStudent extends React.Component {
       title: '',
       dob: '',
       fePhone: '',
-      feAddress: '',
-      feCity: '',
-      feInputState: '',
-      feZipCode: '',
-      feDescription: '',
-      mode: 'add'
+      address: '',
+      city: '',
+      state: '',
+      zipcode: '',
+      description: '',
+      pageMode: 'add',
+      loading: false,
+      pageTitle: 'Add New Student'
     };
 
     console.log(props);
@@ -50,56 +50,62 @@ class AddStudent extends React.Component {
 
     if (props.location.state) {
       this.state = props.location.state;
-      this.setState({ mode: 'view', inputDisabled: true });
+      this.state.pageMode = 'view';
+      this.state.inputDisabled = true;
+      this.state.loading = false;
+      this.state.pageTitle = 'View Student';
     }
   }
   handleChange = e => {
-    console.log('im vol--->', e.target.value);
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  /*addStudent = () => {
-    const db = firebase.firestore();
-    const userRef = db.collection('students');
-    userRef.add({
-      firstName: this.state.firstName,
-      lastName: this.state.lastName,
-      medium: this.state.medium,
-      standard: this.state.standard,
-      school: this.state.school,
-      feAddress: this.state.feAddress,
-      feCity: this.state.feCity,
-      feInputState: this.state.feInputState
-    });*/
   addStudent = () => {
+    this.setState({ loading: true });
     const db = firebase.firestore();
     const userRef = db.collection('students');
-    userRef.add({
-      firstName: this.state.firstName,
-      lastName: this.state.lastName,
-      medium: this.state.medium,
-      standard: this.state.standard,
-      school: this.state.school,
-      feAddress: this.state.feAddress,
-      feCity: this.state.feCity,
-      feInputState: this.state.feInputState,
-      feZipCode: this.state.feZipCode,
-      feDescription: this.state.feDescription
-    });
-
-    alert('Added successfully : ');
-    console.log(userRef);
+    userRef
+      .add({
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
+        medium: this.state.medium,
+        standard: this.state.standard,
+        school: this.state.school,
+        address: this.state.address,
+        city: this.state.city,
+        state: this.state.state,
+        zipcode: this.state.zipcode,
+        description: this.state.description
+      })
+      .then(d => {
+        console.log(d);
+        if (d) {
+          this.setState({
+            loading: false,
+            pageMode: 'view',
+            inputDisabled: true,
+            pageTitle: 'View Student',
+            id: d.id
+          });
+        }
+      });
+    console.log('add');
   };
+
+  updateStudent = () => {
+    console.log('update');
+  };
+
   render() {
     const item = {
-      title: 'Students',
+      title: 'Students List',
       to: '/students'
     };
     return (
       <Container fluid className="main-content-container px-4">
         <Row noGutters className="page-header py-4">
           <PageTitle
-            title="Add New Student"
+            title={this.state.pageTitle}
             subtitle="Overview"
             className="ml-sm-auto mr-sm-auto"
           />
@@ -130,9 +136,8 @@ class AddStudent extends React.Component {
                             />
                           </Col>
                           {/* Father Name */}
-
                           <Col md="6" className="form-group">
-                            <label htmlFor="lastname">Last Name</label>
+                            <label htmlFor="feLastName">Last Name</label>
                             <FormInput
                               id="feLastName"
                               name="lastName"
@@ -145,9 +150,9 @@ class AddStudent extends React.Component {
                         <Row form>
                           {/* Medium */}
                           <Col md="6" className="form-group">
-                            <label htmlFor="medium">Medium</label>
+                            <label htmlFor="feMedium">Medium</label>
                             <FormSelect
-                              id="medium"
+                              id="feMedium"
                               name="medium"
                               value={this.state.medium}
                               onChange={this.handleChange}
@@ -181,6 +186,7 @@ class AddStudent extends React.Component {
                           </Col>
                         </Row>
                         <FormGroup>
+                          {/* School Name */}
                           <label htmlFor="school">School Name</label>
                           <FormInput
                             id="school"
@@ -194,21 +200,20 @@ class AddStudent extends React.Component {
                           <label htmlFor="feAddress">Address</label>
                           <FormInput
                             id="feAddress"
-                            name="feAddress"
+                            name="address"
                             placeholder="Address"
-                            value={this.state.feAddress}
+                            value={this.state.address}
                             onChange={this.handleChange}
                           />
                         </FormGroup>
                         <Row form>
                           {/* City */}
-                          {/* City */}
                           <Col md="6" className="form-group">
                             <label htmlFor="feCity">City</label>
                             <FormSelect
                               id="feCity"
-                              name="feCity"
-                              value={this.state.feCity}
+                              name="city"
+                              value={this.state.city}
                               onChange={this.handleChange}
                             >
                               <option>Choose...</option>
@@ -222,8 +227,8 @@ class AddStudent extends React.Component {
                             <label htmlFor="feInputState">State</label>
                             <FormSelect
                               id="feInputState"
-                              name="feInputState"
-                              value={this.state.feInputState}
+                              name="state"
+                              value={this.state.state}
                               onChange={this.handleChange}
                             >
                               <option>Choose...</option>
@@ -237,8 +242,8 @@ class AddStudent extends React.Component {
                             <label htmlFor="feZipCode">Zip</label>
                             <FormInput
                               id="feZipCode"
-                              name="feZipCode"
-                              placeholder="Zip"
+                              name="zipcode"
+                              placeholder="Zipcode"
                               onChange={this.handleChange}
                             />
                           </Col>
@@ -249,20 +254,31 @@ class AddStudent extends React.Component {
                             <label htmlFor="feDescription">Description</label>
                             <FormTextarea
                               id="feDescription"
-                              name="feDescription"
+                              name="description"
                               rows="5"
                               onChange={this.handleChange}
                             />
                           </Col>
                         </Row>
-                        <Button theme="accent" onClick={this.addStudent}>
-                          Add Student
-                        </Button>
+                        {this.state.pageMode === 'add' ? (
+                          <Button theme="accent" onClick={this.addStudent}>
+                            Add Student
+                          </Button>
+                        ) : (
+                          <Button theme="accent" onClick={this.updateStudent}>
+                            Update Student
+                          </Button>
+                        )}
                       </Form>
                     </Col>
                   </Row>
                 </ListGroupItem>
               </ListGroup>
+            </Card>
+          </Col>
+          <Col lg="6">
+            <Card small className="mb-4">
+              <Loading open={this.state.loading} />
             </Card>
           </Col>
         </Row>
