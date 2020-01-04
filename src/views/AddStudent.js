@@ -92,9 +92,64 @@ class AddStudent extends React.Component {
     console.log('add');
   };
 
-  updateStudent = () => {
-    console.log('update');
-  };
+  // updateStudent = () => {
+  //   this.setState({ loading: true });
+  //   const db = firebase.firestore();
+  //   const userRef = db.collection('students');
+  //   userRef
+  //     .update({
+  //       firstName: this.state.firstName,
+  //       lastName: this.state.lastName,
+  //       medium: this.state.medium,
+  //       standard: this.state.standard,
+  //       school: this.state.school,
+  //       address: this.state.address,
+  //       city: this.state.city,
+  //       state: this.state.state,
+  //       zipcode: this.state.zipcode,
+  //       description: this.state.description
+  //     })
+  // };
+  // deleteStudent = (id, index) => {
+  //   console.log(id, index);
+  //   let students = [...this.state.students];
+
+  //   console.log(students);
+  //   firebase
+  //     .firestore()
+  //     .collection('students')
+  //     .doc(id)
+  //     .delete()
+  //     .then(() => {
+  //       console.log('Document successfully deleted!');
+
+  //       students.splice(index, 1);
+
+  //       this.setState({ students: students });
+  //     })
+  //     .catch(error => {
+  //       console.error('Error removing document: ', error);
+  //     });
+  // };                                                                                                     
+
+  updateStudent = (id) => {
+    this.setState({ loading: true });
+    const db = firebase.firestore();
+    const userRef = db.collection('students');
+    userRef
+      .update({
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
+        medium: this.state.medium,
+        standard: this.state.standard,
+        school: this.state.school,
+        address: this.state.address,
+        city: this.state.city,
+        state: this.state.state,
+        zipcode: this.state.zipcode,
+        description: this.state.description
+      })
+  }
 
   render() {
     const item = {
@@ -265,10 +320,10 @@ class AddStudent extends React.Component {
                             Add Student
                           </Button>
                         ) : (
-                          <Button theme="accent" onClick={this.updateStudent}>
-                            Update Student
+                            <Button theme="accent" onClick={this.updateStudent}>
+                              Update Student
                           </Button>
-                        )}
+                          )}
                       </Form>
                     </Col>
                   </Row>

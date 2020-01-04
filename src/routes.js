@@ -61,6 +61,11 @@ export default [
     component: CentersList
   },
   {
+    path: '/view-center',
+    layout: DefaultLayout,
+    component: AddCenter
+  },
+  {
     path: '/students',
     layout: DefaultLayout,
     component: StudentsList
