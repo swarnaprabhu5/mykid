@@ -51,6 +51,11 @@ export default [
     component: AddVolunteer
   },
   {
+    path: '/view-volunteer',
+    layout: DefaultLayout,
+    component: AddVolunteer
+  },
+  {
     path: '/centers',
     layout: DefaultLayout,
     component: CentersList
