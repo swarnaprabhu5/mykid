@@ -58,3 +58,8 @@ If you aren’t satisfied with the build tool and configuration choices, you can
 ### Changelog
 
 Please check out the [CHANGELOG](CHANGELOG.md).
+
+
+## Firebase CURD
+
+https://www.djamware.com/post/5bc50ea680aca7466989441d/reactjs-firebase-tutorial-building-firestore-crud-web-application

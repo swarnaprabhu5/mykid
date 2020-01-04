@@ -32,7 +32,7 @@ class AddCenter extends React.Component {
       address: '',
       city: '',
       state: '',
-      zipCode: '',
+      zipcode: '',
       NumberofKids: '',
       pageMode: 'add',
       loading: false,
@@ -69,8 +69,8 @@ class AddCenter extends React.Component {
         address: this.state.address,
         city: this.state.city,
         state: this.state.state,
-        zipCode: this.state.zipCode,
-        NumberofKids: this.state.NumberofKids,
+        zipcode: this.state.zipcode,
+        NumberofKids: this.state.NumberofKids
       })
       .then(d => {
         console.log('addcenterrr--->', d);
@@ -85,6 +85,7 @@ class AddCenter extends React.Component {
         }
       });
   };
+
   render() {
     const item = {
       title: 'Centers List',
@@ -126,7 +127,9 @@ class AddCenter extends React.Component {
                           </Col>
                           {/* yearEstablished */}
                           <Col md="6" className="form-group">
-                            <label htmlFor="feyearEstablished">Year Established</label>
+                            <label htmlFor="feyearEstablished">
+                              Year Established
+                            </label>
                             <FormInput
                               id="feyearEstablished"
                               name="yearEstablished"
@@ -142,7 +145,9 @@ class AddCenter extends React.Component {
                   <Row form>
                     {/* contactPersonName */}
                     <Col md="6" className="form-group">
-                      <lable htmlFor="fecontactPersonName">contact PersonName</lable>
+                      <lable htmlFor="fecontactPersonName">
+                        contact PersonName
+                      </lable>
                       <FormInput
                         id="fecontactPersonName"
                         name="contactPersonName"
@@ -153,7 +158,9 @@ class AddCenter extends React.Component {
                     </Col>
                     {/* contactPersonMobile */}
                     <Col md="6" className="form-group">
-                      <lable htmlFor="fecontactPersonMobile">contact PersonMobile</lable>
+                      <lable htmlFor="fecontactPersonMobile">
+                        contact PersonMobile
+                      </lable>
                       <FormInput
                         id="fecontactPersonMobile"
                         name="contactPersonMobile"
@@ -165,7 +172,9 @@ class AddCenter extends React.Component {
                   </Row>
                   {/* centerPhoneNumber */}
                   <Col md="6" className="form-group">
-                    <lable htmlFor="fecenterPhoneNumber">center PhoneNumber</lable>
+                    <lable htmlFor="fecenterPhoneNumber">
+                      center PhoneNumber
+                    </lable>
                     <FormInput
                       id="fecenterPhoneNumber"
                       name="centerPhoneNumber"
@@ -218,9 +227,9 @@ class AddCenter extends React.Component {
                     </Col>
                     {/* Zip Code */}
                     <Col md="2" className="form-group">
-                      <label htmlFor="feZipCode">Zip Code</label>
+                      <label htmlFor="feZipcode">Zip Code</label>
                       <FormInput
-                        id="feZipCode"
+                        id="feZipcode"
                         name="zipcode"
                         placeholder="Zipcode"
                         onChange={this.handleChange}
@@ -236,18 +245,17 @@ class AddCenter extends React.Component {
                         value={this.state.NumberofKids}
                         onChange={this.handleChange}
                       />
-
                     </Col>
                   </Row>
                   {this.state.pageMode === 'add' ? (
                     <Button theme="accent" onClick={this.addCenter}>
                       Add Center
-                          </Button>
+                    </Button>
                   ) : (
-                      <Button theme="accent" onClick={this.updateStudent}>
-                        Update Center
-                          </Button>
-                    )}
+                    <Button theme="accent" onClick={this.updateStudent}>
+                      Update Center
+                    </Button>
+                  )}
                 </ListGroupItem>
               </ListGroup>
             </Card>
