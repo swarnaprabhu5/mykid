@@ -1,11 +1,11 @@
 import React from 'react';
 
 import PageTitle from '../components/common/PageTitle';
-import UserDetails from '../components/user-profile-lite/UserDetails';
-import UserAccountDetails from '../components/user-profile-lite/UserAccountDetails';
+
 import { runInThisContext } from 'vm';
 import PropTypes from 'prop-types';
 import NavButton from '../components/common/NavButton';
+import Loading from '../components/common/Loading';
 
 import firebase from './../firebase';
 
@@ -31,34 +31,67 @@ class AddVolunteers extends React.Component {
     this.state = {
       firstName: '',
       lastName: '',
-      title: '',
-      dob: '',
-      fePhone: '',
-      feAddress: '',
-      feCity: ''
+      education: '',
+      subject: '',
+      date: '',
+      email: '',
+      address: '',
+      city: '',
+      state: '',
+      zipcode: '',
+      pageMode: 'add',
+      loading: false,
+      pageTitle: 'Add New Volunteers'
     };
+    console.log(props);
     this.props = props;
+
+    if (props.location.state) {
+      this.state = props.location.state;
+      this.state.pageMode = 'view';
+      this.state.inputDisabled = true;
+      this.state.loading = false;
+      this.state.pageTitle = 'View  Volunteers';
+    }
   }
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
   addVolunteers = () => {
+    this.setState({ loading: true });
     const db = firebase.firestore();
     const userRef = db.collection('volunteers');
-    userRef.add({
-      firstName: this.state.firstName,
-      lastName: this.state.lastName
-    });
-
-    userRef.doc('9047578585').set({
-      firstName: this.state.firstName,
-      lastName: this.state.lastName
-    });
-
-    console.log(userRef);
+    userRef
+      .add({
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
+        education: this.state.education,
+        subject: this.state.subject,
+        date: this.state.date,
+        email: this.state.email,
+        address: this.state.address,
+        city: this.state.city,
+        state: this.state.state,
+        zipcode: this.state.zipcode
+      })
+      .then(d => {
+        console.log(d);
+        if (d) {
+          this.setState({
+            loading: false,
+            pageMode: 'view',
+            inputDisabled: true,
+            pageTitle: 'View Volunteers',
+            id: d.id
+          });
+        }
+      });
+    console.log('add');
   };
-
+  updateVolunteers = () => {
+    console.log('update');
+  };
   render() {
     const item = {
       title: 'Volunteers',
@@ -68,7 +101,7 @@ class AddVolunteers extends React.Component {
       <Container fluid className="main-content-container px-4">
         <Row noGutters className="page-header py-4">
           <PageTitle
-            title="Add New Voluteer"
+            title={this.state.pageTitle}
             subtitle="Overview"
             className="ml-sm-auto mr-sm-auto"
           />
@@ -110,29 +143,61 @@ class AddVolunteers extends React.Component {
                           </Col>
                         </Row>
                         <Row form>
-                          {/* Email */}
+                          {/* Student Name */}
                           <Col md="6" className="form-group">
-                            <label htmlFor="fePhone">Phone-No</label>
+                            <label htmlFor="feEducation">
+                              Highest Education
+                            </label>
                             <FormInput
-                              type=""
-                              name="fePhone"
-                              id="fePhone"
-                              placeholder="Enter 10 digits"
-                              value={this.state.fePhone}
+                              id="feEducation"
+                              name="education"
+                              placeholder="Highest Education"
+                              value={this.state.education}
                               onChange={this.handleChange}
-                              autoComplete="phone"
                             />
                           </Col>
-                          {/* Password */}
+                          {/* Father Name */}
                           <Col md="6" className="form-group">
-                            <label htmlFor="fePassword">Password</label>
+                            <label htmlFor="fesubject">Subject Handle</label>
+                            <FormSelect
+                              id="fesubject"
+                              name="subject"
+                              value={this.state.subject}
+                              onChange={this.handleChange}
+                            >
+                              <option>Choose...</option>
+                              <option>English</option>
+                              <option>Maths</option>
+                              <option>Science</option>
+                              <option>Social</option>
+                              <option>Environmental</option>
+                              <option>General Knowledge</option>
+                              <option>Fundamental Science</option>
+                              <option>Computer Science</option>
+                            </FormSelect>
+                          </Col>
+                        </Row>
+                        <Row form>
+                          {/* First Name */}
+                          <Col md="6" className="form-group">
+                            <label htmlFor="feDob">D.O.B</label>
                             <FormInput
-                              type="password"
-                              id="fePassword"
-                              placeholder="Password"
-                              value="EX@MPL#P@$$w0RD"
-                              onChange={() => {}}
-                              autoComplete="current-password"
+                              id="feDob"
+                              name="date"
+                              placeholder="D.O.B"
+                              value={this.state.date}
+                              onChange={this.handleChange}
+                            />
+                          </Col>
+                          {/* Last Name */}
+                          <Col md="6" className="form-group">
+                            <label htmlFor="feEmail">Email</label>
+                            <FormInput
+                              id="feEmail"
+                              name="email"
+                              placeholder="Email"
+                              value={this.state.email}
+                              onChange={this.handleChange}
                             />
                           </Col>
                         </Row>
@@ -140,9 +205,9 @@ class AddVolunteers extends React.Component {
                           <label htmlFor="feAddress">Address</label>
                           <FormInput
                             id="feAddress"
-                            name="feAddress"
+                            name="address"
                             placeholder="Address"
-                            value={this.state.feAddress}
+                            value={this.state.address}
                             onChange={this.handleChange}
                           />
                         </FormGroup>
@@ -150,20 +215,31 @@ class AddVolunteers extends React.Component {
                           {/* City */}
                           <Col md="6" className="form-group">
                             <label htmlFor="feCity">City</label>
-                            <FormInput
+                            <FormSelect
                               id="feCity"
-                              name="feCity"
-                              placeholder="City"
-                              value={this.state.feAddress}
+                              name="city"
+                              value={this.state.city}
                               onChange={this.handleChange}
-                            />
+                            >
+                              <option>Choose...</option>
+                              <option>Coimbatore</option>
+                              <option>Chennai</option>
+                              <option>Bangalore</option>
+                            </FormSelect>
                           </Col>
                           {/* State */}
                           <Col md="4" className="form-group">
                             <label htmlFor="feInputState">State</label>
-                            <FormSelect id="feInputState">
+                            <FormSelect
+                              id="feInputState"
+                              name="state"
+                              value={this.state.state}
+                              onChange={this.handleChange}
+                            >
                               <option>Choose...</option>
-                              <option>...</option>
+                              <option>TamilNadu</option>
+                              <option>Kerala</option>
+                              <option>TamilNadu</option>
                             </FormSelect>
                           </Col>
                           {/* Zip Code */}
@@ -171,21 +247,25 @@ class AddVolunteers extends React.Component {
                             <label htmlFor="feZipCode">Zip</label>
                             <FormInput
                               id="feZipCode"
-                              placeholder="Zip"
-                              onChange={() => {}}
+                              name="zipcode"
+                              placeholder="Zipcode"
+                              onChange={this.handleChange}
                             />
                           </Col>
                         </Row>
-                        <Row form>
-                          {/* Description */}
-                          <Col md="12" className="form-group">
-                            <label htmlFor="feDescription">Description</label>
-                            <FormTextarea id="feDescription" rows="5" />
-                          </Col>
-                        </Row>
-                        <Button theme="accent" onClick={this.addVolunteers}>
-                          Add Volunteers
-                        </Button>
+
+                        {this.state.pageMode === 'add' ? (
+                          <Button theme="accent" onClick={this.addVolunteers}>
+                            Add Volunteers
+                          </Button>
+                        ) : (
+                          <Button
+                            theme="accent"
+                            onClick={this.updateVolunteers}
+                          >
+                            Update Volunteers
+                          </Button>
+                        )}
                       </Form>
                     </Col>
                   </Row>
@@ -193,9 +273,15 @@ class AddVolunteers extends React.Component {
               </ListGroup>
             </Card>
           </Col>
+          <Col lg="6">
+            <Card small className="mb-4">
+              <Loading open={this.state.loading} />
+            </Card>
+          </Col>
         </Row>
       </Container>
     );
   }
 }
+
 export default AddVolunteers;

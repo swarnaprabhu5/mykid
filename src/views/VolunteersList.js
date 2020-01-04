@@ -1,9 +1,16 @@
 import React from 'react';
-import { Container, Row, Col, Card, CardHeader, CardBody } from 'shards-react';
+import {
+  Container,
+  Row,
+  Col,
+  Card,
+  CardHeader,
+  CardBody,
+  Button
+} from 'shards-react';
 
 import PageTitle from '../components/common/PageTitle';
 import firebase from '../firebase';
-import SidebarNavItem from '../components/layout/MainSidebar/SidebarNavItem';
 import NavButton from '../components/common/NavButton';
 
 class VolunteersList extends React.Component {
@@ -30,8 +37,8 @@ class VolunteersList extends React.Component {
     });
   }
 
-  viewVolunteers = id => {
-    console.log(id);
+  viewVolunteers = data => {
+    console.log(data);
   };
 
   deleteVolunteers = (id, index) => {
@@ -68,9 +75,10 @@ class VolunteersList extends React.Component {
 
         <Row noGutters className="page-header py-4">
           <PageTitle
-            title="Add New volunteer"
-            subtitle="Overview"
-            className="ml-sm-auto mr-sm-auto"
+            sm="4"
+            title="Add New Volunteers"
+            subtitle="List"
+            className="text-sm-left"
           />
           <NavButton sm="4" item={item} className="text-sm-right" />
         </Row>
@@ -95,45 +103,66 @@ class VolunteersList extends React.Component {
                         Last Name
                       </th>
                       <th scope="col" className="border-0">
-                        Country
+                        Highest Education
+                      </th>
+                      <th scope="col" className="border-0">
+                        Subject
+                      </th>
+                      <th scope="col" className="border-0">
+                        D.O.B
+                      </th>
+                      <th scope="col" className="border-0">
+                        Email
+                      </th>
+                      <th scope="col" className="border-0">
+                        Address
                       </th>
                       <th scope="col" className="border-0">
                         City
                       </th>
                       <th scope="col" className="border-0">
-                        Phone
+                        State
+                      </th>
+                      <th scope="col" className="border-0">
+                        zipcode
                       </th>
                     </tr>
                   </thead>
                   <tbody>
-                    {this.state.volunteers.map((listValue, index) => {
+                    {this.state.volunteers.map((volunteers, index) => {
                       return (
-                        <tr key={index}>
+                        <tr key={index + 1}>
                           <td>{index}</td>
-                          <td>{listValue.firstName}</td>
-                          <td>{listValue.lastName}</td>
-                          <td>{listValue.lastName}</td>
+                          <td>{volunteers.firstName}</td>
+                          <td>{volunteers.lastName}</td>
+                          <td>{volunteers.education}</td>
+                          <td>{volunteers.subject}</td>
+                          <td>{volunteers.date}</td>
+                          <td>{volunteers.email}</td>
+                          <td>{volunteers.address}</td>
+                          <td>{volunteers.city}</td>
+                          <td>{volunteers.state}</td>
+                          <td>{volunteers.zipcode}</td>
                           <td>
-                            <button
-                              onClick={this.viewVolunteers.bind(
-                                this,
-                                listValue.id,
-                                index
-                              )}
-                            >
-                              View
-                            </button>
+                            <NavButton
+                              item={{
+                                title: 'View',
+                                icon: 'delete',
+                                to: '/view-volunteer'
+                              }}
+                              data={volunteers}
+                            />
                           </td>
                           <td>
-                            <button
+                            <Button
                               onClick={this.deleteVolunteers.bind(
                                 this,
-                                listValue.id,
+                                volunteers.id,
                                 index
                               )}
                             >
-                              Delete
-                            </button>
+                              <i className="material-icons">delete</i> Delete
+                            </Button>
                           </td>
                         </tr>
                       );
