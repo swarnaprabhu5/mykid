@@ -109,22 +109,19 @@ class VolunteersList extends React.Component {
                         Subject
                       </th>
                       <th scope="col" className="border-0">
-                        D.O.B
-                      </th>
-                      <th scope="col" className="border-0">
                         Email
-                      </th>
-                      <th scope="col" className="border-0">
-                        Address
                       </th>
                       <th scope="col" className="border-0">
                         City
                       </th>
                       <th scope="col" className="border-0">
-                        State
+                        zipcode
                       </th>
                       <th scope="col" className="border-0">
-                        zipcode
+                        View
+                      </th>
+                      <th scope="col" className="border-0">
+                        Delete
                       </th>
                     </tr>
                   </thead>
@@ -137,11 +134,8 @@ class VolunteersList extends React.Component {
                           <td>{volunteers.lastName}</td>
                           <td>{volunteers.education}</td>
                           <td>{volunteers.subject}</td>
-                          <td>{volunteers.date}</td>
                           <td>{volunteers.email}</td>
-                          <td>{volunteers.address}</td>
                           <td>{volunteers.city}</td>
-                          <td>{volunteers.state}</td>
                           <td>{volunteers.zipcode}</td>
                           <td>
                             <NavButton
