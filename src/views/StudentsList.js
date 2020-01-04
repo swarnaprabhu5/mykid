@@ -84,15 +84,15 @@ class StudentsList extends React.Component {
 
         <Row>
           <Col>
-            <Card small className="mb-4">
+            <Card small className="mb-6">
               <CardHeader className="border-bottom">
                 <h6 className="m-0">Active Users</h6>
               </CardHeader>
-              <CardBody className="p-0 pb-3">
+              <CardBody className="p-0 pb-2">
                 <table className="table mb-0">
                   <thead className="bg-light">
                     <tr>
-                      <th scope="col" className="border-0">
+                      <th scope="col" align="center" className="border-0">
                         #
                       </th>
                       <th scope="col" className="border-0">

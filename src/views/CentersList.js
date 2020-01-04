@@ -1,30 +1,39 @@
 import React from 'react';
-import { Container, Row, Col, Card, CardHeader, CardBody } from 'shards-react';
+import {
+  Container,
+  Row,
+  Col,
+  Card,
+  CardHeader,
+  CardBody,
+  Button
+} from 'shards-react';
 
 import PageTitle from '../components/common/PageTitle';
 import firebase from '../firebase';
+import NavButton from '../components/common/NavButton';
 
 class CentersList extends React.Component {
   constructor(props) {
     super();
-    this.state = { students: [] };
+    this.state = { centers: [] };
     this.props = props;
   }
 
   componentDidMount() {
     const db = firebase.firestore();
-    const userRef = db.collection('students');
+    const userRef = db.collection('center');
 
-    let students = [];
+    let centers = [];
 
     userRef.get().then(doc => {
       doc.docs.forEach(d => {
-        let student = d.data();
-        student.id = d.id;
-        students.push(student);
+        let center = d.data();
+        center.id = d.id;
+        centers.push(center);
       });
 
-      this.setState({ students: students });
+      this.setState({ centers: centers });
     });
   }
 
@@ -32,22 +41,22 @@ class CentersList extends React.Component {
     console.log(id);
   };
 
-  deleteStudent = (id, index) => {
+  deleteCenter = (id, index) => {
     console.log(id, index);
-    let students = [...this.state.students];
+    let centers = [...this.state.centers];
 
-    console.log(students);
+    console.log(centers);
     firebase
       .firestore()
-      .collection('students')
+      .collection('center')
       .doc(id)
       .delete()
       .then(() => {
         console.log('Document successfully deleted!');
 
-        students.splice(index, 1);
+        centers.splice(index, 1);
 
-        this.setState({ students: students });
+        this.setState({ centers: centers });
       })
       .catch(error => {
         console.error('Error removing document: ', error);
@@ -55,16 +64,21 @@ class CentersList extends React.Component {
   };
 
   render() {
+    const item = {
+      title: 'Add Center',
+      to: '/add-center'
+    }
     return (
       <Container fluid className="main-content-container px-4">
         {/* Page Header */}
         <Row noGutters className="page-header py-4">
           <PageTitle
             sm="4"
-            title="Add New Post"
-            subtitle="Blog Posts"
+            title="Center List"
+            subtitle="List"
             className="text-sm-left"
           />
+          <NavButton sm="4" item={item} className="text-sm-right" />
         </Row>
 
         <Row>
@@ -81,31 +95,67 @@ class CentersList extends React.Component {
                         #
                       </th>
                       <th scope="col" className="border-0">
-                        First Name
+                        Center Name
                       </th>
                       <th scope="col" className="border-0">
-                        Last Name
+                        Year Established
                       </th>
                       <th scope="col" className="border-0">
-                        Country
+                        contact PersonName                      </th>
+                      <th scope="col" className="border-0">
+                        contact PersonMobile                      </th>
+                      <th scope="col" className="border-0">
+                        center PhoneNumber
+                      </th>
+                      <th scope="col" className="border-0">
+                        Address
                       </th>
                       <th scope="col" className="border-0">
                         City
                       </th>
                       <th scope="col" className="border-0">
-                        Phone
+                        State
+                      </th>
+                      <th scope="col" className="border-0">
+                        Zip Code
+                      </th>
+                      <th scope="col" className="border-0">
+                        No of Kids
+                      </th>
+                      <th scope="col" className="border-0">
+                        View
+                      </th>
+                      <th scope="col" className="border-0">
+                        Delete
                       </th>
                     </tr>
                   </thead>
                   <tbody>
-                    {this.state.students.map((listValue, index) => {
+                    {this.state.centers.map((center, index) => {
                       return (
                         <tr key={index}>
-                          <td>{index}</td>
-                          <td>{listValue.firstName}</td>
-                          <td>{listValue.lastName}</td>
-                          <td>{listValue.lastName}</td>
+                          <td>{index + 1}</td>
+                          <td>{center.centerName}</td>
+                          <td>{center.yearEstablished}</td>
+                          <td>{center.contactPersonName}</td>
+                          <td>{center.contactPersonMobile}</td>
+                          <td>{center.centerPhoneNumber}</td>
+                          <td>{center.address}</td>
+                          <td>{center.city}</td>
+                          <td>{center.state}</td>
+                          <td>{center.zipCode}</td>
+                          <td>{center.NumberofKids}</td>
                           <td>
+                            <NavButton
+                              item={{
+                                title: 'View',
+                                icon: 'delete',
+                                to: '/view-center'
+                              }}
+                              data={center}
+                            />
+                          </td>
+                          {/* <td>
                             <button
                               onClick={this.viewStudent.bind(
                                 this,
@@ -115,12 +165,22 @@ class CentersList extends React.Component {
                             >
                               View
                             </button>
-                          </td>
+                          </td> */}
+                          {/* <td>
+                            <NavButton
+                              item={{
+                                title: 'View',
+                                icon: 'delete',
+                                to: '/view-student'
+                              }}
+                              data={student}
+                            />
+                          </td> */}
                           <td>
                             <button
-                              onClick={this.deleteStudent.bind(
+                              onClick={this.deleteCenter.bind(
                                 this,
-                                listValue.id,
+                                center.id,
                                 index
                               )}
                             >
