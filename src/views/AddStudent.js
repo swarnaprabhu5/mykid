@@ -1,7 +1,5 @@
 import React from 'react';
 import PageTitle from '../components/common/PageTitle';
-import { runInThisContext } from 'vm';
-import PropTypes from 'prop-types';
 import NavButton from '../components/common/NavButton';
 import Loading from '../components/common/Loading';
 
@@ -27,6 +25,7 @@ class AddStudent extends React.Component {
   constructor(props) {
     super();
     this.state = {
+      id: '',
       firstName: '',
       lastName: '',
       medium: '',
@@ -42,10 +41,10 @@ class AddStudent extends React.Component {
       description: '',
       pageMode: 'add',
       loading: false,
-      pageTitle: 'Add New Student'
+      pageTitle: 'Add New Student',
+      inputDisabled: false
     };
 
-    console.log(props);
     this.props = props;
 
     if (props.location.state) {
@@ -62,8 +61,8 @@ class AddStudent extends React.Component {
 
   addStudent = () => {
     this.setState({ loading: true });
-    const db = firebase.firestore();
-    const userRef = db.collection('students');
+
+    const userRef = firebase.firestore().collection('students');
     userRef
       .add({
         firstName: this.state.firstName,
@@ -78,7 +77,6 @@ class AddStudent extends React.Component {
         description: this.state.description
       })
       .then(d => {
-        console.log(d);
         if (d) {
           this.setState({
             loading: false,
@@ -89,55 +87,18 @@ class AddStudent extends React.Component {
           });
         }
       });
-    console.log('add');
   };
 
-  // updateStudent = () => {
-  //   this.setState({ loading: true });
-  //   const db = firebase.firestore();
-  //   const userRef = db.collection('students');
-  //   userRef
-  //     .update({
-  //       firstName: this.state.firstName,
-  //       lastName: this.state.lastName,
-  //       medium: this.state.medium,
-  //       standard: this.state.standard,
-  //       school: this.state.school,
-  //       address: this.state.address,
-  //       city: this.state.city,
-  //       state: this.state.state,
-  //       zipcode: this.state.zipcode,
-  //       description: this.state.description
-  //     })
-  // };
-  // deleteStudent = (id, index) => {
-  //   console.log(id, index);
-  //   let students = [...this.state.students];
-
-  //   console.log(students);
-  //   firebase
-  //     .firestore()
-  //     .collection('students')
-  //     .doc(id)
-  //     .delete()
-  //     .then(() => {
-  //       console.log('Document successfully deleted!');
-
-  //       students.splice(index, 1);
-
-  //       this.setState({ students: students });
-  //     })
-  //     .catch(error => {
-  //       console.error('Error removing document: ', error);
-  //     });
-  // };                                                                                                     
-
-  updateStudent = (id) => {
+  updateStudent = () => {
     this.setState({ loading: true });
-    const db = firebase.firestore();
-    const userRef = db.collection('students');
-    userRef
-      .update({
+
+    const updateRef = firebase
+      .firestore()
+      .collection('students')
+      .doc(this.state.id);
+
+    updateRef
+      .set({
         firstName: this.state.firstName,
         lastName: this.state.lastName,
         medium: this.state.medium,
@@ -149,7 +110,14 @@ class AddStudent extends React.Component {
         zipcode: this.state.zipcode,
         description: this.state.description
       })
-  }
+      .then(docRef => {
+        this.setState({ loading: false });
+      })
+      .catch(error => {
+        this.setState({ loading: false });
+        console.error('Error adding document: ', error);
+      });
+  };
 
   render() {
     const item = {
@@ -188,6 +156,7 @@ class AddStudent extends React.Component {
                               placeholder="First Name"
                               value={this.state.firstName}
                               onChange={this.handleChange}
+                              disabled={this.state.inputDisabled}
                             />
                           </Col>
                           {/* Father Name */}
@@ -320,10 +289,10 @@ class AddStudent extends React.Component {
                             Add Student
                           </Button>
                         ) : (
-                            <Button theme="accent" onClick={this.updateStudent}>
-                              Update Student
+                          <Button theme="accent" onClick={this.updateStudent}>
+                            Update Student
                           </Button>
-                          )}
+                        )}
                       </Form>
                     </Col>
                   </Row>

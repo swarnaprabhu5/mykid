@@ -67,7 +67,7 @@ class CentersList extends React.Component {
     const item = {
       title: 'Add Center',
       to: '/add-center'
-    }
+    };
     return (
       <Container fluid className="main-content-container px-4">
         {/* Page Header */}
@@ -95,29 +95,19 @@ class CentersList extends React.Component {
                         #
                       </th>
                       <th scope="col" className="border-0">
-                        Center Name
+                        Name
                       </th>
                       <th scope="col" className="border-0">
-                        Year Established
+                        Phone Number
                       </th>
                       <th scope="col" className="border-0">
-                        contact PersonName                      </th>
-                      <th scope="col" className="border-0">
-                        contact PersonMobile                      </th>
-                      <th scope="col" className="border-0">
-                        center PhoneNumber
+                        Supervisor
                       </th>
                       <th scope="col" className="border-0">
-                        Address
+                        Supervisor Contact
                       </th>
                       <th scope="col" className="border-0">
                         City
-                      </th>
-                      <th scope="col" className="border-0">
-                        State
-                      </th>
-                      <th scope="col" className="border-0">
-                        Zip Code
                       </th>
                       <th scope="col" className="border-0">
                         No of Kids
@@ -136,15 +126,11 @@ class CentersList extends React.Component {
                         <tr key={index}>
                           <td>{index + 1}</td>
                           <td>{center.centerName}</td>
-                          <td>{center.yearEstablished}</td>
+                          <td>{center.NumberofKids}</td>
+                          <td>{center.centerPhoneNumber}</td>
+                          <td>{center.city}</td>
                           <td>{center.contactPersonName}</td>
                           <td>{center.contactPersonMobile}</td>
-                          <td>{center.centerPhoneNumber}</td>
-                          <td>{center.address}</td>
-                          <td>{center.city}</td>
-                          <td>{center.state}</td>
-                          <td>{center.zipCode}</td>
-                          <td>{center.NumberofKids}</td>
                           <td>
                             <NavButton
                               item={{

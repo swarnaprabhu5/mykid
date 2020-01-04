@@ -2,6 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 
+import 'react-big-calendar/lib/css/react-big-calendar.css';
+// import 'react-big-calendar/lib/addons/dragAndDrop/style.css';
+
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(<App />, document.getElementById('root'));
