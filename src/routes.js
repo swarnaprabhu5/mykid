@@ -24,6 +24,9 @@ import VolunteersList from './views/VolunteersList';
 import CentersList from './views/CentersList';
 import AcademicCalendar from './views/AcademicCalendar';
 
+import TestList from './views/TestList';
+import CreateTest from './views/CreateTest';
+
 export default [
   {
     path: '/',
@@ -80,6 +83,21 @@ export default [
     path: '/volunteers',
     layout: DefaultLayout,
     component: VolunteersList
+  },
+  {
+    path: '/create-test',
+    layout: DefaultLayout,
+    component: CreateTest
+  },
+  {
+    path: '/view-test',
+    layout: DefaultLayout,
+    component: CreateTest
+  },
+  {
+    path: '/tests',
+    layout: DefaultLayout,
+    component: TestList
   },
   {
     path: '/blog-overview',
