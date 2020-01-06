@@ -13,7 +13,7 @@ import PageTitle from '../components/common/PageTitle';
 import firebase from '../firebase';
 import NavButton from '../components/common/NavButton';
 
-class CentersList extends React.Component {
+class ClassList extends React.Component {
   constructor(props) {
     super();
     this.state = { centers: [] };
@@ -125,16 +125,12 @@ class CentersList extends React.Component {
                       return (
                         <tr key={index}>
                           <td>{index + 1}</td>
-                          <td>{center.contactPersonName}</td>
-                          <td>{center.centerPhoneNumber}</td>
                           <td>{center.centerName}</td>
-                          <td>{center.contactPersonMobile}</td>
-                          <td>{center.city}</td>
                           <td>{center.NumberofKids}</td>
-                         
-                          
-                          
-                          
+                          <td>{center.centerPhoneNumber}</td>
+                          <td>{center.city}</td>
+                          <td>{center.contactPersonName}</td>
+                          <td>{center.contactPersonMobile}</td>
                           <td>
                             <NavButton
                               item={{
@@ -166,19 +162,16 @@ class CentersList extends React.Component {
                               data={student}
                             />
                           </td> */}
-                           <td>
-                            <Button
-                              outline
-                              theme="accent"
-                              size="sm"
+                          <td>
+                            <button
                               onClick={this.deleteCenter.bind(
                                 this,
                                 center.id,
                                 index
                               )}
                             >
-                              <i className="material-icons">delete</i> Delete
-                            </Button>
+                              Delete
+                            </button>
                           </td>
                         </tr>
                       );
@@ -194,4 +187,4 @@ class CentersList extends React.Component {
   }
 }
 
-export default CentersList;
+export default ClassList;

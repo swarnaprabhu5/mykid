@@ -2,7 +2,6 @@ import React from 'react';
 import PageTitle from '../components/common/PageTitle';
 import NavButton from '../components/common/NavButton';
 import Loading from '../components/common/Loading';
-import TimeKeeper from 'react-timekeeper';
 
 import firebase from './../firebase';
 
@@ -60,20 +59,6 @@ class CreateTest extends React.Component {
     });
   };
 
-  handleSetTimeChange = value => {
-    const [time, setTime] = useState('12:34pm');
-
-    this.setState(
-      <div>
-        <Timekeeper
-          time={time}
-          onChange={newTime => setTime(newTime.formatted12)}
-        />
-        <span>Time is {time}</span>
-      </div>
-    );
-  };
-
   addTest = () => {
     this.setState({ loading: true });
 
@@ -98,6 +83,10 @@ class CreateTest extends React.Component {
         }
       });
   };
+
+  setTime = (time) => {
+    console.log(time)
+  }
 
   updateTest = () => {
     this.setState({ loading: true });
@@ -208,6 +197,8 @@ class CreateTest extends React.Component {
                               value={this.state.examTime}
                               onChange={this.handleSetTimeChange}
                             />
+                      
+   
                           </Col>
                         </Row>
                         <Row>
