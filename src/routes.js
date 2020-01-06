@@ -22,6 +22,7 @@ import Login from './views/Login';
 import StudentsList from './views/StudentsList';
 import VolunteersList from './views/VolunteersList';
 import CentersList from './views/CentersList';
+import AcademicCalendar from './views/AcademicCalendar';
 
 export default [
   {
@@ -29,6 +30,11 @@ export default [
     exact: true,
     layout: LoginLayout,
     component: Login
+  },
+  {
+    path: '/cal',
+    layout: DefaultLayout,
+    component: AcademicCalendar
   },
   {
     path: '/add-center',
@@ -59,6 +65,11 @@ export default [
     path: '/centers',
     layout: DefaultLayout,
     component: CentersList
+  },
+  {
+    path: '/view-center',
+    layout: DefaultLayout,
+    component: AddCenter
   },
   {
     path: '/students',
