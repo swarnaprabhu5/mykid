@@ -13,50 +13,52 @@ import PageTitle from '../components/common/PageTitle';
 import firebase from '../firebase';
 import NavButton from '../components/common/NavButton';
 
-class CentersList extends React.Component {
+class TestList extends React.Component {
   constructor(props) {
     super();
-    this.state = { centers: [] };
+    this.state = { tests: [] };
     this.props = props;
   }
 
   componentDidMount() {
     const db = firebase.firestore();
-    const userRef = db.collection('center');
+    const userRef = db.collection('tests');
 
-    let centers = [];
+    let tests = [];
 
     userRef.get().then(doc => {
       doc.docs.forEach(d => {
-        let center = d.data();
-        center.id = d.id;
-        centers.push(center);
+        let test = d.data();
+        test.id = d.id;
+        tests.push(test);
       });
 
-      this.setState({ centers: centers });
+      console.log(tests[1].examDate.seconds);
+
+      this.setState({ tests: tests });
     });
   }
 
-  viewStudent = id => {
-    console.log(id);
+  viewTest = data => {
+    console.log(data);
   };
 
-  deleteCenter = (id, index) => {
+  deleteTest = (id, index) => {
     console.log(id, index);
-    let centers = [...this.state.centers];
+    let tests = [...this.state.tests];
 
-    console.log(centers);
+    console.log(tests);
     firebase
       .firestore()
-      .collection('center')
+      .collection('tests')
       .doc(id)
       .delete()
       .then(() => {
         console.log('Document successfully deleted!');
 
-        centers.splice(index, 1);
+        tests.splice(index, 1);
 
-        this.setState({ centers: centers });
+        this.setState({ tests: tests });
       })
       .catch(error => {
         console.error('Error removing document: ', error);
@@ -65,16 +67,17 @@ class CentersList extends React.Component {
 
   render() {
     const item = {
-      title: 'Add Center',
-      to: '/add-center'
+      title: 'Create Test',
+      to: '/view-test'
     };
+
     return (
       <Container fluid className="main-content-container px-4">
         {/* Page Header */}
         <Row noGutters className="page-header py-4">
           <PageTitle
             sm="4"
-            title="Center List"
+            title="Test List"
             subtitle="List"
             className="text-sm-left"
           />
@@ -83,34 +86,31 @@ class CentersList extends React.Component {
 
         <Row>
           <Col>
-            <Card small className="mb-4">
+            <Card small className="mb-6">
               <CardHeader className="border-bottom">
                 <h6 className="m-0">Active Users</h6>
               </CardHeader>
-              <CardBody className="p-0 pb-3">
+              <CardBody className="p-0 pb-2">
                 <table className="table mb-0">
                   <thead className="bg-light">
                     <tr>
-                      <th scope="col" className="border-0">
+                      <th scope="col" align="center" className="border-0">
                         #
                       </th>
                       <th scope="col" className="border-0">
-                        Name
+                        Exam Name
                       </th>
                       <th scope="col" className="border-0">
-                        Phone Number
+                        Subject
                       </th>
                       <th scope="col" className="border-0">
-                        Supervisor
+                        Exam Date
                       </th>
                       <th scope="col" className="border-0">
-                        Supervisor Contact
+                        Exam Time
                       </th>
                       <th scope="col" className="border-0">
-                        City
-                      </th>
-                      <th scope="col" className="border-0">
-                        No of Kids
+                        Description
                       </th>
                       <th scope="col" className="border-0">
                         View
@@ -121,59 +121,33 @@ class CentersList extends React.Component {
                     </tr>
                   </thead>
                   <tbody>
-                    {this.state.centers.map((center, index) => {
+                    {this.state.tests.map((test, index) => {
                       return (
                         <tr key={index}>
                           <td>{index + 1}</td>
-                          <td>{center.contactPersonName}</td>
-                          <td>{center.centerPhoneNumber}</td>
-                          <td>{center.centerName}</td>
-                          <td>{center.contactPersonMobile}</td>
-                          <td>{center.city}</td>
-                          <td>{center.NumberofKids}</td>
-                         
-                          
-                          
-                          
+                          <td>{test.examName}</td>
+                          <td>{test.subject}</td>
+                          <td>{Date(test.examDate.seconds)}</td>
+                          <td>{test.examTime}</td>
+                          <td>{test.description}</td>
                           <td>
                             <NavButton
                               item={{
                                 title: 'View',
                                 icon: 'delete',
-                                to: '/view-center'
+                                to: '/view-test'
                               }}
-                              data={center}
+                              data={test}
                             />
                           </td>
-                          {/* <td>
-                            <button
-                              onClick={this.viewStudent.bind(
-                                this,
-                                listValue.id,
-                                index
-                              )}
-                            >
-                              View
-                            </button>
-                          </td> */}
-                          {/* <td>
-                            <NavButton
-                              item={{
-                                title: 'View',
-                                icon: 'delete',
-                                to: '/view-student'
-                              }}
-                              data={student}
-                            />
-                          </td> */}
-                           <td>
+                          <td>
                             <Button
                               outline
                               theme="accent"
                               size="sm"
-                              onClick={this.deleteCenter.bind(
+                              onClick={this.deleteTest.bind(
                                 this,
-                                center.id,
+                                test.id,
                                 index
                               )}
                             >
@@ -194,4 +168,4 @@ class CentersList extends React.Component {
   }
 }
 
-export default CentersList;
+export default TestList;

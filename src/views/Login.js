@@ -2,12 +2,6 @@ import React from 'react';
 import PageTitle from '../components/common/PageTitle';
 import { Redirect } from 'react-router-dom';
 
-import UserDetails from '../components/user-profile-lite/UserDetails';
-import UserAccountDetails from '../components/user-profile-lite/UserAccountDetails';
-import { runInThisContext } from 'vm';
-
-import PropTypes from 'prop-types';
-
 import {
   Container,
   Card,
@@ -17,10 +11,7 @@ import {
   Row,
   Col,
   Form,
-  FormGroup,
   FormInput,
-  FormSelect,
-  FormTextarea,
   Button
 } from 'shards-react';
 
