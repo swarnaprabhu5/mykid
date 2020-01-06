@@ -27,6 +27,11 @@ export default function() {
       to: '/volunteers'
     },
     {
+      title: 'Create Test',
+      htmlBefore: '<i class="material-icons">note_add</i>',
+      to: '/tests'
+    },
+    {
       title: 'Blog Posts',
       htmlBefore: '<i class="material-icons">vertical_split</i>',
       to: '/blog-posts'
