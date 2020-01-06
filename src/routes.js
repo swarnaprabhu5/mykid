@@ -14,18 +14,29 @@ import Errors from './views/Errors';
 import ComponentsOverview from './views/ComponentsOverview';
 import BlogPosts from './views/BlogPosts';
 
-// Newly Added
-import AddStudent from './views/AddStudent';
-import AddVolunteer from './views/AddVolunteer';
-import AddCenter from './views/AddCenter';
+// Common
 import Login from './views/Login';
-import StudentsList from './views/StudentsList';
-import VolunteersList from './views/VolunteersList';
-import CentersList from './views/CentersList';
-import AcademicCalendar from './views/AcademicCalendar';
 
+// Student
+import StudentsList from './views/StudentsList';
+import AddStudent from './views/AddStudent';
+
+// Volunteer
+import AddVolunteer from './views/AddVolunteer';
+import VolunteersList from './views/VolunteersList';
+
+// Center
+import AddCenter from './views/AddCenter';
+import CentersList from './views/CentersList';
+
+// Test
 import TestList from './views/TestList';
 import CreateTest from './views/CreateTest';
+
+// Class
+import ClassList from './views/ClassList';
+import AcademicCalendar from './views/AcademicCalendar';
+
 
 export default [
   {
@@ -35,9 +46,14 @@ export default [
     component: Login
   },
   {
-    path: '/cal',
+    path: '/schedule-class',
     layout: DefaultLayout,
     component: AcademicCalendar
+  },
+  {
+    path: '/classes',
+    layout: DefaultLayout,
+    component: ClassList
   },
   {
     path: '/add-center',

@@ -7,9 +7,14 @@ export default function() {
       htmlAfter: ''
     },
     {
-      title: 'Cal',
+      title: 'Schedule Class',
       htmlBefore: '<i class="material-icons">error</i>',
-      to: '/cal'
+      to: '/schedule-class'
+    },
+    {
+      title: 'Classes',
+      htmlBefore: '<i class="material-icons">error</i>',
+      to: '/classes'
     },
     {
       title: 'Centers',
