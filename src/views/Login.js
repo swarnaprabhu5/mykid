@@ -1,6 +1,7 @@
 import React from 'react';
 import PageTitle from '../components/common/PageTitle';
 import { Redirect } from 'react-router-dom';
+import firebase from '../firebase';
 
 import {
   Container,
@@ -29,7 +30,6 @@ class Login extends React.Component {
   }
 
   handleChange = e => {
-    console.log('im vol--->', e.target.value);
     this.setState({ [e.target.name]: e.target.value });
   };
 
@@ -37,11 +37,32 @@ class Login extends React.Component {
     console.log('username: ' + this.state.username);
     console.log('password: ' + this.state.password);
 
-    if (this.state.username && this.state.password) {
-      this.setState({ toDashboard: true });
-    } else {
-      this.setState({ error: true });
-    }
+      let userData;
+
+      let self = this;
+  
+      firebase.firestore().collection("volunteers").where("email", "==", this.state.username)
+        .get()
+        .then(function(querySnapshot) {
+          querySnapshot.forEach(function(doc) {
+            console.log(doc)
+            console.log( doc.id, "=>", doc.data());
+            userData = doc.data();
+            localStorage.setItem('userData', JSON.stringify(userData));
+            if (userData.password === self.state.password) {
+              self.setState({ toDashboard: true });
+            } else {
+              console.log("err")
+              self.setState({ error: true, errorMessage : "User Auth Failed" });
+            }
+          });
+        })
+        .catch(function(error){
+          console.log("errorr", error);
+        });
+  
+
+
   };
 
   render() {

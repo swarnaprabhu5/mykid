@@ -129,6 +129,54 @@ class AddCenter extends React.Component {
                           </Col>
                           {/* yearEstablished */}
                           <Col md="6" className="form-group">
+                    <lable htmlFor="fecenterPhoneNumber">
+                      Center Phone Number
+                    </lable>
+                    <FormInput
+                      id="fecenterPhoneNumber"
+                      name="centerPhoneNumber"
+                      placeholder="Center Phone Number"
+                      value={this.state.centerPhoneNumber}
+                      onChange={this.handleChange}
+                    />
+                  </Col>
+                          
+                        </Row>
+                      </Form>
+                    </Col>
+                  </Row>
+                  <Row form>
+                   
+                    <Col md="6" className="form-group">
+                      <lable htmlFor="fecontactPersonName">
+                        Contact Person Name
+                      </lable>
+                      <FormInput
+                        id="fecontactPersonName"
+                        name="contactPersonName"
+                        placeholder="Contact Person Name"
+                        value={this.state.contactPersonName}
+                        onChange={this.handleChange}
+                      />
+                    </Col>
+                   
+                    <Col md="6" className="form-group">
+                      <lable htmlFor="fecontactPersonMobile">
+                        Contact Person Mobile
+                      </lable>
+                      <FormInput
+                        id="fecontactPersonMobile"
+                        name="contactPersonMobile"
+                        placeholder="Contact Person Mobile"
+                        value={this.state.contactPersonMobile}
+                        onChange={this.handleChange}
+                      />
+                    </Col>
+
+
+                  </Row>
+                 <Row form>
+                 <Col md="6" className="form-group">
                             <label htmlFor="feyearEstablished">
                               Year Established
                             </label>
@@ -140,56 +188,25 @@ class AddCenter extends React.Component {
                              onChange={this.handleChange}
                             />
                           </Col>
-                        </Row>
-                      </Form>
-                    </Col>
-                  </Row>
-                  <Row form>
-                    {/* contactPersonName */}
-                    <Col md="6" className="form-group">
-                      <lable htmlFor="fecontactPersonName">
-                        contact PersonName
-                      </lable>
+
+                          <Col md="2" className="form-group">
+                      <label htmlFor="feNumberofKids">Number of Kids</label>
                       <FormInput
-                        id="fecontactPersonName"
-                        name="contactPersonName"
-                        placeholder="Contact PersonName"
-                        value={this.state.contactPersonName}
+                        id="feNumberofKids"
+                        type="number"
+                        name="NumberofKids"
+                        placeholder="NumberofKids"
+                        value={this.state.NumberofKids}
                         onChange={this.handleChange}
                       />
                     </Col>
-                    {/* contactPersonMobile */}
-                    <Col md="6" className="form-group">
-                      <lable htmlFor="fecontactPersonMobile">
-                        contact PersonMobile
-                      </lable>
-                      <FormInput
-                        id="fecontactPersonMobile"
-                        name="contactPersonMobile"
-                        placeholder="Contact PersonMobile"
-                        value={this.state.contactPersonMobile}
-                        onChange={this.handleChange}
-                      />
-                    </Col>
-                  </Row>
-                  {/* centerPhoneNumber */}
-                  <Col md="6" className="form-group">
-                    <lable htmlFor="fecenterPhoneNumber">
-                      center PhoneNumber
-                    </lable>
-                    <FormInput
-                      id="fecenterPhoneNumber"
-                      name="centerPhoneNumber"
-                      placeholder="Center PhoneNumber"
-                      value={this.state.centerPhoneNumber}
-                      onChange={this.handleChange}
-                    />
-                  </Col>
-                  {/* Address */}
+</Row>
+                  
                   <FormGroup>
                     <label htmlFor="feAddress">Address</label>
-                    <FormInput
+                    <FormTextarea
                       id="feAddress"
+                   
                       name="address"
                       placeholder="Address"
                       value={this.state.address}
@@ -237,17 +254,8 @@ class AddCenter extends React.Component {
                         onChange={this.handleChange}
                       />
                     </Col>
-                    {/* NumberofKids */}
-                    <Col md="2" className="form-group">
-                      <label htmlFor="feNumberofKids">Number of Kids</label>
-                      <FormInput
-                        id="feNumberofKids"
-                        name="NumberofKids"
-                        placeholder="NumberofKids"
-                        value={this.state.NumberofKids}
-                        onChange={this.handleChange}
-                      />
-                    </Col>
+                    
+                    
                   </Row>
                   {this.state.pageMode === 'add' ? (
                     <Button theme="accent" onClick={this.addCenter}>
@@ -260,6 +268,11 @@ class AddCenter extends React.Component {
                   )}
                 </ListGroupItem>
               </ListGroup>
+            </Card>
+          </Col>
+          <Col lg="6">
+            <Card small className="mb-4">
+              <Loading open={this.state.loading} />
             </Card>
           </Col>
         </Row>

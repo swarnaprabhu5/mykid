@@ -16,6 +16,7 @@
     "lodash.find": "^4.6.0",
     "react": "^16.6.3",
     "react-big-calendar": "^0.23.0",
+    "react-datepicker": "^2.10.1",
     "react-dom": "^16.6.3",
     "react-firestore": "^1.0.1",
     "react-ga": "^2.5.6",
@@ -24,8 +25,8 @@
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.1",
     "react-spinners": "^0.7.1",
-    "react-year-picker": "^0.3.7",
     "react-timekeeper": "^2.0.4",
+    "react-year-picker": "^0.3.7",
     "shards-react": "^1.0.0",
     "shortid": "^2.2.14"
   },

@@ -32,7 +32,7 @@ export default function() {
       to: '/volunteers'
     },
     {
-      title: 'Create Test',
+      title: 'Examination',
       htmlBefore: '<i class="material-icons">note_add</i>',
       to: '/tests'
     },
