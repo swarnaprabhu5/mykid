@@ -6,7 +6,8 @@ import {
   Card,
   CardHeader,
   CardBody,
-  Button
+  Button,
+  DatePicker
 } from 'shards-react';
 
 import PageTitle from '../components/common/PageTitle';
@@ -103,7 +104,13 @@ class VolunteersList extends React.Component {
                         Last Name
                       </th>
                       <th scope="col" className="border-0">
+                        DOB
+                      </th>
+                      <th scope="col" className="border-0">
                         Highest Education
+                      </th>
+                      <th scope="col" className="border-0">
+                        Position
                       </th>
                       <th scope="col" className="border-0">
                         Subject
@@ -117,12 +124,14 @@ class VolunteersList extends React.Component {
                       <th scope="col" className="border-0">
                         zipcode
                       </th>
+                      
                       <th scope="col" className="border-0">
                         View
                       </th>
                       <th scope="col" className="border-0">
                         Delete
                       </th>
+                      
                     </tr>
                   </thead>
                   <tbody>
@@ -132,11 +141,14 @@ class VolunteersList extends React.Component {
                           <td>{index}</td>
                           <td>{volunteers.firstName}</td>
                           <td>{volunteers.lastName}</td>
+                          <td>{Date(volunteers.dob)}</td>
                           <td>{volunteers.education}</td>
+                          <td>{volunteers.position}</td>
                           <td>{volunteers.subject}</td>
                           <td>{volunteers.email}</td>
                           <td>{volunteers.city}</td>
                           <td>{volunteers.zipcode}</td>
+                          
                           <td>
                             <NavButton
                               item={{
