@@ -56,34 +56,14 @@ export default [
     component: ClassList
   },
   {
-    path: '/add-center',
-    layout: DefaultLayout,
-    component: AddCenter
-  },
-  {
-    path: '/add-student',
-    layout: DefaultLayout,
-    component: AddStudent
-  },
-  {
-    path: '/view-student',
-    layout: DefaultLayout,
-    component: AddStudent
-  },
-  {
-    path: '/add-volunteer',
-    layout: DefaultLayout,
-    component: AddVolunteer
-  },
-  {
-    path: '/view-volunteer',
-    layout: DefaultLayout,
-    component: AddVolunteer
-  },
-  {
     path: '/centers',
     layout: DefaultLayout,
     component: CentersList
+  },
+  {
+    path: '/add-center',
+    layout: DefaultLayout,
+    component: AddCenter
   },
   {
     path: '/view-center',
@@ -96,9 +76,34 @@ export default [
     component: StudentsList
   },
   {
+    path: '/add-student',
+    layout: DefaultLayout,
+    component: AddStudent
+  },
+  {
+    path: '/view-student',
+    layout: DefaultLayout,
+    component: AddStudent
+  },
+  {
     path: '/volunteers',
     layout: DefaultLayout,
     component: VolunteersList
+  },
+  {
+    path: '/add-volunteer',
+    layout: DefaultLayout,
+    component: AddVolunteer
+  },
+  {
+    path: '/view-volunteer',
+    layout: DefaultLayout,
+    component: AddVolunteer
+  },
+  {
+    path: '/tests',
+    layout: DefaultLayout,
+    component: TestList
   },
   {
     path: '/create-test',
@@ -109,11 +114,6 @@ export default [
     path: '/view-test',
     layout: DefaultLayout,
     component: CreateTest
-  },
-  {
-    path: '/tests',
-    layout: DefaultLayout,
-    component: TestList
   },
   {
     path: '/blog-overview',
