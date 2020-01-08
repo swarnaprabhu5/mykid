@@ -6,7 +6,8 @@ import {
   Card,
   CardHeader,
   CardBody,
-  Button
+  Button,
+  DatePicker
 } from 'shards-react';
 
 import PageTitle from '../components/common/PageTitle';
@@ -111,17 +112,16 @@ class StudentsList extends React.Component {
                         School
                       </th>
                       <th scope="col" className="border-0">
-                        City
+                        DOB
                       </th>
                       <th scope="col" className="border-0">
-                        State
+                        City
                       </th>
+                      
                       <th scope="col" className="border-0">
                         ZipCode
                       </th>
-                      <th scope="col" className="border-0">
-                        Description
-                      </th>
+                      
                       <th scope="col" className="border-0">
                         View
                       </th>
@@ -140,10 +140,9 @@ class StudentsList extends React.Component {
                           <td>{student.medium}</td>
                           <td>{student.standard}</td>
                           <td>{student.school}</td>
+                          <td>{Date(student.dob)}</td>
                           <td>{student.city}</td>
-                          <td>{student.state}</td>
                           <td>{student.zipcode}</td>
-                          <td>{student.description}</td>
                           <td>
                             <NavButton
                               item={{

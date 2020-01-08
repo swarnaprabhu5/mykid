@@ -126,6 +126,9 @@ class VolunteersList extends React.Component {
                       </th>
                       
                       <th scope="col" className="border-0">
+                        Password
+                      </th>
+                      <th scope="col" className="border-0">
                         View
                       </th>
                       <th scope="col" className="border-0">
@@ -148,7 +151,7 @@ class VolunteersList extends React.Component {
                           <td>{volunteers.email}</td>
                           <td>{volunteers.city}</td>
                           <td>{volunteers.zipcode}</td>
-                          
+                          <td>{volunteers.password}</td>
                           <td>
                             <NavButton
                               item={{

@@ -6,7 +6,8 @@ import {
   Card,
   CardHeader,
   CardBody,
-  Button
+  Button,
+  DatePicker
 } from 'shards-react';
 
 import PageTitle from '../components/common/PageTitle';
@@ -33,7 +34,7 @@ class TestList extends React.Component {
         tests.push(test);
       });
 
-      console.log(tests[1].examDate.seconds);
+      //console.log(tests[1].examDate.seconds);
 
       this.setState({ tests: tests });
     });
@@ -67,7 +68,7 @@ class TestList extends React.Component {
 
   render() {
     const item = {
-      title: 'Create Test',
+      title: 'Examinations',
       to: '/view-test'
     };
 
@@ -127,7 +128,7 @@ class TestList extends React.Component {
                           <td>{index + 1}</td>
                           <td>{test.examName}</td>
                           <td>{test.subject}</td>
-                          <td>{Date(test.examDate.seconds)}</td>
+                          <td>{test.examDate}</td>
                           <td>{test.examTime}</td>
                           <td>{test.description}</td>
                           <td>

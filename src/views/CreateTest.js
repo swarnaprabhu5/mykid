@@ -3,7 +3,7 @@ import PageTitle from '../components/common/PageTitle';
 import NavButton from '../components/common/NavButton';
 import Loading from '../components/common/Loading';
 
-import firebase from './../firebase';
+import firebase from '../firebase';
 
 import {
   Container,
@@ -34,20 +34,24 @@ class CreateTest extends React.Component {
       description: '',
       pageMode: 'add',
       loading: false,
-      pageTitle: 'Create Test',
+      pageTitle: 'CreateTest',
       inputDisabled: false
     };
 
     this.props = props;
 
+    console.log(Date(props.location.state.examDate))
+
     if (props.location.state) {
       this.state = props.location.state;
+      this.state.examDate = new Date();
       this.state.pageMode = 'view';
       this.state.inputDisabled = true;
       this.state.loading = false;
       this.state.pageTitle = 'View Test';
     }
   }
+  
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
@@ -63,10 +67,15 @@ class CreateTest extends React.Component {
     this.setState({ loading: true });
 
     const userRef = firebase.firestore().collection('tests');
+    const date = this.state.examDate;
+    console.log(this.state)
+
+    const dateStr = [date.getDate(), date.getMonth(), date.getFullYear()].join("-");
+
     userRef
       .add({
         examName: this.state.examName,
-        examDate: this.state.examDate,
+        examDate: dateStr,
         examTime: this.state.examTime,
         subject: this.state.subject,
         description: this.state.description
@@ -84,9 +93,9 @@ class CreateTest extends React.Component {
       });
   };
 
-  setTime = (time) => {
-    console.log(time)
-  }
+  setTime = time => {
+    console.log(time);
+  };
 
   updateTest = () => {
     this.setState({ loading: true });
@@ -130,7 +139,7 @@ class CreateTest extends React.Component {
         </Row>
 
         <Row>
-          <Col lg="6">
+          <Col lg="4">
             <Card small className="mb-4">
               <CardHeader className="border-bottom">
                 <h6 className="m-0">{this.state.title}</h6>
@@ -141,7 +150,7 @@ class CreateTest extends React.Component {
                     <Col>
                       <Form>
                         <Row form>
-                          <Col md="6" className="form-group">
+                          <Col md="5" className="form-group">
                             <label htmlFor="examName">Exam Name</label>
                             <FormInput
                               id="examName"
@@ -151,7 +160,7 @@ class CreateTest extends React.Component {
                               onChange={this.handleChange}
                             />
                           </Col>
-                          <Col md="6" className="form-group">
+                          <Col md="5" className="form-group">
                             <label htmlFor="fesubject">Subject</label>
                             <FormSelect
                               id="fesubject"
@@ -174,7 +183,7 @@ class CreateTest extends React.Component {
                           </Col>
                         </Row>
                         <Row form>
-                          <Col md="2" className="form-group">
+                          <Col md="5" className="form-group">
                             <label htmlFor="feDate">Date</label>
                             <br />
                             <DatePicker
@@ -188,26 +197,24 @@ class CreateTest extends React.Component {
                               className="text-center"
                             />
                           </Col>
-                          <Col md="2" className="form-group">
+                          <Col md="5" className="form-group">
                             <label htmlFor="feExamTime">Time</label>
                             <FormInput
                               id="feExamTime"
                               name="examTime"
                               placeholder="Time"
                               value={this.state.examTime}
-                              onChange={this.handleSetTimeChange}
+                              onChange={this.handleChange}
                             />
-                      
-   
                           </Col>
                         </Row>
                         <Row>
-                          <Col md="12" className="form-group">
+                          <Col md="10" className="form-group">
                             <label htmlFor="feDescription">Description</label>
                             <FormTextarea
                               id="feDescription"
                               name="description"
-                              rows="5"
+                              rows="3"
                               onChange={this.handleChange}
                             />
                           </Col>
@@ -238,4 +245,5 @@ class CreateTest extends React.Component {
     );
   }
 }
+
 export default CreateTest;

@@ -14,14 +14,22 @@ export default class UserActions extends React.Component {
   constructor(props) {
     super(props);
 
+    
+
     this.state = {
-      visible: false
+      visible: false,
+      firstName :  ""
     };
 
-    this.toggleUserActions = this.toggleUserActions.bind(this);
   }
 
-  toggleUserActions() {
+  componentDidMount(){
+    const userData = JSON.parse(localStorage.getItem('userData'));
+
+    this.setState({firstName : userData.firstName});
+  }
+
+  toggleUserActions = () => {
     this.setState({
       visible: !this.state.visible
     });
@@ -36,7 +44,7 @@ export default class UserActions extends React.Component {
             src={require("./../../../../images/avatars/0.jpg")}
             alt="User Avatar"
           />{" "}
-          <span className="d-none d-md-inline-block">Sierra Brooks</span>
+          <span className="d-none d-md-inline-block">{this.state.firstName}</span>
         </DropdownToggle>
         <Collapse tag={DropdownMenu} right small open={this.state.visible}>
           <DropdownItem tag={Link} to="user-profile-lite">
