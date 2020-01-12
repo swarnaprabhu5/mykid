@@ -6,7 +6,8 @@ import {
   Card,
   CardHeader,
   CardBody,
-  Button
+  Button,
+  DatePicker
 } from 'shards-react';
 
 import PageTitle from '../components/common/PageTitle';
@@ -95,22 +96,28 @@ class CentersList extends React.Component {
                         #
                       </th>
                       <th scope="col" className="border-0">
-                        Name
+                        CenterName
                       </th>
                       <th scope="col" className="border-0">
-                        Phone Number
+                        Center PhoneNumber
                       </th>
                       <th scope="col" className="border-0">
-                        Supervisor
+                        Contact Person
                       </th>
                       <th scope="col" className="border-0">
-                        Supervisor Contact
+                      Contact PersonNumber
+                      </th>
+                      <th scope="col" className="border-0">
+                        Year Established
+                      </th>
+                      <th scope="col" className="border-0">
+                        Number of Kids
+                      </th>
+                      <th scope="col" className="border-0">
+                        Address
                       </th>
                       <th scope="col" className="border-0">
                         City
-                      </th>
-                      <th scope="col" className="border-0">
-                        No of Kids
                       </th>
                       <th scope="col" className="border-0">
                         View
@@ -125,12 +132,14 @@ class CentersList extends React.Component {
                       return (
                         <tr key={index}>
                           <td>{index + 1}</td>
-                          <td>{center.contactPersonName}</td>
-                          <td>{center.centerPhoneNumber}</td>
                           <td>{center.centerName}</td>
+                          <td>{center.centerPhoneNumber}</td>
+                          <td>{center.contactPersonName}</td>
                           <td>{center.contactPersonMobile}</td>
-                          <td>{center.city}</td>
+                          <td>{center.yearEstablished}</td>
                           <td>{center.NumberofKids}</td>
+                          <td>{center.address}</td>
+                          <td>{center.city}</td>
                          
                           
                           

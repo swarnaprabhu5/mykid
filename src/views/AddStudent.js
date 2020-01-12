@@ -18,7 +18,8 @@ import {
   FormInput,
   FormSelect,
   FormTextarea,
-  Button
+  Button,
+  DatePicker
 } from 'shards-react';
 
 class AddStudent extends React.Component {
@@ -31,6 +32,7 @@ class AddStudent extends React.Component {
       medium: '',
       standard: '',
       school: '',
+      dob:'',
       title: '',
       dob: '',
       fePhone: '',
@@ -58,6 +60,12 @@ class AddStudent extends React.Component {
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
+  handleStartDobChange = value => {
+    this.setState({
+      ...this.state,
+      ...{ dob: new Date(value) }
+    });
+  };
 
   addStudent = () => {
     this.setState({ loading: true });
@@ -70,6 +78,7 @@ class AddStudent extends React.Component {
         medium: this.state.medium,
         standard: this.state.standard,
         school: this.state.school,
+        dob:this.state.dob,
         address: this.state.address,
         city: this.state.city,
         state: this.state.state,
@@ -104,6 +113,7 @@ class AddStudent extends React.Component {
         medium: this.state.medium,
         standard: this.state.standard,
         school: this.state.school,
+        dob:this.state.dob,
         address: this.state.address,
         city: this.state.city,
         state: this.state.state,
@@ -159,7 +169,7 @@ class AddStudent extends React.Component {
                               disabled={this.state.inputDisabled}
                             />
                           </Col>
-                          {/* Father Name */}
+                          {/* Last Name */}
                           <Col md="6" className="form-group">
                             <label htmlFor="feLastName">Last Name</label>
                             <FormInput
@@ -186,7 +196,7 @@ class AddStudent extends React.Component {
                               <option>Tamil</option>
                             </FormSelect>
                           </Col>
-                          {/* Password */}
+                          {/* standard */}
                           <Col md="6" className="form-group">
                             <label htmlFor="standard">Standard</label>
                             <FormSelect
@@ -209,8 +219,25 @@ class AddStudent extends React.Component {
                             </FormSelect>
                           </Col>
                         </Row>
-                        <FormGroup>
+                        <Row form>
+                          
+                          {/* DOB */}
+                          <Col md="6" className="form-group">
+                            <label htmlFor="feDob">DOB</label>
+                            <br />
+                            <DatePicker
+                              id="feDob"
+                              name="dob"
+                              size="md"
+                              selected={this.state.dob}
+                              onChange={this.handleStartDobChange}
+                              placeholderText="DOB"
+                              dropdownMode="select"
+                              className="text-center"
+                            /> 
+                          </Col>
                           {/* School Name */}
+                          <Col md="6" className="form-group">
                           <label htmlFor="school">School Name</label>
                           <FormInput
                             id="school"
@@ -219,10 +246,11 @@ class AddStudent extends React.Component {
                             value={this.state.school}
                             onChange={this.handleChange}
                           />
-                        </FormGroup>
+                          </Col>
+                        </Row>
                         <FormGroup>
                           <label htmlFor="feAddress">Address</label>
-                          <FormInput
+                          <FormTextarea
                             id="feAddress"
                             name="address"
                             placeholder="Address"
