@@ -6,8 +6,7 @@ import {
   Card,
   CardHeader,
   CardBody,
-  Button,
-  DatePicker
+  Button
 } from 'shards-react';
 
 import PageTitle from '../components/common/PageTitle';
@@ -37,10 +36,6 @@ class CentersList extends React.Component {
       this.setState({ centers: centers });
     });
   }
-
-  viewStudent = id => {
-    console.log(id);
-  };
 
   deleteCenter = (id, index) => {
     console.log(id, index);
@@ -154,27 +149,6 @@ class CentersList extends React.Component {
                               data={center}
                             />
                           </td>
-                          {/* <td>
-                            <button
-                              onClick={this.viewStudent.bind(
-                                this,
-                                listValue.id,
-                                index
-                              )}
-                            >
-                              View
-                            </button>
-                          </td> */}
-                          {/* <td>
-                            <NavButton
-                              item={{
-                                title: 'View',
-                                icon: 'delete',
-                                to: '/view-student'
-                              }}
-                              data={student}
-                            />
-                          </td> */}
                            <td>
                             <Button
                               outline

@@ -34,8 +34,6 @@ class AddStudent extends React.Component {
       school: '',
       dob:'',
       title: '',
-      dob: '',
-      fePhone: '',
       address: '',
       city: '',
       state: '',

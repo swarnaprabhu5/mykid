@@ -6,8 +6,7 @@ import {
   Card,
   CardHeader,
   CardBody,
-  Button,
-  DatePicker
+  Button
 } from 'shards-react';
 
 import PageTitle from '../components/common/PageTitle';
@@ -37,10 +36,6 @@ class StudentsList extends React.Component {
       this.setState({ students: students });
     });
   }
-
-  viewStudent = data => {
-    console.log(data);
-  };
 
   deleteStudent = (id, index) => {
     console.log(id, index);

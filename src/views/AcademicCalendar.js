@@ -34,8 +34,6 @@ const styles = {
   transform: 'translate(-40%, -10%)'
 };
 
-
-
 class AcademicCalendar extends React.Component {
   constructor(props) {
     super();
@@ -50,8 +48,6 @@ class AcademicCalendar extends React.Component {
       doc.docs.forEach(d => {
         let event = d.data();
         event.id = d.id;
-        // event.start = new Date(2020, 1, 1, 10, 33, 30, 0);
-        // event.end = new Date(2020, 1, 1, 10, 33, 30, 0);
         event.start = new Date(event.start);
         event.end = new Date(event.end);
         events.push(event);
@@ -63,28 +59,23 @@ class AcademicCalendar extends React.Component {
 
   addEvent = () => {
     const event = {};
-
-    // const start = this.state.start;
-    // const startStr = [start.getDate(), start.getMonth(), start.getFullYear()].join("-");
-    // const end = this.state.end;
-    // const endStr = [end.getDate(), end.getMonth(), end.getFullYear()].join("-");
-
+    
     const startStr = this.state.start.toISOString();
     const endStr = this.state.end.toISOString();
-
 
     event.start = startStr;
     event.end = endStr;
     event.title = this.state.title;
     event.desc = this.state.desc;
 
-    console.log(event);
-
     const db = firebase.firestore();
     const userRef = db.collection('timetable');
-    userRef.add(event).then(d => {
-      console.log('printD---->',d);
-      if (d) {
+    userRef.add(event).then(resp => {
+      if (resp) {
+        console.log('resp',resp);
+        event.start = this.state.start;
+        event.end = this.state.end;
+        console.log(event);
         this.setState({
           events: [...this.state.events, event],
           start: "", end:"", title:"", desc:"" 
@@ -92,19 +83,19 @@ class AcademicCalendar extends React.Component {
       }
       this.onCloseModal();
     }).catch(e => {
-      console.log('printD---->',e);
+      console.log('error',e);
       this.onCloseModal();
 
     });
   };
 
   handleSelect = ({ start, end }) => {
+    console.log(start, end);
     this.setState({start: start, end: end});
     this.onOpenModal();
   };
 
   onOpenModal = () => {
-    console.log('open');
     this.setState({ open: true });
   };
 
