@@ -20,10 +20,10 @@ class ClassList extends React.Component {
     this.props = props;
   }
 
-   parseISOString = (s) => {
-  var b = s.split(/\D+/);
-  return new Date(Date.UTC(b[0], --b[1], b[2], b[3], b[4], b[5], b[6]));
-}
+  parseISOString = s => {
+    var b = s.split(/\D+/);
+    return new Date(Date.UTC(b[0], --b[1], b[2], b[3], b[4], b[5], b[6]));
+  };
 
   componentDidMount() {
     const db = firebase.firestore();
@@ -65,7 +65,6 @@ class ClassList extends React.Component {
   };
 
   render() {
-
     return (
       <Container fluid className="main-content-container px-4">
         {/* Page Header */}
@@ -118,9 +117,9 @@ class ClassList extends React.Component {
                           <td>{index + 1}</td>
                           <td>{cla.title}</td>
                           <td>{cla.desc}</td>
-                          <td>{cla.start + ""}</td>
-                          <td>{cla.end + ""}</td>
-                      
+                          <td>{cla.start + ''}</td>
+                          <td>{cla.end + ''}</td>
+
                           <td>
                             <NavButton
                               item={{

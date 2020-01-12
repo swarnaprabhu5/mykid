@@ -33,12 +33,9 @@ class TestList extends React.Component {
         tests.push(test);
       });
 
-      //console.log(tests[1].examDate.seconds);
-
       this.setState({ tests: tests });
     });
   }
-
 
   deleteTest = (id, index) => {
     console.log(id, index);

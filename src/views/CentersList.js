@@ -100,7 +100,7 @@ class CentersList extends React.Component {
                         Contact Person
                       </th>
                       <th scope="col" className="border-0">
-                      Contact PersonNumber
+                        Contact PersonNumber
                       </th>
                       <th scope="col" className="border-0">
                         Year Established
@@ -135,10 +135,7 @@ class CentersList extends React.Component {
                           <td>{center.NumberofKids}</td>
                           <td>{center.address}</td>
                           <td>{center.city}</td>
-                         
-                          
-                          
-                          
+
                           <td>
                             <NavButton
                               item={{
@@ -149,7 +146,7 @@ class CentersList extends React.Component {
                               data={center}
                             />
                           </td>
-                           <td>
+                          <td>
                             <Button
                               outline
                               theme="accent"

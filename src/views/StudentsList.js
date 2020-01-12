@@ -112,11 +112,11 @@ class StudentsList extends React.Component {
                       <th scope="col" className="border-0">
                         City
                       </th>
-                      
+
                       <th scope="col" className="border-0">
                         ZipCode
                       </th>
-                      
+
                       <th scope="col" className="border-0">
                         View
                       </th>
