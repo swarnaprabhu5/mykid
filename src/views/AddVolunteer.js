@@ -45,7 +45,10 @@ class AddVolunteers extends React.Component {
       pageMode: 'add',
       loading: false,
       pageTitle: 'Add New Volunteers',
-      role: 'MENTOR'
+      role: 'MENTOR',
+      centers: [{ id: 0, centerName: 'None' }],
+      centerName: '',
+      centerId: ''
     };
     this.props = props;
 
@@ -57,8 +60,33 @@ class AddVolunteers extends React.Component {
       this.state.inputDisabled = true;
       this.state.loading = false;
       this.state.pageTitle = 'View  Volunteers';
+      this.state.centers = [{ id: 0, centerName: 'None' }];
     }
   }
+
+  componentDidMount() {
+    const dbRef = firebase.firestore().collection('center');
+
+    let centers = [{ id: 0, centerName: 'None' }];
+
+    dbRef.get().then(doc => {
+      doc.docs.forEach(d => {
+        let center = d.data();
+        center.id = d.id;
+        centers.push(center);
+      });
+
+      this.setState({ centers: centers });
+    });
+  }
+
+  handleChangeCenter = e => {
+    const centerSelected = this.state.centers[e.target.value];
+    this.setState({
+      centerName: centerSelected.centerName,
+      centerId: centerSelected.id
+    });
+  };
 
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
@@ -88,7 +116,9 @@ class AddVolunteers extends React.Component {
         mobileNumber: this.state.mobileNumber,
         password: this.state.password,
         zipcode: this.state.zipcode,
-        dob: moment(this.state.dob).format('L')
+        dob: moment(this.state.dob).format('L'),
+        centerName: this.state.centerName,
+        centerId: this.state.centerId
       })
       .then(d => {
         console.log(d);
@@ -214,7 +244,38 @@ class AddVolunteers extends React.Component {
                         </Row>
 
                         <Row form>
-                          <Col md="6" className="form-group">
+                          <Col md="4" className="form-group">
+                            <label htmlFor="feCenter">Center</label>
+                            <FormSelect
+                              id="feCenter"
+                              name="center"
+                              value={this.state.centerName}
+                              onChange={this.handleChangeCenter}
+                            >
+                              {this.state.centers.map((value, index) => {
+                                return (
+                                  <option key={index} value={index}>
+                                    {value.centerName}
+                                  </option>
+                                );
+                              })}
+                            </FormSelect>
+                          </Col>
+                          <Col md="4" className="form-group">
+                            <label htmlFor="fePosition">Position</label>
+                            <FormSelect
+                              id="fePosition"
+                              name="position"
+                              value={this.state.position}
+                              onChange={this.handleChange}
+                            >
+                              <option>None</option>
+                              <option>Leader</option>
+                              <option>Manager</option>
+                              <option>Technical Fellow</option>
+                            </FormSelect>
+                          </Col>
+                          <Col md="4" className="form-group">
                             <label htmlFor="fesubject">Subject Handle</label>
                             <FormSelect
                               id="fesubject"
@@ -222,7 +283,7 @@ class AddVolunteers extends React.Component {
                               value={this.state.subject}
                               onChange={this.handleChange}
                             >
-                              <option>Choose...</option>
+                              <option>None</option>
                               <option>English</option>
                               <option>Maths</option>
                               <option>Science</option>
@@ -231,21 +292,6 @@ class AddVolunteers extends React.Component {
                               <option>General Knowledge</option>
                               <option>Fundamental Science</option>
                               <option>Computer Science</option>
-                            </FormSelect>
-                          </Col>
-
-                          <Col md="6" className="form-group">
-                            <label htmlFor="fePosition">Position</label>
-                            <FormSelect
-                              id="fePosition"
-                              name="position"
-                              value={this.state.position}
-                              onChange={this.handleChange}
-                            >
-                              <option>Choose...</option>
-                              <option>Leader</option>
-                              <option>Manager</option>
-                              <option>Technical Fellow</option>
                             </FormSelect>
                           </Col>
                         </Row>
