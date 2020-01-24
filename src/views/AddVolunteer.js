@@ -458,6 +458,23 @@ class AddVolunteers extends React.Component {
                             })}
                           </FormSelect>
                         </Col>
+                        <Col md="6" className="form-group">
+                            <label htmlFor="feFirstName">First Name</label>
+                            <FormInput
+                              id="feFirstName"
+                              name="firstName"
+                              placeholder="First Name"
+                              value={this.state.firstName}
+                              onChange={this.handleChange}
+                            />
+                            {this.state.allMentees.map((student, index) => {
+                              return (
+                                <option key={index} student={index}>
+                                  {student.firstName}
+                                </option>
+                              );
+                            })}
+                          </Col>
                       </Row>
                     </Col>
                   </Row>
