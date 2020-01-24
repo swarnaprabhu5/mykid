@@ -156,7 +156,9 @@ class AddVolunteers extends React.Component {
         mobileNumber: this.state.mobileNumber,
         password: this.state.password,
         zipcode: this.state.zipcode,
-        dob: moment(this.state.dob).format('L')
+        dob: moment(this.state.dob).format('L'),
+        centerName: this.state.centerName,
+        centerId: this.state.centerId
       })
       .then(docRef => {
         this.setState({ loading: false });
@@ -249,7 +251,9 @@ class AddVolunteers extends React.Component {
                             <FormSelect
                               id="feCenter"
                               name="center"
-                              value={this.state.centerName}
+                              value={this.state.centers
+                                .map(c => c.id)
+                                .indexOf(this.state.centerId)}
                               onChange={this.handleChangeCenter}
                             >
                               {this.state.centers.map((value, index) => {
@@ -409,9 +413,42 @@ class AddVolunteers extends React.Component {
           </Col>
           <Col lg="6">
             <Card small className="mb-4">
-              <Loading open={this.state.loading} />
+              <CardHeader className="border-bottom">
+                <h6 className="m-0">{this.state.title}</h6>
+              </CardHeader>
+              <ListGroup flush>
+                <ListGroupItem className="p-3">
+                  <Row>
+                    <Col>
+                      <Row form>
+                        <Col md="4" className="form-group">
+                          <label htmlFor="feCenter">Center</label>
+                          <FormSelect
+                            id="feCenter"
+                            name="center"
+                            value={this.state.centerName}
+                            onChange={this.handleChangeCenter}
+                          >
+                            {this.state.centers.map((value, index) => {
+                              return (
+                                <option key={index} value={index}>
+                                  {value.centerName}
+                                </option>
+                              );
+                            })}
+                          </FormSelect>
+                        </Col>
+                      </Row>
+                    </Col>
+                  </Row>
+                </ListGroupItem>
+              </ListGroup>
             </Card>
           </Col>
+
+          <Card small className="mb-4">
+            <Loading open={this.state.loading} />
+          </Card>
         </Row>
       </Container>
     );
