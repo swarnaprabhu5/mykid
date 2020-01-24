@@ -48,7 +48,9 @@ class AddVolunteers extends React.Component {
       role: 'MENTOR',
       centers: [{ id: 0, centerName: 'None' }],
       centerName: '',
-      centerId: ''
+      centerId: '',
+      allMentees: [],
+      myMentees: []
     };
     this.props = props;
 
@@ -61,11 +63,29 @@ class AddVolunteers extends React.Component {
       this.state.loading = false;
       this.state.pageTitle = 'View  Volunteers';
       this.state.centers = [{ id: 0, centerName: 'None' }];
+      this.state.allMentees = [];
+      this.state.myMentees = [];
     }
   }
 
   componentDidMount() {
+    let allMentees = [];
     const dbRef = firebase.firestore().collection('center');
+    firebase
+      .firestore()
+      .collection('students')
+      .where('centerId', '==', this.state.centerId)
+      .get()
+      .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+          const student = doc.data();
+          student.id = doc.id;
+          allMentees.push(student);
+        });
+      })
+      .catch(function(error) {
+        console.log('errorr', error);
+      });
 
     let centers = [{ id: 0, centerName: 'None' }];
 
@@ -76,7 +96,7 @@ class AddVolunteers extends React.Component {
         centers.push(center);
       });
 
-      this.setState({ centers: centers });
+      this.setState({ centers: centers, allMentees: allMentees });
     });
   }
 
