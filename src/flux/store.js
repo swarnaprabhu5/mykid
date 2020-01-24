@@ -1,17 +1,20 @@
-import { EventEmitter } from "events";
+import { EventEmitter } from 'events';
 
-import Dispatcher from "./dispatcher";
-import Constants from "./constants";
-import getSidebarNavItems from "../data/sidebar-nav-items";
+import Dispatcher from './dispatcher';
+import Constants from './constants';
+import getSidebarNavItems from '../data/sidebar-nav-items';
+import getAdminSidebarNavItems from '../data/admin-sidebar-nav-items';
 
 let _store = {
   menuVisible: false,
-  navItems: getSidebarNavItems()
+  navItems: getSidebarNavItems(),
+  adminNavItems: getAdminSidebarNavItems()
 };
 
 class Store extends EventEmitter {
   constructor() {
     super();
+    this.state = { userData: JSON.parse(localStorage.getItem('userData')) };
 
     this.registerToActions = this.registerToActions.bind(this);
     this.toggleSidebar = this.toggleSidebar.bind(this);
@@ -38,7 +41,11 @@ class Store extends EventEmitter {
   }
 
   getSidebarItems() {
-    return _store.navItems;
+    if (this.state.userData.position == 'VOLUNTEER') {
+      return _store.navItems;
+    } else {
+      return _store.adminNavItems;
+    }
   }
 
   addChangeListener(callback) {

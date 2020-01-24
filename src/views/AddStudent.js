@@ -44,11 +44,13 @@ class AddStudent extends React.Component {
       loading: false,
       pageTitle: 'Add New Student',
       inputDisabled: false,
-      role: 'MENTEE'
+      role: 'MENTEE',
+      centers: [{ id: 0, centerName: 'None' }],
+      centerName: '',
+      centerId: ''
     };
 
     this.props = props;
-    console.log('o');
 
     if (props.location.state) {
       const state = props.location.state;
@@ -58,8 +60,33 @@ class AddStudent extends React.Component {
       this.state.inputDisabled = true;
       this.state.loading = false;
       this.state.pageTitle = 'View Student';
+      this.state.centers = [{ id: 0, centerName: 'None' }];
     }
   }
+  componentDidMount() {
+    const dbRef = firebase.firestore().collection('center');
+
+    let centers = [{ id: 0, centerName: 'None' }];
+
+    dbRef.get().then(doc => {
+      doc.docs.forEach(d => {
+        let center = d.data();
+        center.id = d.id;
+        centers.push(center);
+      });
+
+      this.setState({ centers: centers });
+    });
+  }
+
+  handleChangeCenter = e => {
+    const centerSelected = this.state.centers[e.target.value];
+    this.setState({
+      centerName: centerSelected.centerName,
+      centerId: centerSelected.id
+    });
+  };
+
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
@@ -86,7 +113,9 @@ class AddStudent extends React.Component {
         state: this.state.state,
         zipcode: this.state.zipcode,
         description: this.state.description,
-        dob: moment(this.state.dob).format('L')
+        dob: moment(this.state.dob).format('L'),
+        centerName: this.state.centerName,
+        centerId: this.state.centerId
       })
       .then(d => {
         if (d) {
@@ -121,7 +150,9 @@ class AddStudent extends React.Component {
         state: this.state.state,
         zipcode: this.state.zipcode,
         description: this.state.description,
-        dob: moment(this.state.dob).format('L')
+        dob: moment(this.state.dob).format('L'),
+        centerName: this.state.centerName,
+        centerId: this.state.centerId
       })
       .then(docRef => {
         this.setState({ loading: false });
@@ -224,7 +255,7 @@ class AddStudent extends React.Component {
                         </Row>
 
                         <Row form>
-                          <Col md="6" className="form-group">
+                          <Col md="2" className="form-group">
                             <label htmlFor="feDob">DOB</label>
                             <br />
                             <DatePicker
@@ -237,6 +268,25 @@ class AddStudent extends React.Component {
                               dropdownMode="select"
                               className="text-center"
                             />
+                          </Col>
+                          <Col md="4" className="form-group">
+                            <label htmlFor="feCenter">Center</label>
+                            <FormSelect
+                              id="feCenter"
+                              name="center"
+                              value={this.state.centers
+                                .map(c => c.id)
+                                .indexOf(this.state.centerId)}
+                              onChange={this.handleChangeCenter}
+                            >
+                              {this.state.centers.map((value, index) => {
+                                return (
+                                  <option key={index} value={index}>
+                                    {value.centerName}
+                                  </option>
+                                );
+                              })}
+                            </FormSelect>
                           </Col>
                           <Col md="6" className="form-group">
                             <label htmlFor="school">School Name</label>
@@ -328,9 +378,41 @@ class AddStudent extends React.Component {
           </Col>
           <Col lg="6">
             <Card small className="mb-4">
-              <Loading open={this.state.loading} />
+              <CardHeader className="border-bottom">
+                <h6 className="m-0">{this.state.title}</h6>
+              </CardHeader>
+              <ListGroup flush>
+                <ListGroupItem className="p-3">
+                  <Row>
+                    <Col>
+                      <Row form>
+                        <Col md="4" className="form-group">
+                          <label htmlFor="feCenter">Center</label>
+                          <FormSelect
+                            id="feCenter"
+                            name="center"
+                            value={this.state.centerName}
+                            onChange={this.handleChangeCenter}
+                          >
+                            {this.state.centers.map((value, index) => {
+                              return (
+                                <option key={index} value={index}>
+                                  {value.centerName}
+                                </option>
+                              );
+                            })}
+                          </FormSelect>
+                        </Col>
+                      </Row>
+                    </Col>
+                  </Row>
+                </ListGroupItem>
+              </ListGroup>
             </Card>
           </Col>
+          <Card small className="mb-4">
+            <Loading open={this.state.loading} />
+          </Card>
         </Row>
       </Container>
     );
