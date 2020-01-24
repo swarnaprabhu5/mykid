@@ -21,8 +21,7 @@ class VolunteersList extends React.Component {
   }
 
   componentDidMount() {
-    const db = firebase.firestore();
-    const userRef = db.collection('volunteers');
+    const userRef = firebase.firestore().collection('volunteers');
 
     let volunteers = [];
 
@@ -38,10 +37,8 @@ class VolunteersList extends React.Component {
   }
 
   deleteVolunteers = (id, index) => {
-    console.log(id, index);
     let volunteers = [...this.state.volunteers];
 
-    console.log(volunteers);
     firebase
       .firestore()
       .collection('volunteers')
@@ -49,9 +46,7 @@ class VolunteersList extends React.Component {
       .delete()
       .then(() => {
         console.log('Document successfully deleted!');
-
         volunteers.splice(index, 1);
-
         this.setState({ volunteers: volunteers });
       })
       .catch(error => {
@@ -67,8 +62,6 @@ class VolunteersList extends React.Component {
     };
     return (
       <Container fluid className="main-content-container px-4">
-        {/* Page Header */}
-
         <Row noGutters className="page-header py-4">
           <PageTitle
             sm="4"
@@ -102,7 +95,7 @@ class VolunteersList extends React.Component {
                         DOB
                       </th>
                       <th scope="col" className="border-0">
-                        Highest Education
+                        Center
                       </th>
                       <th scope="col" className="border-0">
                         Position
@@ -118,10 +111,6 @@ class VolunteersList extends React.Component {
                       </th>
                       <th scope="col" className="border-0">
                         zipcode
-                      </th>
-
-                      <th scope="col" className="border-0">
-                        Password
                       </th>
                       <th scope="col" className="border-0">
                         View
@@ -139,7 +128,7 @@ class VolunteersList extends React.Component {
                           <td>{volunteers.firstName}</td>
                           <td>{volunteers.lastName}</td>
                           <td>{volunteers.dob}</td>
-                          <td>{volunteers.education}</td>
+                          <td>{volunteers.centerName}</td>
                           <td>{volunteers.position}</td>
                           <td>{volunteers.subject}</td>
                           <td>{volunteers.email}</td>

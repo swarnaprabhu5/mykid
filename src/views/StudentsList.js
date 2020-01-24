@@ -38,10 +38,8 @@ class StudentsList extends React.Component {
   }
 
   deleteStudent = (id, index) => {
-    console.log(id, index);
     let students = [...this.state.students];
 
-    console.log(students);
     firebase
       .firestore()
       .collection('students')
@@ -49,9 +47,7 @@ class StudentsList extends React.Component {
       .delete()
       .then(() => {
         console.log('Document successfully deleted!');
-
         students.splice(index, 1);
-
         this.setState({ students: students });
       })
       .catch(error => {
@@ -62,6 +58,7 @@ class StudentsList extends React.Component {
   render() {
     const item = {
       title: 'Add Student',
+      htmlBefore: '<i class="material-icons">note_add</i>',
       to: '/add-student'
     };
 
@@ -110,13 +107,14 @@ class StudentsList extends React.Component {
                         DOB
                       </th>
                       <th scope="col" className="border-0">
+                        Center
+                      </th>
+                      <th scope="col" className="border-0">
                         City
                       </th>
-
                       <th scope="col" className="border-0">
                         ZipCode
                       </th>
-
                       <th scope="col" className="border-0">
                         View
                       </th>
@@ -135,7 +133,9 @@ class StudentsList extends React.Component {
                           <td>{student.medium}</td>
                           <td>{student.standard}</td>
                           <td>{student.school}</td>
-                          <td>{Date(student.dob)}</td>
+                          <td>{student.dob}</td>
+                          <td>{student.centerName}</td>
+                          <td>{student.dob}</td>
                           <td>{student.city}</td>
                           <td>{student.zipcode}</td>
                           <td>

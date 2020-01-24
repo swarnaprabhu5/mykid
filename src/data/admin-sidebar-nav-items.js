@@ -7,9 +7,34 @@ export default function() {
       htmlAfter: ''
     },
     {
+      title: 'Schedule Class',
+      htmlBefore: '<i class="material-icons">error</i>',
+      to: '/schedule-class'
+    },
+    {
       title: 'Classes',
       htmlBefore: '<i class="material-icons">error</i>',
       to: '/classes'
+    },
+    {
+      title: 'Centers',
+      htmlBefore: '<i class="material-icons">note_add</i>',
+      to: '/centers'
+    },
+    {
+      title: 'Students',
+      htmlBefore: '<i class="material-icons">note_add</i>',
+      to: '/students'
+    },
+    {
+      title: 'Volunteers',
+      htmlBefore: '<i class="material-icons">note_add</i>',
+      to: '/volunteers'
+    },
+    {
+      title: 'Examination',
+      htmlBefore: '<i class="material-icons">note_add</i>',
+      to: '/tests'
     },
     {
       title: 'Blog Posts',

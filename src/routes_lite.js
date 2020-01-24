@@ -36,8 +36,6 @@ import CreateTest from './views/CreateTest';
 // Class
 import ClassList from './views/ClassList';
 import AcademicCalendar from './views/AcademicCalendar';
-import ClassView from './views/ClassView';
-
 
 export default [
   {
@@ -47,79 +45,9 @@ export default [
     component: Login
   },
   {
-    path: '/schedule-class',
-    layout: DefaultLayout,
-    component: AcademicCalendar
-  },
-  {
     path: '/classes',
     layout: DefaultLayout,
     component: ClassList
-  },
-  {
-    path: '/view-class',
-    layout: DefaultLayout,
-    component: ClassView
-  },
-  {
-    path: '/centers',
-    layout: DefaultLayout,
-    component: CentersList
-  },
-  {
-    path: '/add-center',
-    layout: DefaultLayout,
-    component: AddCenter
-  },
-  {
-    path: '/view-center',
-    layout: DefaultLayout,
-    component: AddCenter
-  },
-  {
-    path: '/students',
-    layout: DefaultLayout,
-    component: StudentsList
-  },
-  {
-    path: '/add-student',
-    layout: DefaultLayout,
-    component: AddStudent
-  },
-  {
-    path: '/view-student',
-    layout: DefaultLayout,
-    component: AddStudent
-  },
-  {
-    path: '/volunteers',
-    layout: DefaultLayout,
-    component: VolunteersList
-  },
-  {
-    path: '/add-volunteer',
-    layout: DefaultLayout,
-    component: AddVolunteer
-  },
-  {
-    path: '/view-volunteer',
-    layout: DefaultLayout,
-    component: AddVolunteer
-  },
-  {
-    path: '/tests',
-    layout: DefaultLayout,
-    component: TestList
-  },
-  {
-    path: '/create-test',
-    layout: DefaultLayout,
-    component: CreateTest
-  },
-  {
-    path: '/view-test',
-    layout: DefaultLayout,
-    component: CreateTest
   },
   {
     path: '/blog-overview',
