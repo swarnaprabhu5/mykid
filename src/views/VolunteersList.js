@@ -38,10 +38,8 @@ class VolunteersList extends React.Component {
   }
 
   deleteVolunteers = (id, index) => {
-    console.log(id, index);
     let volunteers = [...this.state.volunteers];
 
-    console.log(volunteers);
     firebase
       .firestore()
       .collection('volunteers')
@@ -49,9 +47,7 @@ class VolunteersList extends React.Component {
       .delete()
       .then(() => {
         console.log('Document successfully deleted!');
-
         volunteers.splice(index, 1);
-
         this.setState({ volunteers: volunteers });
       })
       .catch(error => {
@@ -67,8 +63,6 @@ class VolunteersList extends React.Component {
     };
     return (
       <Container fluid className="main-content-container px-4">
-        {/* Page Header */}
-
         <Row noGutters className="page-header py-4">
           <PageTitle
             sm="4"
@@ -118,10 +112,6 @@ class VolunteersList extends React.Component {
                       </th>
                       <th scope="col" className="border-0">
                         zipcode
-                      </th>
-
-                      <th scope="col" className="border-0">
-                        Password
                       </th>
                       <th scope="col" className="border-0">
                         View
