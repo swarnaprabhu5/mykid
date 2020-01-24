@@ -50,13 +50,8 @@ class AddVolunteers extends React.Component {
     this.props = props;
 
     if (props.location.state) {
-      console.log('in');
-
-      console.log(props.location.state);
       const state = props.location.state;
-      console.log(state.dob);
-      state.dob = new Date(state.dob);
-      console.log(state.dob);
+      state.dob = state.dob != null ? new Date(state.dob) : null;
       this.state = state;
       this.state.pageMode = 'view';
       this.state.inputDisabled = true;
@@ -131,7 +126,7 @@ class AddVolunteers extends React.Component {
         mobileNumber: this.state.mobileNumber,
         password: this.state.password,
         zipcode: this.state.zipcode,
-        dob: this.state.dob
+        dob: moment(this.state.dob).format('L')
       })
       .then(docRef => {
         this.setState({ loading: false });
@@ -144,7 +139,8 @@ class AddVolunteers extends React.Component {
 
   render() {
     const item = {
-      title: 'Volunteers',
+      title: 'Volunteers List',
+      htmlBefore: '<i class="material-icons">note_add</i>',
       to: '/volunteers'
     };
     return (
@@ -204,7 +200,6 @@ class AddVolunteers extends React.Component {
                               onChange={this.handleChange}
                             />
                           </Col>
-
                           <Col md="6" className="form-group">
                             <label htmlFor="fePassword">Password</label>
                             <FormInput
@@ -308,7 +303,6 @@ class AddVolunteers extends React.Component {
                         </FormGroup>
 
                         <Row form>
-                          {/* City */}
                           <Col md="6" className="form-group">
                             <label htmlFor="feCity">City</label>
                             <FormSelect
@@ -323,7 +317,6 @@ class AddVolunteers extends React.Component {
                               <option>Bangalore</option>
                             </FormSelect>
                           </Col>
-                          {/* State */}
                           <Col md="4" className="form-group">
                             <label htmlFor="feInputState">State</label>
                             <FormSelect
@@ -338,7 +331,6 @@ class AddVolunteers extends React.Component {
                               <option>TamilNadu</option>
                             </FormSelect>
                           </Col>
-                          {/* Zip Code */}
                           <Col md="2" className="form-group">
                             <label htmlFor="feZipCode">Zip</label>
                             <FormInput

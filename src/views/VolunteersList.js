@@ -61,7 +61,7 @@ class VolunteersList extends React.Component {
 
   render() {
     const item = {
-      title: 'Volunteers',
+      title: 'Add Volunteers',
       htmlBefore: '<i class="material-icons">note_add</i>',
       to: '/add-volunteer'
     };
