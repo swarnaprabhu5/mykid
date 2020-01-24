@@ -21,19 +21,18 @@ class VolunteersList extends React.Component {
   }
 
   componentDidMount() {
-    const db = firebase.firestore();
-    const userRef = db.collection('center');
+    const userRef = firebase.firestore().collection('volunteers');
 
-    let centers = [];
+    let volunteers = [];
 
     userRef.get().then(doc => {
       doc.docs.forEach(d => {
-        let center = d.data();
-        center.id = d.id;
-        centers.push(center);
+        let volunteer = d.data();
+        volunteer.id = d.id;
+        volunteers.push(volunteer);
       });
 
-      this.setState({ centers: centers });
+      this.setState({ volunteers: volunteers });
     });
   }
 
@@ -96,7 +95,7 @@ class VolunteersList extends React.Component {
                         DOB
                       </th>
                       <th scope="col" className="border-0">
-                        Highest Education
+                        Center
                       </th>
                       <th scope="col" className="border-0">
                         Position
@@ -129,7 +128,7 @@ class VolunteersList extends React.Component {
                           <td>{volunteers.firstName}</td>
                           <td>{volunteers.lastName}</td>
                           <td>{volunteers.dob}</td>
-                          <td>{volunteers.education}</td>
+                          <td>{volunteers.centerName}</td>
                           <td>{volunteers.position}</td>
                           <td>{volunteers.subject}</td>
                           <td>{volunteers.email}</td>

@@ -51,7 +51,6 @@ class AddStudent extends React.Component {
     };
 
     this.props = props;
-    
 
     if (props.location.state) {
       const state = props.location.state;
@@ -79,6 +78,7 @@ class AddStudent extends React.Component {
       this.setState({ centers: centers });
     });
   }
+
   handleChangeCenter = e => {
     const centerSelected = this.state.centers[e.target.value];
     this.setState({
@@ -86,6 +86,7 @@ class AddStudent extends React.Component {
       centerId: centerSelected.id
     });
   };
+
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
@@ -285,7 +286,7 @@ class AddStudent extends React.Component {
                                   </option>
                                 );
                               })}
-                              </FormSelect>
+                            </FormSelect>
                           </Col>
                           <Col md="6" className="form-group">
                             <label htmlFor="school">School Name</label>
@@ -376,7 +377,7 @@ class AddStudent extends React.Component {
             </Card>
           </Col>
           <Col lg="6">
-          <Card small className="mb-4">
+            <Card small className="mb-4">
               <CardHeader className="border-bottom">
                 <h6 className="m-0">{this.state.title}</h6>
               </CardHeader>
@@ -409,9 +410,9 @@ class AddStudent extends React.Component {
               </ListGroup>
             </Card>
           </Col>
-            <Card small className="mb-4">
-              <Loading open={this.state.loading} />
-            </Card>
+          <Card small className="mb-4">
+            <Loading open={this.state.loading} />
+          </Card>
         </Row>
       </Container>
     );

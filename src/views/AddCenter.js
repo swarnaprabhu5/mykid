@@ -127,9 +127,9 @@ class AddCenter extends React.Component {
                           </Col>
                           {/* yearEstablished */}
                           <Col md="6" className="form-group">
-                            <lable htmlFor="fecenterPhoneNumber">
+                            <label htmlFor="fecenterPhoneNumber">
                               Center Phone Number
-                            </lable>
+                            </label>
                             <FormInput
                               id="fecenterPhoneNumber"
                               name="centerPhoneNumber"
