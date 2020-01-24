@@ -110,6 +110,9 @@ class StudentsList extends React.Component {
                         DOB
                       </th>
                       <th scope="col" className="border-0">
+                        Centers List
+                      </th>
+                      <th scope="col" className="border-0">
                         City
                       </th>
 
@@ -136,6 +139,7 @@ class StudentsList extends React.Component {
                           <td>{student.standard}</td>
                           <td>{student.school}</td>
                           <td>{Date(student.dob)}</td>
+                          <td>{student.centers}</td>
                           <td>{student.city}</td>
                           <td>{student.zipcode}</td>
                           <td>

@@ -22,18 +22,18 @@ class VolunteersList extends React.Component {
 
   componentDidMount() {
     const db = firebase.firestore();
-    const userRef = db.collection('volunteers');
+    const userRef = db.collection('center');
 
-    let volunteers = [];
+    let centers = [];
 
     userRef.get().then(doc => {
       doc.docs.forEach(d => {
-        let volunteer = d.data();
-        volunteer.id = d.id;
-        volunteers.push(volunteer);
+        let center = d.data();
+        center.id = d.id;
+        centers.push(center);
       });
 
-      this.setState({ volunteers: volunteers });
+      this.setState({ centers: centers });
     });
   }
 
