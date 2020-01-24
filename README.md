@@ -1,5 +1,5 @@
 
-<h1 align="center" style="border-bottom: none !important; margin-bottom: 5px !important;"><a href="https://mykid.com/">Mykid App</a></h1>
+<h1 align="center" style="border-bottom: none !important; margin-bottom: 5px !important;"><a href="https://mymentor.com/">mymentor App</a></h1>
 
 ### Quick Start
 
@@ -63,3 +63,5 @@ Please check out the [CHANGELOG](CHANGELOG.md).
 ## Firebase CURD
 
 https://www.djamware.com/post/5bc50ea680aca7466989441d/reactjs-firebase-tutorial-building-firestore-crud-web-application
+
+https://itnext.io/integrate-react-with-firebase-and-deploying-with-gitlab-netlify-8b47654c70bb

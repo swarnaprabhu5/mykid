@@ -6,8 +6,7 @@ import {
   Card,
   CardHeader,
   CardBody,
-  Button,
-  DatePicker
+  Button
 } from 'shards-react';
 
 import PageTitle from '../components/common/PageTitle';
@@ -38,10 +37,6 @@ class VolunteersList extends React.Component {
     });
   }
 
-  viewVolunteers = data => {
-    console.log(data);
-  };
-
   deleteVolunteers = (id, index) => {
     console.log(id, index);
     let volunteers = [...this.state.volunteers];
@@ -66,7 +61,7 @@ class VolunteersList extends React.Component {
 
   render() {
     const item = {
-      title: 'Volunteers',
+      title: 'Add Volunteers',
       htmlBefore: '<i class="material-icons">note_add</i>',
       to: '/add-volunteer'
     };
@@ -124,7 +119,7 @@ class VolunteersList extends React.Component {
                       <th scope="col" className="border-0">
                         zipcode
                       </th>
-                      
+
                       <th scope="col" className="border-0">
                         Password
                       </th>
@@ -134,7 +129,6 @@ class VolunteersList extends React.Component {
                       <th scope="col" className="border-0">
                         Delete
                       </th>
-                      
                     </tr>
                   </thead>
                   <tbody>
@@ -144,7 +138,7 @@ class VolunteersList extends React.Component {
                           <td>{index}</td>
                           <td>{volunteers.firstName}</td>
                           <td>{volunteers.lastName}</td>
-                          <td>{Date(volunteers.dob)}</td>
+                          <td>{volunteers.dob}</td>
                           <td>{volunteers.education}</td>
                           <td>{volunteers.position}</td>
                           <td>{volunteers.subject}</td>

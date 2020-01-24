@@ -1,16 +1,11 @@
 import React from 'react';
 
 import PageTitle from '../components/common/PageTitle';
-
-import { runInThisContext } from 'vm';
-import PropTypes from 'prop-types';
 import NavButton from '../components/common/NavButton';
 import Loading from '../components/common/Loading';
 
 import firebase from './../firebase';
-
-
-import enUS from "date-fns/locale/en-US";
+import moment from 'moment';
 
 import {
   Container,
@@ -33,29 +28,31 @@ class AddVolunteers extends React.Component {
   constructor(props) {
     super();
     this.state = {
-      //financialGoal: '',
+      id: '',
       firstName: '',
       lastName: '',
       education: '',
       subject: '',
-      position:'',
+      position: '',
       dob: '',
       email: '',
       address: '',
+      mobileNumber: '',
       city: '',
       state: '',
-      password:'uandi2020',
+      password: 'uandi2020',
       zipcode: '',
-      
       pageMode: 'add',
       loading: false,
-      pageTitle: 'Add New Volunteers'
+      pageTitle: 'Add New Volunteers',
+      role: 'MENTOR'
     };
-    console.log(props);
     this.props = props;
 
     if (props.location.state) {
-      this.state = props.location.state;
+      const state = props.location.state;
+      state.dob = state.dob != null ? new Date(state.dob) : null;
+      this.state = state;
       this.state.pageMode = 'view';
       this.state.inputDisabled = true;
       this.state.loading = false;
@@ -63,39 +60,35 @@ class AddVolunteers extends React.Component {
     }
   }
 
-  
-
-
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
   handleDobChange = value => {
     this.setState({
-      ...this.state,
-      ...{ dob: new Date(value) }
+      dob: value
     });
   };
+
   addVolunteers = () => {
     this.setState({ loading: true });
-    const db = firebase.firestore();
-    const userRef = db.collection('volunteers');
+
+    const userRef = firebase.firestore().collection('volunteers');
     userRef
       .add({
         firstName: this.state.firstName,
         lastName: this.state.lastName,
         education: this.state.education,
         subject: this.state.subject,
-      position:this.state.position,
+        position: this.state.position,
         email: this.state.email,
         address: this.state.address,
         city: this.state.city,
         state: this.state.state,
-        mobilenumber:this.state.mobilenumber,
-
-        password:this.state.password,
+        mobileNumber: this.state.mobileNumber,
+        password: this.state.password,
         zipcode: this.state.zipcode,
-        dob:this.state.dob
+        dob: moment(this.state.dob).format('L')
       })
       .then(d => {
         console.log(d);
@@ -109,10 +102,9 @@ class AddVolunteers extends React.Component {
           });
         }
       });
-    console.log('add');
   };
-  
-    updateVolunteers = () => {
+
+  updateVolunteers = () => {
     this.setState({ loading: true });
 
     const updateRef = firebase
@@ -126,15 +118,15 @@ class AddVolunteers extends React.Component {
         lastName: this.state.lastName,
         education: this.state.education,
         subject: this.state.subject,
-      position:this.state.position,
+        position: this.state.position,
         email: this.state.email,
         address: this.state.address,
         city: this.state.city,
         state: this.state.state,
-        mobileNumber:this.state.mobileNumber,
+        mobileNumber: this.state.mobileNumber,
         password: this.state.password,
         zipcode: this.state.zipcode,
-        dob:this.state.dob
+        dob: moment(this.state.dob).format('L')
       })
       .then(docRef => {
         this.setState({ loading: false });
@@ -144,16 +136,11 @@ class AddVolunteers extends React.Component {
         console.error('Error adding document: ', error);
       });
   };
- 
-  // numberChange(evt) {
-  //   const financialGoal = (evt.target.validity.valid) ? evt.target.value : this.state.financialGoal;
-  //   console.log("financialGoal",financialGoal);
-  //   this.setState({ financialGoal });
-  // }
 
   render() {
     const item = {
-      title: 'Volunteers',
+      title: 'Volunteers List',
+      htmlBefore: '<i class="material-icons">note_add</i>',
       to: '/volunteers'
     };
     return (
@@ -178,7 +165,6 @@ class AddVolunteers extends React.Component {
                     <Col>
                       <Form>
                         <Row form>
-                         
                           <Col md="6" className="form-group">
                             <label htmlFor="feFirstName">First Name</label>
                             <FormInput
@@ -189,7 +175,6 @@ class AddVolunteers extends React.Component {
                               onChange={this.handleChange}
                             />
                           </Col>
-                          
                           <Col md="6" className="form-group">
                             <label htmlFor="feLastName">Last Name</label>
                             <FormInput
@@ -203,20 +188,18 @@ class AddVolunteers extends React.Component {
                         </Row>
 
                         <Row form>
-                         
                           <Col md="6" className="form-group">
-                            <label htmlFor="feMobileNumber">Mobile Number</label>
+                            <label htmlFor="feMobileNumber">
+                              Mobile Number
+                            </label>
                             <FormInput
                               id="feMobileNumber"
-                             //type="text" pattern="[0-9]*" onInput={this.numberChange.bind(this)} value={this.state.financialGoal} 
-                             
                               name="mobileNumber"
-                             placeholder="Mobile Number"
+                              placeholder="Mobile Number"
                               value={this.state.mobileNumber}
-                             onChange={this.handleChange}
+                              onChange={this.handleChange}
                             />
                           </Col>
-                          
                           <Col md="6" className="form-group">
                             <label htmlFor="fePassword">Password</label>
                             <FormInput
@@ -262,26 +245,26 @@ class AddVolunteers extends React.Component {
                               <option>Choose...</option>
                               <option>Leader</option>
                               <option>Manager</option>
-                              <option>Technical Fellow</option> 
+                              <option>Technical Fellow</option>
                             </FormSelect>
                           </Col>
                         </Row>
+
                         <Row form>
-                            <Col md="12" className="form-group">
-                            <label htmlfor="feEducation">Education</label>
-                              <FormInput
+                          <Col md="12" className="form-group">
+                            <label htmlFor="feEducation">Education</label>
+                            <FormInput
                               id="feEducation"
                               name="education"
                               placeholder="Education"
                               value={this.state.education}
                               onChange={this.handleChange}
                             />
-
                           </Col>
                         </Row>
-                        
+
                         <Row form>
-                        <Col md="3" className="form-group">
+                          <Col md="3" className="form-group">
                             <label htmlFor="feDob">D.O.B</label>
                             <br />
                             <DatePicker
@@ -296,7 +279,6 @@ class AddVolunteers extends React.Component {
                             />
                           </Col>
 
-                        
                           <Col md="9" className="form-group">
                             <label htmlFor="feEmail">Email</label>
                             <FormInput
@@ -309,7 +291,6 @@ class AddVolunteers extends React.Component {
                           </Col>
                         </Row>
 
-                       
                         <FormGroup>
                           <label htmlFor="feAddress">Address</label>
                           <FormTextarea
@@ -322,7 +303,6 @@ class AddVolunteers extends React.Component {
                         </FormGroup>
 
                         <Row form>
-                          {/* City */}
                           <Col md="6" className="form-group">
                             <label htmlFor="feCity">City</label>
                             <FormSelect
@@ -337,7 +317,6 @@ class AddVolunteers extends React.Component {
                               <option>Bangalore</option>
                             </FormSelect>
                           </Col>
-                          {/* State */}
                           <Col md="4" className="form-group">
                             <label htmlFor="feInputState">State</label>
                             <FormSelect
@@ -352,7 +331,6 @@ class AddVolunteers extends React.Component {
                               <option>TamilNadu</option>
                             </FormSelect>
                           </Col>
-                          {/* Zip Code */}
                           <Col md="2" className="form-group">
                             <label htmlFor="feZipCode">Zip</label>
                             <FormInput
@@ -379,7 +357,6 @@ class AddVolunteers extends React.Component {
                       </Form>
                     </Col>
                   </Row>
-                
                 </ListGroupItem>
               </ListGroup>
             </Card>

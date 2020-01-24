@@ -4,6 +4,7 @@ import NavButton from '../components/common/NavButton';
 import Loading from '../components/common/Loading';
 
 import firebase from './../firebase';
+import moment from 'moment';
 
 import {
   Container,
@@ -32,10 +33,8 @@ class AddStudent extends React.Component {
       medium: '',
       standard: '',
       school: '',
-      dob:'',
-      title: '',
       dob: '',
-      fePhone: '',
+      title: '',
       address: '',
       city: '',
       state: '',
@@ -44,13 +43,17 @@ class AddStudent extends React.Component {
       pageMode: 'add',
       loading: false,
       pageTitle: 'Add New Student',
-      inputDisabled: false
+      inputDisabled: false,
+      role: 'MENTEE'
     };
 
     this.props = props;
+    console.log('o');
 
     if (props.location.state) {
-      this.state = props.location.state;
+      const state = props.location.state;
+      state.dob = state.dob != null ? new Date(state.dob) : null;
+      this.state = state;
       this.state.pageMode = 'view';
       this.state.inputDisabled = true;
       this.state.loading = false;
@@ -60,10 +63,10 @@ class AddStudent extends React.Component {
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
-  handleStartDobChange = value => {
+
+  handleDobChange = value => {
     this.setState({
-      ...this.state,
-      ...{ dob: new Date(value) }
+      dob: value
     });
   };
 
@@ -78,12 +81,12 @@ class AddStudent extends React.Component {
         medium: this.state.medium,
         standard: this.state.standard,
         school: this.state.school,
-        dob:this.state.dob,
         address: this.state.address,
         city: this.state.city,
         state: this.state.state,
         zipcode: this.state.zipcode,
-        description: this.state.description
+        description: this.state.description,
+        dob: moment(this.state.dob).format('L')
       })
       .then(d => {
         if (d) {
@@ -113,12 +116,12 @@ class AddStudent extends React.Component {
         medium: this.state.medium,
         standard: this.state.standard,
         school: this.state.school,
-        dob:this.state.dob,
         address: this.state.address,
         city: this.state.city,
         state: this.state.state,
         zipcode: this.state.zipcode,
-        description: this.state.description
+        description: this.state.description,
+        dob: moment(this.state.dob).format('L')
       })
       .then(docRef => {
         this.setState({ loading: false });
@@ -132,6 +135,7 @@ class AddStudent extends React.Component {
   render() {
     const item = {
       title: 'Students List',
+      htmlBefore: '<i class="material-icons">note_add</i>',
       to: '/students'
     };
     return (
@@ -181,8 +185,8 @@ class AddStudent extends React.Component {
                             />
                           </Col>
                         </Row>
+
                         <Row form>
-                          {/* Medium */}
                           <Col md="6" className="form-group">
                             <label htmlFor="feMedium">Medium</label>
                             <FormSelect
@@ -196,7 +200,6 @@ class AddStudent extends React.Component {
                               <option>Tamil</option>
                             </FormSelect>
                           </Col>
-                          {/* standard */}
                           <Col md="6" className="form-group">
                             <label htmlFor="standard">Standard</label>
                             <FormSelect
@@ -219,9 +222,8 @@ class AddStudent extends React.Component {
                             </FormSelect>
                           </Col>
                         </Row>
+
                         <Row form>
-                          
-                          {/* DOB */}
                           <Col md="6" className="form-group">
                             <label htmlFor="feDob">DOB</label>
                             <br />
@@ -230,22 +232,21 @@ class AddStudent extends React.Component {
                               name="dob"
                               size="md"
                               selected={this.state.dob}
-                              onChange={this.handleStartDobChange}
+                              onChange={this.handleDobChange}
                               placeholderText="DOB"
                               dropdownMode="select"
                               className="text-center"
-                            /> 
+                            />
                           </Col>
-                          {/* School Name */}
                           <Col md="6" className="form-group">
-                          <label htmlFor="school">School Name</label>
-                          <FormInput
-                            id="school"
-                            name="school"
-                            placeholder="Enter School Name"
-                            value={this.state.school}
-                            onChange={this.handleChange}
-                          />
+                            <label htmlFor="school">School Name</label>
+                            <FormInput
+                              id="school"
+                              name="school"
+                              placeholder="Enter School Name"
+                              value={this.state.school}
+                              onChange={this.handleChange}
+                            />
                           </Col>
                         </Row>
                         <FormGroup>
@@ -259,7 +260,6 @@ class AddStudent extends React.Component {
                           />
                         </FormGroup>
                         <Row form>
-                          {/* City */}
                           <Col md="6" className="form-group">
                             <label htmlFor="feCity">City</label>
                             <FormSelect
@@ -274,7 +274,6 @@ class AddStudent extends React.Component {
                               <option>Bangalore</option>
                             </FormSelect>
                           </Col>
-                          {/* State */}
                           <Col md="4" className="form-group">
                             <label htmlFor="feInputState">State</label>
                             <FormSelect
@@ -289,7 +288,6 @@ class AddStudent extends React.Component {
                               <option>TamilNadu</option>
                             </FormSelect>
                           </Col>
-                          {/* Zip Code */}
                           <Col md="2" className="form-group">
                             <label htmlFor="feZipCode">Zip</label>
                             <FormInput
@@ -301,7 +299,6 @@ class AddStudent extends React.Component {
                           </Col>
                         </Row>
                         <Row form>
-                          {/* Description */}
                           <Col md="12" className="form-group">
                             <label htmlFor="feDescription">Description</label>
                             <FormTextarea
@@ -312,6 +309,7 @@ class AddStudent extends React.Component {
                             />
                           </Col>
                         </Row>
+
                         {this.state.pageMode === 'add' ? (
                           <Button theme="accent" onClick={this.addStudent}>
                             Add Student
