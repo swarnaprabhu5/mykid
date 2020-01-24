@@ -12,8 +12,20 @@ var firebaseConfig = {
   measurementId: process.env.REACT_APP_MEASUREMENT_ID
 };
 
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-firebase.analytics();
+var firebaseConfig2 = {
+  apiKey: 'AIzaSyDRsdvcOX-nqVYJ2LWR_eshrzsfmBUj2G0',
+  authDomain: 'mykid-f0c9a.firebaseapp.com',
+  databaseURL: 'https://mykid-f0c9a.firebaseio.com',
+  projectId: 'mykid-f0c9a',
+  storageBucket: 'mykid-f0c9a.appspot.com',
+  messagingSenderId: '976411845065',
+  appId: '1:976411845065:web:13190fdde51c6a258dc818',
+  measurementId: 'G-CGSDH3NNN1'
+};
 
-export default firebase;
+// Initialize Firebase
+const fireapp = firebase.initializeApp(firebaseConfig2);
+
+fireapp.analytics();
+
+export default fireapp;
