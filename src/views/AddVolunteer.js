@@ -1,15 +1,11 @@
 import React from 'react';
 
 import PageTitle from '../components/common/PageTitle';
-
-import { runInThisContext } from 'vm';
-import PropTypes from 'prop-types';
 import NavButton from '../components/common/NavButton';
 import Loading from '../components/common/Loading';
 
 import firebase from './../firebase';
-
-import enUS from 'date-fns/locale/en-US';
+import moment from 'moment';
 
 import {
   Container,
@@ -32,7 +28,7 @@ class AddVolunteers extends React.Component {
   constructor(props) {
     super();
     this.state = {
-      //financialGoal: '',
+      id: '',
       firstName: '',
       lastName: '',
       education: '',
@@ -41,20 +37,27 @@ class AddVolunteers extends React.Component {
       dob: '',
       email: '',
       address: '',
+      mobileNumber: '',
       city: '',
       state: '',
       password: 'uandi2020',
       zipcode: '',
-
       pageMode: 'add',
       loading: false,
-      pageTitle: 'Add New Volunteers'
+      pageTitle: 'Add New Volunteers',
+      role: 'MENTOR'
     };
-    console.log(props);
     this.props = props;
 
     if (props.location.state) {
-      this.state = props.location.state;
+      console.log('in');
+
+      console.log(props.location.state);
+      const state = props.location.state;
+      console.log(state.dob);
+      state.dob = new Date(state.dob);
+      console.log(state.dob);
+      this.state = state;
       this.state.pageMode = 'view';
       this.state.inputDisabled = true;
       this.state.loading = false;
@@ -68,14 +71,14 @@ class AddVolunteers extends React.Component {
 
   handleDobChange = value => {
     this.setState({
-      ...this.state,
-      ...{ dob: new Date(value) }
+      dob: value
     });
   };
+
   addVolunteers = () => {
     this.setState({ loading: true });
-    const db = firebase.firestore();
-    const userRef = db.collection('volunteers');
+
+    const userRef = firebase.firestore().collection('volunteers');
     userRef
       .add({
         firstName: this.state.firstName,
@@ -87,10 +90,10 @@ class AddVolunteers extends React.Component {
         address: this.state.address,
         city: this.state.city,
         state: this.state.state,
-        mobilenumber: this.state.mobilenumber,
+        mobileNumber: this.state.mobileNumber,
         password: this.state.password,
         zipcode: this.state.zipcode,
-        dob: this.state.dob
+        dob: moment(this.state.dob).format('L')
       })
       .then(d => {
         console.log(d);
@@ -104,7 +107,6 @@ class AddVolunteers extends React.Component {
           });
         }
       });
-    console.log('add');
   };
 
   updateVolunteers = () => {
@@ -196,8 +198,6 @@ class AddVolunteers extends React.Component {
                             </label>
                             <FormInput
                               id="feMobileNumber"
-                              //type="text" pattern="[0-9]*" onInput={this.numberChange.bind(this)} value={this.state.financialGoal}
-
                               name="mobileNumber"
                               placeholder="Mobile Number"
                               value={this.state.mobileNumber}
@@ -257,7 +257,7 @@ class AddVolunteers extends React.Component {
 
                         <Row form>
                           <Col md="12" className="form-group">
-                            <label htmlfor="feEducation">Education</label>
+                            <label htmlFor="feEducation">Education</label>
                             <FormInput
                               id="feEducation"
                               name="education"

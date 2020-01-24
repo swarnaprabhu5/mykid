@@ -4,6 +4,7 @@ import NavButton from '../components/common/NavButton';
 import Loading from '../components/common/Loading';
 
 import firebase from './../firebase';
+import moment from 'moment';
 
 import {
   Container,
@@ -42,13 +43,21 @@ class AddStudent extends React.Component {
       pageMode: 'add',
       loading: false,
       pageTitle: 'Add New Student',
-      inputDisabled: false
+      inputDisabled: false,
+      role: 'MENTEE'
     };
 
     this.props = props;
+    console.log('o');
 
     if (props.location.state) {
-      this.state = props.location.state;
+      console.log('in');
+
+      console.log(props.location.state);
+      const state = props.location.state;
+      state.dob = new Date(state.dob);
+      console.log(state.dob);
+      this.state = state;
       this.state.pageMode = 'view';
       this.state.inputDisabled = true;
       this.state.loading = false;
@@ -58,10 +67,10 @@ class AddStudent extends React.Component {
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
-  handleStartDobChange = value => {
+
+  handleDobChange = value => {
     this.setState({
-      ...this.state,
-      ...{ dob: new Date(value) }
+      dob: value
     });
   };
 
@@ -76,12 +85,12 @@ class AddStudent extends React.Component {
         medium: this.state.medium,
         standard: this.state.standard,
         school: this.state.school,
-        dob: this.state.dob,
         address: this.state.address,
         city: this.state.city,
         state: this.state.state,
         zipcode: this.state.zipcode,
-        description: this.state.description
+        description: this.state.description,
+        dob: moment(this.state.dob).format('L')
       })
       .then(d => {
         if (d) {
@@ -227,7 +236,7 @@ class AddStudent extends React.Component {
                               name="dob"
                               size="md"
                               selected={this.state.dob}
-                              onChange={this.handleStartDobChange}
+                              onChange={this.handleDobChange}
                               placeholderText="DOB"
                               dropdownMode="select"
                               className="text-center"
