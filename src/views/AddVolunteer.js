@@ -294,9 +294,9 @@ class AddVolunteers extends React.Component {
                               onChange={this.handleChange}
                             >
                               <option>None</option>
-                              <option>Leader</option>
-                              <option>Manager</option>
-                              <option>Technical Fellow</option>
+                              <option>LEADER</option>
+                              <option>MANAGER</option>
+                              <option>VOLUNTEER</option>
                             </FormSelect>
                           </Col>
                           <Col md="4" className="form-group">
