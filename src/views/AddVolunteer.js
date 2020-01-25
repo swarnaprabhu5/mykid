@@ -107,6 +107,7 @@ class AddVolunteers extends React.Component {
       .catch(function(error) {
         console.log('errorr', error);
       });
+      
     let centers = [{ id: 0, centerName: 'None' }];
 
     dbRef.get().then(doc => {

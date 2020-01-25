@@ -17,16 +17,17 @@ import PageTitle from '../components/common/PageTitle';
 import firebase from '../firebase';
 import NavButton from '../components/common/NavButton';
 
-class ViewClass extends React.Component {
+class ClassLog extends React.Component {
   constructor(props) {
     super();
     this.state = {
       volunteerId: JSON.parse(localStorage.getItem('userData')).mobileNumber,
       volunteerName: JSON.parse(localStorage.getItem('userData')).firstName,
       attendance: '',
-      reason: '',
+      comment: '',
       done: false,
-      attendances: []
+      studentLogs: [],
+      students: [{ id: 0, firstName: 'None' }]
     };
     this.props = props;
     // console.log('check prop det--->', props);
@@ -41,20 +42,21 @@ class ViewClass extends React.Component {
   }
 
   componentDidMount() {
-    let attendances = [];
+    let students = this.state.students;
     let self = this;
 
     firebase
       .firestore()
-      .collection('attendance')
-      .where('classId', '==', this.state.classId)
+      .collection('students')
+      .where('mentorId', '==', this.state.volunteerId)
       .get()
       .then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
           const d = doc.data();
-          attendances.push(d);
+          console.log(d);
+          students.push(d);
         });
-        self.setState({ attendances: attendances });
+        self.setState({ students: students });
       })
       .catch(function(error) {
         console.log('errorr', error);
@@ -65,14 +67,14 @@ class ViewClass extends React.Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  addAttendance = () => {
+  addStudentLog = () => {
     this.setState({ loading: true });
     const db = firebase.firestore();
-    const userRef = db.collection('attendance');
+    const userRef = db.collection('student');
     userRef
       .add({
-        attendance: this.state.attendance,
-        reason: this.state.reason,
+        student: this.state.student,
+        comment: this.state.comment,
         classId: this.state.classId,
         volunteerId: this.state.volunteerId,
         volunteerName: this.state.volunteerName
@@ -86,7 +88,7 @@ class ViewClass extends React.Component {
     const item = {
       title: 'Classe Log',
       htmlBefore: '<i class="material-icons">note_add</i>',
-      to: '/class-log'
+      to: '/classe-log'
     };
     return (
       <Container fluid className="main-content-container px-4">
@@ -97,12 +99,7 @@ class ViewClass extends React.Component {
             subtitle={this.state.desc}
             className="text-sm-left"
           />
-          <NavButton
-            sm="4"
-            item={item}
-            data={this.state}
-            className="text-sm-right"
-          />
+          <NavButton sm="4" item={item} className="text-sm-right" />
         </Row>
 
         <Row>
@@ -115,25 +112,28 @@ class ViewClass extends React.Component {
                 <ListGroupItem className="px-4">
                   <div className="progress-wrapper">
                     <Col md="12" className="form-group">
-                      <label htmlFor="feAttendance">Attedence:</label>
+                      <label htmlFor="feAttendance">Student:</label>
                       <FormSelect
                         id="feAttendance"
                         name="attendance"
                         value={this.state.attendance}
                         onChange={this.handleChange}
                       >
-                        <option>Choose...</option>
-                        <option>Coming</option>
-                        <option>Late</option>
-                        <option>Not_Coming</option>
+                        {this.state.students.map((value, index) => {
+                          return (
+                            <option key={index} value={index}>
+                              {value.firstName}
+                            </option>
+                          );
+                        })}
                       </FormSelect>
                     </Col>
                     <Col md="12" className="form-group">
-                      <label htmlFor="feReason">Reason:</label>
+                      <label htmlFor="feComment">Comment:</label>
                       <FormTextarea
-                        id="feReason"
-                        name="reason"
-                        value={this.state.reason}
+                        id="feComment"
+                        name="comment"
+                        value={this.state.comment}
                         onChange={this.handleChange}
                       />
                     </Col>
@@ -162,21 +162,17 @@ class ViewClass extends React.Component {
                         Name
                       </th>
                       <th scope="col" className="border-0">
-                        Attendance
-                      </th>
-                      <th scope="col" className="border-0">
-                        Reason
+                        Comments
                       </th>
                     </tr>
                   </thead>
                   <tbody>
-                    {this.state.attendances.map((attd, index) => {
+                    {this.state.studentLogs.map((attd, index) => {
                       return (
                         <tr key={index}>
                           <td>{index}</td>
-                          <td>{attd.volunteerName}</td>
-                          <td>{attd.attendance}</td>
-                          <td>{attd.reason}</td>
+                          <td>{attd.studentName}</td>
+                          <td>{attd.comments}</td>
                         </tr>
                       );
                     })}
@@ -190,4 +186,4 @@ class ViewClass extends React.Component {
     );
   }
 }
-export default ViewClass;
+export default ClassLog;

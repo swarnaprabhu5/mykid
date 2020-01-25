@@ -37,7 +37,7 @@ import CreateTest from './views/CreateTest';
 import ClassList from './views/ClassList';
 import AcademicCalendar from './views/AcademicCalendar';
 import ViewClass from './views/ViewClass';
-
+import ClassLog from './views/ClassLog';
 
 export default [
   {
@@ -55,6 +55,11 @@ export default [
     path: '/classes',
     layout: DefaultLayout,
     component: ClassList
+  },
+  {
+    path: '/class-log',
+    layout: DefaultLayout,
+    component: ClassLog
   },
   {
     path: '/view-class',
