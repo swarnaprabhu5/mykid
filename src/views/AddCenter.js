@@ -2,7 +2,6 @@ import React from 'react';
 import PageTitle from '../components/common/PageTitle';
 import NavButton from '../components/common/NavButton';
 import Loading from '../components/common/Loading';
-import UserAccountDetails from '../components/user-profile-lite/UserAccountDetails';
 import firebase from './../firebase';
 import {
   Container,

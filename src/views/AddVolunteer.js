@@ -21,6 +21,7 @@ import {
   FormSelect,
   FormTextarea,
   DatePicker,
+  CardBody,
   Button
 } from 'shards-react';
 
@@ -53,6 +54,7 @@ class AddVolunteers extends React.Component {
       myMentees: []
     };
     this.props = props;
+    console.log('props', props);
 
     if (props.location.state) {
       const state = props.location.state;
@@ -70,6 +72,9 @@ class AddVolunteers extends React.Component {
 
   componentDidMount() {
     let allMentees = [];
+    let myMentees = [];
+
+    console.log('mentessall-->', allMentees);
     const dbRef = firebase.firestore().collection('center');
     firebase
       .firestore()
@@ -87,6 +92,22 @@ class AddVolunteers extends React.Component {
         console.log('errorr', error);
       });
 
+    firebase
+      .firestore()
+      .collection('students')
+      .where('mentorId', '==', this.state.id)
+      .get()
+      .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+          const student = doc.data();
+          student.id = doc.id;
+          myMentees.push(student);
+        });
+      })
+      .catch(function(error) {
+        console.log('errorr', error);
+      });
+      
     let centers = [{ id: 0, centerName: 'None' }];
 
     dbRef.get().then(doc => {
@@ -96,7 +117,11 @@ class AddVolunteers extends React.Component {
         centers.push(center);
       });
 
-      this.setState({ centers: centers, allMentees: allMentees });
+      this.setState({
+        centers: centers,
+        allMentees: allMentees,
+        myMentees: myMentees
+      });
     });
   }
 
@@ -189,6 +214,63 @@ class AddVolunteers extends React.Component {
       });
   };
 
+  assignMentee = (mentee, i) => {
+    console.log('del', mentee);
+
+    this.setState({ loading: true });
+    mentee.mentorName = this.state.firstName;
+    mentee.mentorId = this.state.id;
+
+    const updateRef = firebase
+      .firestore()
+      .collection('students')
+      .doc(mentee.id);
+
+    updateRef
+      .set({
+        ...mentee
+      })
+      .then(docRef => {
+        console.log(docRef);
+        this.setState({
+          loading: false,
+          myMentees: [...this.state.myMentees, mentee]
+        });
+      })
+      .catch(error => {
+        this.setState({ loading: false });
+        console.error('Error adding document: ', error);
+      });
+  };
+  removeMentee = (mentee, i) => {
+    {
+      console.log('rmv');
+      this.setState({ loading: true });
+      mentee.mentorName = '';
+      mentee.mentorId = '';
+
+      const updateRef = firebase
+        .firestore()
+        .collection('students')
+        .doc(mentee.id);
+
+      updateRef
+        .set({
+          ...mentee
+        })
+        .then(docRef => {
+          console.log(docRef);
+          this.setState({
+            loading: false,
+            myMentees: this.state.myMentees.splice(i, 1)
+          });
+        })
+        .catch(error => {
+          this.setState({ loading: false });
+          console.error('Error adding document: ', error);
+        });
+    }
+  };
   render() {
     const item = {
       title: 'Volunteers List',
@@ -431,62 +513,110 @@ class AddVolunteers extends React.Component {
               </ListGroup>
             </Card>
           </Col>
+
           <Col lg="6">
+            <Card small className="mb-4">
+              <CardHeader className="border-bottom">
+                <h6 className="m-0">My Mentee</h6>
+              </CardHeader>
+              <CardBody className="p-0 pb-3">
+                <table className="table mb-0">
+                  <thead className="bg-light">
+                    <tr>
+                      <th scope="col" className="border-0">
+                        #
+                      </th>
+                      <th scope="col" className="border-0">
+                        First Name
+                      </th>
+                      <th scope="col" className="border-0">
+                        Last Name
+                      </th>
+                      <th scope="col" className="border-0">
+                        Remove
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {this.state.myMentees.map((mentee, index) => {
+                      console.log('ddd', index);
+                      return (
+                        <tr key={index + 1}>
+                          <td>{index}</td>
+                          <td>{mentee.firstName}</td>
+                          <td>{mentee.lastName}</td>
+
+                          <td>
+                            <Button
+                              onClick={this.removeMentee.bind(
+                                this,
+                                mentee,
+                                index
+                              )}
+                            >
+                              <i className="material-icons">delete</i> Remove
+                            </Button>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </CardBody>
+            </Card>
+
             <Card small className="mb-4">
               <CardHeader className="border-bottom">
                 <h6 className="m-0">{this.state.title}</h6>
               </CardHeader>
-              <ListGroup flush>
-                <ListGroupItem className="p-3">
-                  <Row>
-                    <Col>
-                      <Row form>
-                        <Col md="4" className="form-group">
-                          <label htmlFor="feCenter">Center</label>
-                          <FormSelect
-                            id="feCenter"
-                            name="center"
-                            value={this.state.centerName}
-                            onChange={this.handleChangeCenter}
-                          >
-                            {this.state.centers.map((value, index) => {
-                              return (
-                                <option key={index} value={index}>
-                                  {value.centerName}
-                                </option>
-                              );
-                            })}
-                          </FormSelect>
-                        </Col>
-                        <Col md="6" className="form-group">
-                            <label htmlFor="feFirstName">First Name</label>
-                            <FormInput
-                              id="feFirstName"
-                              name="firstName"
-                              placeholder="First Name"
-                              value={this.state.firstName}
-                              onChange={this.handleChange}
-                            />
-                            {this.state.allMentees.map((student, index) => {
-                              return (
-                                <option key={index} student={index}>
-                                  {student.firstName}
-                                </option>
-                              );
-                            })}
-                          </Col>
-                      </Row>
-                    </Col>
-                  </Row>
-                </ListGroupItem>
-              </ListGroup>
+              <CardBody className="p-0 pb-3">
+                <table className="table mb-0">
+                  <thead className="bg-light">
+                    <tr>
+                      <th scope="col" className="border-0">
+                        #
+                      </th>
+                      <th scope="col" className="border-0">
+                        First Name
+                      </th>
+                      <th scope="col" className="border-0">
+                        Volunteer
+                      </th>
+                      <th scope="col" className="border-0">
+                        Add
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {this.state.allMentees.map((mentee, index) => {
+                      console.log('dett-->', mentee);
+                      return (
+                        <tr key={index + 1}>
+                          <td>{index}</td>
+                          <td>{mentee.firstName + mentee.lastName} </td>
+                          <td>{mentee.mentorName}</td>
+
+                          <td>
+                            <Button
+                              onClick={this.assignMentee.bind(
+                                this,
+                                mentee,
+                                index
+                              )}
+                            >
+                              <i className="material-icons">add</i> Add
+                            </Button>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </CardBody>
             </Card>
           </Col>
-
-          <Card small className="mb-4">
-            <Loading open={this.state.loading} />
-          </Card>
         </Row>
+        <Loading open={this.state.loading} />
       </Container>
     );
   }
